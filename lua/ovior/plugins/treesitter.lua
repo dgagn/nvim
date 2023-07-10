@@ -14,80 +14,82 @@ return {
       }
     },
     build = ':TSUpdate',
-    opts = {
-      ensure_installed = {
-        'c',
-        'lua',
+    config = function ()
+      require('nvim-treesitter.configs').setup({
+        ensure_installed = {
+          'c',
+          'lua',
 
-        'rust',
-        'python',
-        'php',
+          'rust',
+          'python',
+          'php',
 
-        'tsx',
-        'typescript',
-        'javascript',
-        'html'
-      },
-      auto_install = false,
-      highlight = { enable = true },
-      indent = { enable = true },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = '<c-space>',
-          node_incremental = '<c-space>',
-          node_decremental = '<m-space>'
-        }
-      },
-      context_commentstring = {
-        enable = true
-      },
-      autotag = {
-        enable = true,
-      },
-      textobjects = {
-        select = {
+          'tsx',
+          'typescript',
+          'javascript',
+          'html'
+        },
+        auto_install = false,
+        highlight = { enable = true },
+        indent = { enable = true },
+        incremental_selection = {
           enable = true,
-          lookahead = true,
           keymaps = {
-            ['aa'] = '@parameter.outer',
-            ['ia'] = '@parameter.inner',
-            ['af'] = '@function.outer',
-            ['if'] = '@function.inner',
-            ['ac'] = '@class.outer',
-            ['ic'] = '@class.inner',
+            init_selection = '<Esc>wW',
+            node_incremental = '<Esc>wW',
+            node_decremental = '<m-space>'
           }
         },
-        move = {
+        context_commentstring = {
+          enable = true
+        },
+        autotag = {
           enable = true,
-          set_jumps = true,
-          goto_next_start = {
-            [']m'] = '@function.outer',
-            [']]'] = '@class.outer',
+        },
+        textobjects = {
+          select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+              ['aa'] = '@parameter.outer',
+              ['ia'] = '@parameter.inner',
+              ['af'] = '@function.outer',
+              ['if'] = '@function.inner',
+              ['ac'] = '@class.outer',
+              ['ic'] = '@class.inner',
+            }
           },
-          goto_next_end = {
-            [']M'] = '@function.outer',
-            [']['] = '@class.outer',
+          move = {
+            enable = true,
+            set_jumps = true,
+            goto_next_start = {
+              [']m'] = '@function.outer',
+              [']]'] = '@class.outer',
+            },
+            goto_next_end = {
+              [']M'] = '@function.outer',
+              [']['] = '@class.outer',
+            },
+            goto_previous_start = {
+              ['[m'] = '@function.outer',
+              ['[['] = '@class.outer',
+            },
+            goto_previous_end = {
+              ['[M'] = '@function.outer',
+              ['[]'] = '@class.outer',
+            },
           },
-          goto_previous_start = {
-            ['[m'] = '@function.outer',
-            ['[['] = '@class.outer',
-          },
-          goto_previous_end = {
-            ['[M'] = '@function.outer',
-            ['[]'] = '@class.outer',
+          swap = {
+            enable = true,
+            swap_next = {
+              ['<leader>sa'] = '@parameter.inner',
+            },
+            swap_previous = {
+              ['<leader>sA'] = '@parameter.inner',
+            },
           },
         },
-        swap = {
-          enable = true,
-          swap_next = {
-            ['<leader>sa'] = '@parameter.inner',
-          },
-          swap_previous = {
-            ['<leader>sA'] = '@parameter.inner',
-          },
-        },
-      },
-    }
+      })
+    end
   }
 }

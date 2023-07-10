@@ -21,6 +21,7 @@ local M = {
   },
   {
     'zbirenbaum/copilot.lua',
+    event = 'InsertEnter',
     opts = {
       suggestion = {
         enable = false
@@ -29,8 +30,6 @@ local M = {
         enable = false
       }
     },
-    dependencies = {
-    }
   },
   {
     'zbirenbaum/copilot-cmp',
