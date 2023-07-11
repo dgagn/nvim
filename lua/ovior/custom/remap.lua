@@ -26,7 +26,7 @@ function M.setup()
   map('i', '<M-Left>', '<C-o>b')
   map("i", "<S-Tab>", "<C-d>")
 
-  map('i', '<c-a>', '<c-o>$', {desc = 'Goto the end of the line'})
+  map('i', '<c-a>', '<esc>:exe "norm! l%%"<cr>a', {desc = 'Goto the end of the line', silent = true})
 
   map("n", "<leader>O", "O<Esc>j", { desc = 'Add an empty line above' })
   map("n", "<leader>o", "o<Esc>k")
@@ -39,3 +39,4 @@ function M.setup()
 end
 
 return M
+
