@@ -11,6 +11,12 @@ return {
     }
   },
   {
+    'tpope/vim-fugitive',
+    keys = {
+      { '<leader>gs', vim.cmd.Git, desc = 'Open git status' }
+    }
+  },
+  {
     'folke/which-key.nvim',
     opts = {}
   },
@@ -64,5 +70,11 @@ return {
       { 'g3', function() require('harpoon.ui').nav_file(3) end, desc = 'Goto the third file in the harpoon list'},
       { 'g4', function() require('harpoon.ui').nav_file(4) end, desc = 'Goto the fourth file in the harpoon list'},
     }
-  }
+  },
+  {
+    'mbbill/undotree',
+    keys = {
+      { '<leader>u', vim.cmd.UndotreeToggle, desc = 'Open the undotree' }
+    }
+  },
 }
