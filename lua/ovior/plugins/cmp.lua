@@ -30,10 +30,15 @@ local M = {
         enable = false
       }
     },
+    config = function(_, opts)
+      require('copilot').setup(opts)
+    end
   },
   {
     'zbirenbaum/copilot-cmp',
-    otps = {}
+    config = function()
+      require('copilot_cmp').setup()
+    end,
   }
 }
 

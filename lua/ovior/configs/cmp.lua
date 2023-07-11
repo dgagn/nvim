@@ -1,6 +1,8 @@
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 require('luasnip.loaders.from_vscode').lazy_load()
+luasnip.filetype_extend("javascriptreact", { "html" })
+luasnip.filetype_extend("typescriptreact", { "html" })
 
 luasnip.config.setup({
 })
@@ -46,3 +48,4 @@ cmp.setup({
     entries = 'native'
   },
 })
+

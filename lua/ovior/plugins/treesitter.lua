@@ -4,6 +4,7 @@ return {
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
       'JoosepAlviste/nvim-ts-context-commentstring',
+      'nvim-treesitter/playground',
       {
         'nvim-treesitter/nvim-treesitter-context',
         opts = {}
@@ -55,8 +56,8 @@ return {
               ['ia'] = '@parameter.inner',
               ['af'] = '@function.outer',
               ['if'] = '@function.inner',
-              ['ac'] = '@class.outer',
-              ['ic'] = '@class.inner',
+              ['aC'] = '@class.outer',
+              ['iC'] = '@class.inner',
             }
           },
           move = {
@@ -64,19 +65,19 @@ return {
             set_jumps = true,
             goto_next_start = {
               [']m'] = '@function.outer',
-              [']]'] = '@class.outer',
+              [']c'] = '@class.outer',
             },
             goto_next_end = {
               [']M'] = '@function.outer',
-              [']['] = '@class.outer',
+              [']C'] = '@class.outer',
             },
             goto_previous_start = {
               ['[m'] = '@function.outer',
-              ['[['] = '@class.outer',
+              ['[c'] = '@class.outer',
             },
             goto_previous_end = {
               ['[M'] = '@function.outer',
-              ['[]'] = '@class.outer',
+              ['[C'] = '@class.outer',
             },
           },
           swap = {
