@@ -54,13 +54,15 @@ return {
     end
   },
   {
-    'petertriho/nvim-scrollbar',
-    opts = {
-      marks = {
-        Cursor = {
-          priority = 10
-        }
-      }
+    'ThePrimeagen/harpoon',
+    opts = {},
+    keys = {
+      { '<leader>m', function() require('harpoon.mark').add_file() end, desc = 'Mark the file'},
+      { '<c-e>', function() require('harpoon.ui').toggle_quick_menu() end, desc = 'Open the harpoon quick menu'},
+      { 'g1', function() require('harpoon.ui').nav_file(1) end, desc = 'Goto the first file in the harpoon list'},
+      { 'g2', function() require('harpoon.ui').nav_file(2) end, desc = 'Goto the second file in the harpoon list'},
+      { 'g3', function() require('harpoon.ui').nav_file(3) end, desc = 'Goto the third file in the harpoon list'},
+      { 'g4', function() require('harpoon.ui').nav_file(4) end, desc = 'Goto the fourth file in the harpoon list'},
     }
   }
 }
