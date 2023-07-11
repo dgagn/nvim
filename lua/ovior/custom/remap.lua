@@ -5,6 +5,9 @@ local map = vim.keymap.set
 function M.setup()
   map({ 'n', 'v' }, '<space>', '<nop>', { silent = true })
 
+  map('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+  map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
   map("n", "<leader>q", ":q<cr>", { desc = "Quit the window" })
   map("n", "<leader>s", ":w<cr>", { desc = "Save the file" })
 
