@@ -41,7 +41,7 @@ return {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
     dependencies = {
-      'hrsh7th/nvim-cmp'
+      'hrsh7th/nvim-cmp',
     },
     config = function()
       require('nvim-autopairs').setup({
@@ -92,6 +92,32 @@ return {
     'mbbill/undotree',
     keys = {
       { '<leader>u', vim.cmd.UndotreeToggle, desc = 'Open the undotree' }
-    }
+    },
   },
+  {
+    'echasnovski/mini.ai',
+    event = "VeryLazy",
+    dependencies = {"nvim-treesitter/nvim-treesitter-textobjects"},
+    opts = function ()
+      local ai = require('mini.ai')
+
+      return {
+        n_lines = 500,
+        custom_textobjects = {
+          o = ai.gen_spec.treesitter({
+            a = { "@block.outer", "@conditional.outer", "@loop.outer" },
+            i = { "@block.inner", "@conditional.outer", "@loop.inner" },
+          }, {}),
+          f = ai.gen_spec.treesitter({
+            a = "@function.outer",
+            i = "@function.inner"
+          }, {}),
+          c = ai.gen_spec.treesitter({
+            a = "@class.outer",
+            i = "@class.inner"
+          }, {})
+        }
+      }
+    end
+  }
 }

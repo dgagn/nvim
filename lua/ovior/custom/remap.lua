@@ -40,6 +40,8 @@ function M.setup()
   map('n', '<leader>hs', '<cmd>sp<cr>')
   map('n', '<leader>vt', '<cmd>vsp<cr><cmd>terminal<cr>')
   map('n', '<leader>ht', '<cmd>sp<cr><cmd>terminal<cr>')
+
+  map('n', '<leader><leader>s', '<cmd>source ~/.config/nvim/after/plugin/luasnip.lua')
 end
 
 return M

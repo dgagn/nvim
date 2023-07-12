@@ -4,10 +4,11 @@ return {
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
       'JoosepAlviste/nvim-ts-context-commentstring',
-      'nvim-treesitter/playground',
       {
         'nvim-treesitter/nvim-treesitter-context',
-        opts = {}
+        init = function ()
+          require('lazy.core.loader').disable_rtp_plugin('nvim-treesitter-textobjects')
+        end
       },
       {
         'windwp/nvim-ts-autotag',
@@ -15,8 +16,10 @@ return {
       }
     },
     build = ':TSUpdate',
-    config = function ()
-      require('nvim-treesitter.configs').setup({
+    config = function (_, opts)
+      require('nvim-treesitter.configs').setup(opts)
+    end,
+    opts = {
         ensure_installed = {
           'c',
           'lua',
@@ -47,50 +50,6 @@ return {
         autotag = {
           enable = true,
         },
-        textobjects = {
-          select = {
-            enable = true,
-            lookahead = true,
-            keymaps = {
-              ['aa'] = '@parameter.outer',
-              ['ia'] = '@parameter.inner',
-              ['af'] = '@function.outer',
-              ['if'] = '@function.inner',
-              ['aC'] = '@class.outer',
-              ['iC'] = '@class.inner',
-            }
-          },
-          move = {
-            enable = true,
-            set_jumps = true,
-            goto_next_start = {
-              [']m'] = '@function.outer',
-              [']c'] = '@class.outer',
-            },
-            goto_next_end = {
-              [']M'] = '@function.outer',
-              [']C'] = '@class.outer',
-            },
-            goto_previous_start = {
-              ['[m'] = '@function.outer',
-              ['[c'] = '@class.outer',
-            },
-            goto_previous_end = {
-              ['[M'] = '@function.outer',
-              ['[C'] = '@class.outer',
-            },
-          },
-          swap = {
-            enable = true,
-            swap_next = {
-              ['<leader>al'] = '@parameter.inner',
-            },
-            swap_previous = {
-              ['<leader>ah'] = '@parameter.inner',
-            },
-          },
-        },
-      })
-    end
+      }
   }
 }

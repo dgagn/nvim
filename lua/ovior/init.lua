@@ -19,12 +19,10 @@ function M.setup()
   local set = require('ovior.custom.set')
   local remap = require('ovior.custom.remap')
   local configs = require('ovior.configs')
-  local cobj = require('ovior.custom.cobj')
 
   yank.setup()
   set.setup()
   remap.setup()
-  cobj.setup()
   lazy.setup({
     -- import my plugins in the plugins folder
     spec = {
