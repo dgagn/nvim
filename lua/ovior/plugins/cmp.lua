@@ -5,6 +5,7 @@ local M = {
       -- snippets and cmp
       'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
 
       -- buffer and path
       'hrsh7th/cmp-buffer',
@@ -12,8 +13,6 @@ local M = {
 
       -- Adds LSP completion capabilities
       'hrsh7th/cmp-nvim-lsp',
-
-      -- add copilot
 
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
@@ -41,7 +40,5 @@ local M = {
     end,
   }
 }
-
-
 
 return M

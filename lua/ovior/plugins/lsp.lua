@@ -7,6 +7,7 @@ local M = {
         config = true
       },
       'williamboman/mason-lspconfig.nvim',
+      'b0o/schemastore.nvim',
 
       -- status update for neovim
       {

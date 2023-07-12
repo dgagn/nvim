@@ -27,6 +27,7 @@ local on_attach = function(_, bufnr)
   lspmap('n', 'gD', vim.lsp.buf.declaration, 'Goto declaration')
   lspmap('n', 'gi', vim.lsp.buf.implementation, 'Goto implementation')
   lspmap('n', 'gy', vim.lsp.buf.type_definition, 'Goto type definition')
+  lspmap('n', 'K', vim.lsp.buf.hover, 'Show hover information')
 
   lspmap('n', 'gr', require('telescope.builtin').lsp_references, 'Goto references')
   lspmap({ 'i', 'n' }, '<c-s>', vim.lsp.buf.signature_help, 'Show signature help')
@@ -55,6 +56,11 @@ local servers = {
       telemetry = { enable = false }
     }
   },
+  intelephense = {},
+  tailwindcss = {},
+  jsonls = {
+    schemas = require('schemastore').json.schemas()
+  }
 }
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()

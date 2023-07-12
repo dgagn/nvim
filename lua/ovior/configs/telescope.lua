@@ -1,3 +1,6 @@
+pcall(require('telescope').load_extension, 'fzf')
+pcall(require('telescope').load_extension, 'live_grep_args')
+
 local map = function(mode, keybind, fn, desc)
   vim.keymap.set(mode, keybind, fn, { desc = desc })
 end

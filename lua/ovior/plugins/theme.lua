@@ -18,6 +18,8 @@ return {
   },
   {
     'dgagn/diagflow.nvim',
-    opts = {},
+    opts = {
+      scope = 'line'
+    },
   }
 }

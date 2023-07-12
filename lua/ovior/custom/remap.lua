@@ -9,6 +9,7 @@ function M.setup()
   map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
   map("n", "<leader>q", ":q<cr>", { desc = "Quit the window" })
+  map('n', 'q:', ':q') -- fuging anoying
   map("n", "<leader>s", ":w<cr>", { desc = "Save the file" })
 
   map("n", "<C-d>", "<C-d>zz")
@@ -21,6 +22,9 @@ function M.setup()
 
   map("n", "n", "nzzzv")
   map("n", "N", "Nzzzv")
+
+  map('v', '<', '<gv')
+  map('v', '>', '>gv')
 
   map('i', '<M-Right>', '<C-o>w')
   map('i', '<M-Left>', '<C-o>b')

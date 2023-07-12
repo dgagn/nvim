@@ -1,6 +1,23 @@
 return {
   -- manages the indents
   'tpope/vim-sleuth',
+  'tpope/vim-unimpaired',
+  'tpope/vim-repeat',
+  'farmergreg/vim-lastplace',
+  {
+    'AndrewRadev/splitjoin.vim',
+    config = function ()
+      vim.g.splitjoin_html_attributes_bracket_on_new_line = 1
+      vim.g.splitjoin_trailing_comma = 1
+      vim.g.splitjoin_php_method_chain_full = 1
+    end
+  },
+  {
+    'sickill/vim-pasta',
+    config = function()
+      vim.g.pasta_disabled_filetypes = { 'fugitive' }
+    end
+  },
   {
     "christoomey/vim-tmux-navigator",
     keys = {
@@ -46,10 +63,6 @@ return {
     keys = {
       { '<leader>x', function() require("mini.bufremove").delete(0, false) end, desc = "Delete the current buffer" }
     }
-  },
-  {
-    'echasnovski/mini.splitjoin',
-    opts = {}
   },
   {
     'tpope/vim-surround',

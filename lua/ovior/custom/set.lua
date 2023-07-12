@@ -21,6 +21,9 @@ function M.setup()
   vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 
   vim.opt.scrolloff = 8
+  vim.opt.sidescrolloff = 8
+
+  vim.opt.confirm = true
 
   vim.opt.splitbelow = true
   vim.opt.splitright = true
@@ -33,6 +36,13 @@ function M.setup()
   vim.opt.timeoutlen = 300
 
   vim.o.completeopt = 'menuone,noselect'
+
+  vim.diagnostic.config({
+    virtual_text = false,
+    float = {
+      source = true
+    }
+  })
 end
 
 return M
