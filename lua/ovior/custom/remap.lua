@@ -30,7 +30,7 @@ function M.setup()
   map('i', '<M-Left>', '<C-o>b')
   map("i", "<S-Tab>", "<C-d>")
 
-  map('i', '<c-a>', '<esc>:exe "norm! l%%"<cr>a', {desc = 'Goto the end of the line', silent = true})
+  map('i', '<c-a>', '<esc>:exe "norm! l%%"<cr>a', { desc = 'Goto the end of the line', silent = true })
 
   map("n", "<leader>O", "O<Esc>j", { desc = 'Add an empty line above' })
   map("n", "<leader>o", "o<Esc>k")
@@ -41,8 +41,8 @@ function M.setup()
   map('n', '<leader>vt', '<cmd>vsp<cr><cmd>terminal<cr>')
   map('n', '<leader>ht', '<cmd>sp<cr><cmd>terminal<cr>')
 
-  map('n', '<leader><leader>s', '<cmd>source ~/.config/nvim/after/plugin/luasnip.lua')
+  map('i', '<c-k>', '<c-r><c-p>+', { silent = true })
+  map('i', '<c-u>', '<nop>', { silent = true })
 end
 
 return M
-

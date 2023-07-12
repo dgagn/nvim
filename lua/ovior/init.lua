@@ -18,11 +18,13 @@ function M.setup()
   local yank = require('ovior.custom.yank')
   local set = require('ovior.custom.set')
   local remap = require('ovior.custom.remap')
+  local aucmd = require('ovior.custom.autocmd')
   local configs = require('ovior.configs')
 
   yank.setup()
   set.setup()
   remap.setup()
+  aucmd.setup()
   lazy.setup({
     -- import my plugins in the plugins folder
     spec = {
@@ -38,4 +40,3 @@ function M.setup()
 end
 
 return M
-

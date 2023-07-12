@@ -3,25 +3,18 @@ return {
   'tpope/vim-sleuth',
   'tpope/vim-unimpaired',
   'tpope/vim-repeat',
-  'farmergreg/vim-lastplace',
   {
     'AndrewRadev/splitjoin.vim',
-    config = function ()
+    config = function()
       vim.g.splitjoin_html_attributes_bracket_on_new_line = 1
       vim.g.splitjoin_trailing_comma = 1
       vim.g.splitjoin_php_method_chain_full = 1
     end
   },
   {
-    'sickill/vim-pasta',
-    config = function()
-      vim.g.pasta_disabled_filetypes = { 'fugitive' }
-    end
-  },
-  {
     "christoomey/vim-tmux-navigator",
     keys = {
-      { '<C-h>', ':TmuxNavigateLeft<CR>',  desc = "Move to the left tmux pane" },
+      { '<C-h>', ':TmuxNavigateLeft<CR>',  desc = 'Move to the left tmux pane' },
       { '<C-j>', ':TmuxNavigateDown<CR>',  desc = "Move to the down tmux pane" },
       { '<C-k>', ':TmuxNavigateUp<CR>',    desc = "Move to the up tmux pane" },
       { '<C-l>', ':TmuxNavigateRight<CR>', desc = "Move to the right tmux pane" },
@@ -80,12 +73,16 @@ return {
     'ThePrimeagen/harpoon',
     opts = {},
     keys = {
-      { '<leader>m', function() require('harpoon.mark').add_file() end, desc = 'Mark the file'},
-      { '<c-e>', function() require('harpoon.ui').toggle_quick_menu() end, desc = 'Open the harpoon quick menu'},
-      { 'g1', function() require('harpoon.ui').nav_file(1) end, desc = 'Goto the first file in the harpoon list'},
-      { 'g2', function() require('harpoon.ui').nav_file(2) end, desc = 'Goto the second file in the harpoon list'},
-      { 'g3', function() require('harpoon.ui').nav_file(3) end, desc = 'Goto the third file in the harpoon list'},
-      { 'g4', function() require('harpoon.ui').nav_file(4) end, desc = 'Goto the fourth file in the harpoon list'},
+      { '<leader>m', function() require('harpoon.mark').add_file() end,        desc = 'Mark the file' },
+      { '<c-e>',     function() require('harpoon.ui').toggle_quick_menu() end, desc = 'Open the harpoon quick menu' },
+      { 'g1',        function() require('harpoon.ui').nav_file(1) end,         desc =
+      'Goto the first file in the harpoon list' },
+      { 'g2',        function() require('harpoon.ui').nav_file(2) end,         desc =
+      'Goto the second file in the harpoon list' },
+      { 'g3',        function() require('harpoon.ui').nav_file(3) end,         desc =
+      'Goto the third file in the harpoon list' },
+      { 'g4',        function() require('harpoon.ui').nav_file(4) end,         desc =
+      'Goto the fourth file in the harpoon list' },
     }
   },
   {
@@ -97,8 +94,8 @@ return {
   {
     'echasnovski/mini.ai',
     event = "VeryLazy",
-    dependencies = {"nvim-treesitter/nvim-treesitter-textobjects"},
-    opts = function ()
+    dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
+    opts = function()
       local ai = require('mini.ai')
 
       return {

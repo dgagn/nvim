@@ -6,7 +6,7 @@ return {
       'JoosepAlviste/nvim-ts-context-commentstring',
       {
         'nvim-treesitter/nvim-treesitter-context',
-        init = function ()
+        init = function()
           require('lazy.core.loader').disable_rtp_plugin('nvim-treesitter-textobjects')
         end
       },
@@ -16,40 +16,40 @@ return {
       }
     },
     build = ':TSUpdate',
-    config = function (_, opts)
+    config = function(_, opts)
       require('nvim-treesitter.configs').setup(opts)
     end,
     opts = {
-        ensure_installed = {
-          'c',
-          'lua',
+      ensure_installed = {
+        'c',
+        'lua',
 
-          'rust',
-          'python',
-          'php',
+        'rust',
+        'python',
+        'php',
 
-          'tsx',
-          'typescript',
-          'javascript',
-          'html'
-        },
-        auto_install = false,
-        highlight = { enable = true },
-        indent = { enable = true },
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = '<Esc>wW',
-            node_incremental = '<Esc>wW',
-            node_decremental = '<m-space>'
-          }
-        },
-        context_commentstring = {
-          enable = true
-        },
-        autotag = {
-          enable = true,
-        },
-      }
+        'tsx',
+        'typescript',
+        'javascript',
+        'html'
+      },
+      auto_install = false,
+      highlight = { enable = true },
+      indent = { enable = true },
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = '<Esc>wW',
+          node_incremental = '<Esc>wW',
+          node_decremental = '<m-space>'
+        }
+      },
+      context_commentstring = {
+        enable = true
+      },
+      autotag = {
+        enable = true,
+      },
+    }
   }
 }
