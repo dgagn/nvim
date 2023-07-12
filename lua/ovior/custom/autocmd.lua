@@ -32,6 +32,7 @@ function M.setup()
       "qf",
       "spectre_panel",
       "startuptime",
+      "fugitive",
       "tsplayground",
       "neotest-output",
       "checkhealth",

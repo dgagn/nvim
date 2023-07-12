@@ -11,7 +11,6 @@ local M = {
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
 
-
       -- Adds LSP completion capabilities
       'hrsh7th/cmp-nvim-lsp',
 
@@ -31,17 +30,14 @@ local M = {
           end
         },
         mapping = cmp.mapping.preset.insert({
-          ['<cr>'] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
-          }),
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "luasnip" },
-          { name = "buffer" },
           { name = "path" },
           { name = "nvim_lsp_signature_help" },
+        }, {
+          { name = 'buffer' }
         }),
       }
     end
@@ -50,10 +46,11 @@ local M = {
   {
     'L3MON4D3/LuaSnip',
     dependencies = {
-      -- 'rafamadriz/friendly-snippets',
-      -- config = function()
-      --   require('luasnip.loaders.from_vscode').lazy_load()
-      -- end,
+      'rafamadriz/friendly-snippets',
+      config = function()
+        require('luasnip.loaders.from_vscode').lazy_load()
+        -- require('luasnip').filetype_extend("typescriptreact", { "html" })
+      end,
     },
     opts = {
       history = true,
@@ -99,27 +96,6 @@ local M = {
       }
     }
   },
-  {
-    'zbirenbaum/copilot.lua',
-    event = 'InsertEnter',
-    opts = {
-      suggestion = {
-        enable = false
-      },
-      panel = {
-        enable = false
-      }
-    },
-    config = function(_, opts)
-      require('copilot').setup(opts)
-    end
-  },
-  {
-    'zbirenbaum/copilot-cmp',
-    config = function()
-      require('copilot_cmp').setup()
-    end,
-  }
 }
 
 return M
