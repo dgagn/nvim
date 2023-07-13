@@ -36,12 +36,12 @@ function M.setup()
   map("n", "<leader>o", "o<Esc>k")
   map('t', '<c-x>', '<c-\\><c-n>')
 
-  map('n', '<leader>vs', '<cmd>vsp<cr>')
-  map('n', '<leader>hs', '<cmd>sp<cr>')
-  map('n', '<leader>vt', '<cmd>vsp<cr><cmd>terminal<cr>')
-  map('n', '<leader>ht', '<cmd>sp<cr><cmd>terminal<cr>')
+  map('n', "<leader>vs", "<cmd>vsp<cr>")
+  map('n', "<leader>hs", "<cmd>sp<cr>")
+  map('n', "<leader>vt", "<cmd>vsp<cr><cmd>terminal<cr>")
+  map("n", "<leader>ht", "<cmd>sp<cr><cmd>terminal<cr>")
 
-  map('i', '<c-k>', '<c-r><c-p>+', { silent = true })
+  map("i", "<c-k>", '<c-r><c-p>+', { silent = true })
   map('i', '<c-u>', '<nop>', { silent = true })
 end
 

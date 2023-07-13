@@ -1,8 +1,12 @@
 return {
   -- manages the indents
   'tpope/vim-sleuth',
-  'tpope/vim-unimpaired',
-  'tpope/vim-repeat',
+  {'tpope/vim-unimpaired', event = "VeryLazy"},
+  {'tpope/vim-repeat', event = "VeryLazy"},
+  {
+    'mattn/emmet-vim',
+    ft = { "html", 'javascriptreact', 'typescriptreact' },
+  },
   {
     'AndrewRadev/splitjoin.vim',
     config = function()
@@ -32,26 +36,19 @@ return {
   },
   {
     'windwp/nvim-autopairs',
-    event = 'InsertEnter',
-    dependencies = {
-      'hrsh7th/nvim-cmp',
-    },
+    event = 'VeryLazy',
     config = function()
-      require('nvim-autopairs').setup({
+      local pairs = require('nvim-autopairs')
+      pairs.setup({
         fast_wrap = {
           map = '<c-q>',
-        }
+        },
       })
-      local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-      local cmp = require('cmp')
-      cmp.event:on(
-        'confirm_done',
-        cmp_autopairs.on_confirm_done()
-      )
     end
   },
   {
     'echasnovski/mini.bufremove',
+    event = 'VeryLazy',
     opts = {},
     keys = {
       { '<leader>x', function() require("mini.bufremove").delete(0, false) end, desc = "Delete the current buffer" }
@@ -62,47 +59,52 @@ return {
     event = 'VeryLazy'
   },
   {
-    'numToStr/Comment.nvim',
-    config = function()
-      require('Comment').setup({
-        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()
-      })
-    end
-  },
-  {
-    'ThePrimeagen/harpoon',
-    opts = {},
-    keys = {
-      { '<leader>m', function() require('harpoon.mark').add_file() end,        desc = 'Mark the file' },
-      { '<c-e>',     function() require('harpoon.ui').toggle_quick_menu() end, desc = 'Open the harpoon quick menu' },
-      {
-        'g1',
-        function() require('harpoon.ui').nav_file(1) end,
-        desc =
-        'Goto the first file in the harpoon list'
+    "echasnovski/mini.comment",
+    event = "VeryLazy",
+    opts = {
+      options = {
+        custom_commentstring = function()
+          return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
+        end,
       },
-      {
-        'g2',
-        function() require('harpoon.ui').nav_file(2) end,
-        desc =
-        'Goto the second file in the harpoon list'
-      },
-      {
-        'g3',
-        function() require('harpoon.ui').nav_file(3) end,
-        desc =
-        'Goto the third file in the harpoon list'
-      },
-      {
-        'g4',
-        function() require('harpoon.ui').nav_file(4) end,
-        desc =
-        'Goto the fourth file in the harpoon list'
-      },
-    }
-  },
+    },
+  }, {
+  'ThePrimeagen/harpoon',
+  opts = {},
+  event = 'VeryLazy',
+  keys = {
+    { '<leader>m', function() require('harpoon.mark').add_file() end,        desc = 'Mark the file' },
+    { '<c-e>',     function() require('harpoon.ui').toggle_quick_menu() end, desc = 'Open the harpoon quick menu' },
+    {
+      'g1',
+      function() require('harpoon.ui').nav_file(1) end,
+      desc =
+      'Goto the first file in the harpoon list'
+    },
+    {
+      'g2',
+      function() require('harpoon.ui').nav_file(2) end,
+      desc =
+      'Goto the second file in the harpoon list'
+    },
+    {
+      'g3',
+      function() require('harpoon.ui').nav_file(3) end,
+      desc =
+      'Goto the third file in the harpoon list'
+    },
+    {
+      'g4',
+      function() require('harpoon.ui').nav_file(4) end,
+      desc =
+      'Goto the fourth file in the harpoon list'
+    },
+  }
+},
   {
     'mbbill/undotree',
+    cmd = 'UndotreeToggle',
+    -- event = 'VeryLazy',
     keys = {
       { '<leader>u', vim.cmd.UndotreeToggle, desc = 'Open the undotree' }
     },
@@ -139,6 +141,7 @@ return {
     opts = {
       open_cmd = "noswapfile vnew",
     },
+    -- event = 'VeryLazy',
     keys = {
       {
         '<leader>cr',
@@ -147,6 +150,18 @@ return {
         end,
         desc = 'Show spectre'
       }
+    }
+  },
+  {
+    'mizlan/iswap.nvim',
+    cmd = {'ISwapWith', 'ISwapNodeWith'},
+    -- event = 'VeryLazy',
+    opts = {
+      grey = 'disable',
+    },
+    keys = {
+      { '<leader>aa', vim.cmd.ISwapWith,     desc = 'Arrange the argument orders' },
+      { '<leader>an', vim.cmd.ISwapNodeWith, desc = 'Arrange the node orders' },
     }
   }
 }

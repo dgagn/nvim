@@ -19,7 +19,6 @@ function M.setup()
   local set = require('ovior.custom.set')
   local remap = require('ovior.custom.remap')
   local aucmd = require('ovior.custom.autocmd')
-  local configs = require('ovior.configs')
 
   yank.setup()
   set.setup()
@@ -36,7 +35,6 @@ function M.setup()
     -- please don't autoupdate plugins
     checker = { enable = false },
   })
-  configs.setup()
 end
 
 return M

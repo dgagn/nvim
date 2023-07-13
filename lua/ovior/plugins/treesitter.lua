@@ -1,9 +1,10 @@
 return {
   {
     'nvim-treesitter/nvim-treesitter',
+    event = {'BufReadPost', 'BufNewFile'},
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
-      'JoosepAlviste/nvim-ts-context-commentstring',
+      { 'JoosepAlviste/nvim-ts-context-commentstring', lazy = true },
       {
         'nvim-treesitter/nvim-treesitter-context',
         init = function()
@@ -13,6 +14,13 @@ return {
       {
         'windwp/nvim-ts-autotag',
         opts = {}
+      },
+      {
+        'nvim-treesitter/playground',
+        cmd = 'TSPlaygroundToggle',
+        config = function ()
+          require('nvim-treesitter.configs').setup({})
+        end
       }
     },
     build = ':TSUpdate',
