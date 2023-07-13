@@ -20,6 +20,11 @@ function M.setup()
   vim.opt.undolevels = 10000
   vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 
+  vim.g.loaded_matchparen = 1
+  vim.opt.showmatch = true
+
+  vim.opt.belloff = "all"
+
   vim.opt.scrolloff = 8
   vim.opt.sidescrolloff = 8
 

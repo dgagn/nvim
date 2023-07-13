@@ -13,6 +13,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+
 function M.setup()
   local lazy = require('lazy')
   local yank = require('ovior.custom.yank')
@@ -27,7 +28,7 @@ function M.setup()
   lazy.setup({
     -- import my plugins in the plugins folder
     spec = {
-      { import = 'ovior.plugins' }
+      { import = 'ovior.plugins' },
     },
     install = {
       colorscheme = { 'rose-pine' }

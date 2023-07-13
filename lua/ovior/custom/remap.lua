@@ -32,6 +32,8 @@ function M.setup()
 
   map('i', '<c-a>', '<esc>:exe "norm! l%%"<cr>a', { desc = 'Goto the end of the line', silent = true })
 
+  map('v', 'O', 'o<Esc>a', { silent = true })
+
   map("n", "<leader>O", "O<Esc>j", { desc = 'Add an empty line above' })
   map("n", "<leader>o", "o<Esc>k")
   map('t', '<c-x>', '<c-\\><c-n>')

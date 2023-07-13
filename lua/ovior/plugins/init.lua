@@ -38,12 +38,12 @@ return {
     'windwp/nvim-autopairs',
     event = 'VeryLazy',
     config = function()
-      local pairs = require('nvim-autopairs')
-      pairs.setup({
-        fast_wrap = {
-          map = '<c-q>',
-        },
-      })
+      -- local pairs = require('nvim-autopairs')
+      -- pairs.setup({
+      --   fast_wrap = {
+      --     map = '<c-q>',
+      --   },
+      -- })
     end
   },
   {
@@ -130,7 +130,11 @@ return {
           c = ai.gen_spec.treesitter({
             a = "@class.outer",
             i = "@class.inner"
-          }, {})
+          }, {}),
+          a = ai.gen_spec.treesitter({
+            i = "@parameter.inner",
+            a = "@parameter.outer",
+          }, {}),
         }
       }
     end
@@ -163,5 +167,18 @@ return {
       { '<leader>aa', vim.cmd.ISwapWith,     desc = 'Arrange the argument orders' },
       { '<leader>an', vim.cmd.ISwapNodeWith, desc = 'Arrange the node orders' },
     }
-  }
+  },
+  {
+    'voldikss/vim-floaterm',
+    cmd = 'FloatermToggle',
+    config = function ()
+      vim.g.floaterm_height = 0.4
+      vim.g.floaterm_wintype = 'split'
+    end,
+    keys = {
+      { '<F1>', vim.cmd.FloatermToggle, mode = 'n' },
+      { '<F1>', '<esc><cmd>FloatermToggle<cr>', mode = 'i' },
+      { '<F1>', '<C-\\><C-n><cmd>FloatermToggle<cr>', mode = 't' },
+    }
+  },
 }

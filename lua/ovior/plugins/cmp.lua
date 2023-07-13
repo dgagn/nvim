@@ -32,12 +32,32 @@ local M = {
         completion = {
           completeopt = 'menu,menuone,noinsert',
         },
+        experimental = {
+          ghost_text = true,
+        },
         snippet = {
           expand = function(args)
-            require('luasnip').lsp_expand(args.body)
-          end
+            local luasnip = require('luasnip')
+            if not luasnip then
+              return
+            end
+            luasnip.lsp_expand(args.body)
+          end,
         },
         mapping = cmp.mapping.preset.insert({
+          ["<S-CR>"] = cmp.mapping(function(fallback)
+            -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
+            if cmp.visible() then
+              local entry = cmp.get_selected_entry()
+              if not entry then
+                cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+              else
+                cmp.confirm()
+              end
+            else
+              fallback()
+            end
+          end, { "i", "s", "c", }),
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
@@ -52,13 +72,27 @@ local M = {
   },
   {
     'L3MON4D3/LuaSnip',
-    dependencies = {
-      'rafamadriz/friendly-snippets',
-      config = function()
-        require('luasnip.loaders.from_vscode').lazy_load()
-        -- require('luasnip').filetype_extend("typescriptreact", { "html" })
-      end,
-    },
+    after = 'nvim-cmp',
+    config = function()
+      local types = require('luasnip.util.types')
+      require('luasnip').config.set_config({
+        updateevents = "TextChanged,TextChangedI",
+        enable_autosnippets = true,
+        history = true,
+        ext_opts = {
+          [types.choiceNode] = {
+            active = {
+              virt_text = { { "← Current choice", "Comment" } },
+            }
+          }
+        }
+      })
+      for index, value in ipairs(table) do
+
+      end
+      require('luasnip.loaders.from_lua').lazy_load({ paths = "~/.config/nvim/snips" })
+      require('luasnip.loaders.from_snipmate').lazy_load()
+    end,
     opts = {
       history = true,
       updateevents = 'TextChanged,TextChangedI',
@@ -84,13 +118,10 @@ local M = {
           if character_before == "f" and content:sub(col - 1) == "if" then
             return '<space>'
           end
-          print(vim.bo.filetype)
 
           if vim.bo.filetype ~= "html" and vim.bo.filetype ~= "javascriptreact" and vim.bo.filetype ~= "typescriptreact" then
             return '<tab>'
           end
-
-          print(vim.bo.filetype)
 
           local function last_word_valid(line, col)
             local line_before_cursor = line:sub(1, col)
@@ -114,8 +145,8 @@ local M = {
           local ts = require 'nvim-treesitter.ts_utils'
 
           local node_cursor = ts.get_node_at_cursor():type()
-          print(node_cursor)
-          local is_valid_jsx = vim.bo.filetype == "html" or (node_cursor == "statement_block" or node_cursor == "jsx_element" or node_cursor == "parenthesized_expression")
+          local is_valid_jsx = vim.bo.filetype == "html" or
+              (node_cursor == "statement_block" or node_cursor == "jsx_element" or node_cursor == "parenthesized_expression")
 
           if not last_word_valid(content, col) then
             return '<tab>'
@@ -132,12 +163,41 @@ local M = {
         mode = { 'i', 's' }
       },
       {
+        '<tab>',
+        function()
+          local _, col = unpack(vim.api.nvim_win_get_cursor(0))
+          local content = vim.api.nvim_get_current_line()
+          local character_before = content:sub(col, col)
+
+          if vim.bo.filetype ~= "html" and vim.bo.filetype ~= "javascriptreact" and vim.bo.filetype ~= "typescriptreact" then
+            return '<tab>'
+          end
+
+          local ts = require 'nvim-treesitter.ts_utils'
+
+          local node_cursor = ts.get_node_at_cursor():type()
+          local is_valid_jsx = vim.bo.filetype == "html" or
+              (node_cursor == "statement_block" or node_cursor == "jsx_element" or node_cursor == "parenthesized_expression" or node_cursor == "jsx_text")
+
+          if character_before ~= nil and character_before ~= " " and is_valid_jsx then
+            return '<Plug>(emmet-expand-abbr)'
+          end
+
+          return '<tab>'
+        end,
+        expr = true,
+        silent = true,
+        mode = { 'v' }
+      },
+      {
         '<s-tab>',
         function()
           local ls = require('luasnip')
           if ls.jumpable(-1) then
             ls.jump(-1)
           end
+
+          return '<c-d>'
         end,
         silent = true,
         expr = true,

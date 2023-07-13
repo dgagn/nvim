@@ -50,6 +50,11 @@ return {
           desc = 'Find recently opened files',
         },
         {
+          '<leader>hh',
+          builtin.help_tags,
+          desc = 'Find help for a command'
+        },
+        {
           '<leader>/',
           function()
             builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({

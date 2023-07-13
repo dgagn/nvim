@@ -28,19 +28,7 @@ return {
       require('nvim-treesitter.configs').setup(opts)
     end,
     opts = {
-      ensure_installed = {
-        'c',
-        'lua',
-
-        'rust',
-        'python',
-        'php',
-
-        'tsx',
-        'typescript',
-        'javascript',
-        'html'
-      },
+      ensure_installed = 'all',
       auto_install = false,
       highlight = { enable = true },
       indent = { enable = true },
