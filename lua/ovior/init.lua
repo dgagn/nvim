@@ -13,7 +13,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-
 function M.setup()
   local lazy = require('lazy')
   local yank = require('ovior.custom.yank')

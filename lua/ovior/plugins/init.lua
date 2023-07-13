@@ -170,7 +170,7 @@ return {
   },
   {
     'voldikss/vim-floaterm',
-    cmd = 'FloatermToggle',
+    cmd = { 'FloatermToggle', 'FloatermKill', 'FloatermNew' },
     config = function ()
       vim.g.floaterm_height = 0.4
       vim.g.floaterm_wintype = 'split'
@@ -180,5 +180,27 @@ return {
       { '<F1>', '<esc><cmd>FloatermToggle<cr>', mode = 'i' },
       { '<F1>', '<C-\\><C-n><cmd>FloatermToggle<cr>', mode = 't' },
     }
+  },
+  {
+    'phpactor/phpactor',
+    ft = 'php',
+    build = "composer install --no-dev --optimize-autoloader",
+    config = function ()
+      vim.keymap.set('n', '<leader>pa', '<cmd>PhpactorContextMenu<cr>', { desc = "The php actor context menu" })
+    end
+  },
+  {
+    'vim-test/vim-test',
+    config = function ()
+      vim.keymap.set('n', '<leader>tn', '<cmd>TestNearest<cr>', { desc = 'Test the nearest' })
+      vim.keymap.set('n', '<leader>tf', '<cmd>TestFile<cr>', { desc = 'Test the file' })
+      vim.keymap.set('n', '<leader>ts', '<cmd>TestSuite<cr>', { desc = 'Test the suite' })
+      vim.keymap.set('n', '<leader>tl', '<cmd>TestLast<cr>', { desc = 'Test the last test' })
+      vim.keymap.set('n', '<leader>tv', '<cmd>TestVisit<cr>', { desc = 'Visit test' })
+
+      vim.cmd([[
+        let test#strategy = 'neovim'
+      ]])
+    end
   },
 }
