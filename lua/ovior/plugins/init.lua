@@ -32,19 +32,9 @@ return {
   },
   {
     'folke/which-key.nvim',
-    opts = {}
-  },
-  {
-    'windwp/nvim-autopairs',
-    event = 'VeryLazy',
-    config = function()
-      -- local pairs = require('nvim-autopairs')
-      -- pairs.setup({
-      --   fast_wrap = {
-      --     map = '<c-q>',
-      --   },
-      -- })
-    end
+    opts = {
+      triggers = { '<leader>' },
+    }
   },
   {
     'echasnovski/mini.bufremove',
@@ -203,4 +193,11 @@ return {
       ]])
     end
   },
+  {
+    'tpope/vim-projectionist',
+    dependencies = 'tpope/vim-dispatch',
+    config = function ()
+      require('ovior.configs.projectionist')
+    end,
+  }
 }

@@ -61,6 +61,8 @@ local M = {
         lspmap('n', '<leader>r', vim.lsp.buf.rename, 'Rename symbol')
         lspmap('n', '<leader>fm', function() vim.lsp.buf.format({ async = true }) end, 'Format the code based on lsp')
         lspmap('n', '<leader>ca', vim.lsp.buf.code_action, 'Code action')
+
+        lspmap('n', '<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Find workspace symbols')
       end
 
       local servers = {

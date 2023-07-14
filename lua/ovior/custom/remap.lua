@@ -10,7 +10,7 @@ function M.setup()
 
   map("n", "<leader>q", ":q<cr>", { desc = "Quit the window" })
   map('n', 'q:', ':q') -- fuging anoying
-  map("n", "<leader>s", ":w<cr>", { desc = "Save the file" })
+  map("n", "<space>s", ":w<cr>", { desc = "Save the file" })
 
   map("n", "<C-d>", "<C-d>zz")
   map("n", "<C-u>", "<C-u>zz")

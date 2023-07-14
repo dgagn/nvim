@@ -4,4 +4,3 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 ovior.setup()
-
