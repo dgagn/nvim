@@ -42,6 +42,8 @@ function M.setup()
 
   vim.o.completeopt = 'menuone,noselect'
 
+  vim.opt.backspace = 'indent,eol,start'
+
   vim.diagnostic.config({
     virtual_text = false,
     float = {

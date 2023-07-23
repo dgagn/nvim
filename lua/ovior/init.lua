@@ -20,6 +20,7 @@ function M.setup()
   local set = require('ovior.custom.set')
   local remap = require('ovior.custom.remap')
   local aucmd = require('ovior.custom.autocmd')
+  local smartkeys = require('ovior.custom.smartkeys')
 
   yank.setup()
   set.setup()

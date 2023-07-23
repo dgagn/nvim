@@ -36,8 +36,6 @@ local M = {
       map('n', 'gF', require('telescope.builtin').diagnostics, 'Find all the float diagnostics')
 
       -- utils gotos
-      map('n', 'gh', '0', 'Goto line start')
-      map('n', 'gl', '$', 'Goto line end')
       map('n', 'gs', '^', 'Goto first non-blank in start')
       map('n', 'g;', 'g;', 'Goto older position in change list')
       map('n', 'g,', 'g,', 'Goto newer position in change list')

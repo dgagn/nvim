@@ -1,5 +1,12 @@
 local M = {
   {
+    'windwp/nvim-autopairs',
+    config = function ()
+      local np = require('nvim-autopairs')
+      np.setup()
+    end
+  },
+  {
     'hrsh7th/nvim-cmp',
     dependencies = {
       -- snippets and cmp
@@ -77,7 +84,7 @@ local M = {
       require('luasnip').config.set_config({
         updateevents = "TextChanged,TextChangedI",
         enable_autosnippets = true,
-        history = true,
+        history = false,
         ext_opts = {
           [types.choiceNode] = {
             active = {
@@ -86,23 +93,14 @@ local M = {
           }
         }
       })
-      for index, value in ipairs(table) do
-
-      end
       require('luasnip.loaders.from_lua').lazy_load({ paths = "~/.config/nvim/snips" })
       require('luasnip.loaders.from_snipmate').lazy_load()
     end,
-    opts = {
-      history = true,
-      updateevents = 'TextChanged,TextChangedI',
-      delete_check_events = "TextChanged",
-      enable_autosnippets = true,
-    },
     keys = {
       {
         '<tab>',
         function()
-          if require('luasnip').expand_or_jumpable() then
+          if require('luasnip').expand_or_locally_jumpable() then
             return '<Plug>luasnip-expand-or-jump'
           end
 
@@ -202,17 +200,6 @@ local M = {
         expr = true,
         mode = { 'i', 's' }
       },
-      {
-        '<c-l>',
-        function()
-          local ls = require('luasnip')
-          if ls.choice_active() then
-            ls.change_choice(1)
-          end
-        end,
-        mode = 'i',
-        silent = true
-      }
     }
   },
 }

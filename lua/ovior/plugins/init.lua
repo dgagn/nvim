@@ -1,8 +1,12 @@
 return {
   -- manages the indents
   'tpope/vim-sleuth',
-  {'tpope/vim-unimpaired', event = "VeryLazy"},
+  -- {'tpope/vim-unimpaired', event = "VeryLazy"},
   {'tpope/vim-repeat', event = "VeryLazy"},
+  {
+    'monkoose/matchparen.nvim',
+    opts = {}
+  },
   {
     'mattn/emmet-vim',
     ft = { "html", 'javascriptreact', 'typescriptreact' },
@@ -33,7 +37,7 @@ return {
   {
     'folke/which-key.nvim',
     opts = {
-      triggers = { '<leader>' },
+      triggers = { '<leader>', 'g', '<c-w>' },
     }
   },
   {
@@ -44,9 +48,14 @@ return {
       { '<leader>x', function() require("mini.bufremove").delete(0, false) end, desc = "Delete the current buffer" }
     }
   },
+  -- {
+  --   'tpope/vim-surround',
+  --   event = 'VeryLazy'
+  -- },
   {
-    'tpope/vim-surround',
-    event = 'VeryLazy'
+    'echasnovski/mini.surround',
+    opts = {
+    }
   },
   {
     "echasnovski/mini.comment",
@@ -199,5 +208,32 @@ return {
     config = function ()
       require('ovior.configs.projectionist')
     end,
-  }
+  },
+  'vimwiki/vimwiki',
+  {
+    'nvim-lualine/lualine.nvim',
+    opts = {
+      options = {
+        theme = 'rose-pine',
+        component_separators = '|',
+        section_separators = '',
+        icons_enabled = false,
+      },
+      sections = {
+        lualine_a = { "mode" },
+        lualine_b = {
+          {
+            'buffers',
+          }
+        },
+        lualine_c = {
+          { "filename", path = 1 },
+          "branch"
+        },
+        lualine_x = {
+          'filetype'
+        }
+      }
+    }
+  },
 }
