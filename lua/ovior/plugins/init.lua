@@ -67,7 +67,8 @@ return {
         end,
       },
     },
-  }, {
+  },
+  {
   'ThePrimeagen/harpoon',
   opts = {},
   event = 'VeryLazy',
@@ -111,7 +112,7 @@ return {
   {
     'echasnovski/mini.ai',
     event = "VeryLazy",
-    dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
+    dependencies = { "nvim-treesitter-textobjects" },
     opts = function()
       local ai = require('mini.ai')
 
@@ -136,6 +137,9 @@ return {
           }, {}),
         }
       }
+    end,
+    config = function (_, opts)
+      require('mini.ai').setup(opts)
     end
   },
   {
@@ -201,6 +205,21 @@ return {
         let test#strategy = 'neovim'
       ]])
     end
+  },
+  {
+    'ggandor/flit.nvim',
+    enabled = true,
+    keys = function ()
+      local ret = {}
+      for _, key in ipairs({ "f", "F", "t", "T" }) do
+        ret[#ret + 1] = { key, mode = { "n", "x", "o" }, desc = key }
+      end
+      return ret
+    end,
+    opts = {
+      labeled_modes = 'nx',
+      multiline = false
+    }
   },
   {
     'tpope/vim-projectionist',

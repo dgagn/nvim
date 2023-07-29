@@ -1,0 +1,29 @@
+snippet pfn "public function"
+  pub fn $1($2) -> $3 {
+    $0
+    todo!()
+  }
+
+snippet fn "private function"
+  fn $1($2) -> $3 {
+    $0
+    todo!()
+  }
+
+snippet struct "create a struct"
+  struct $1 {
+    $0
+  }
+
+
+snippet str "create a struct"
+  struct $1;$0
+
+snippet impl "create a struct"
+  impl $1 {
+    $0
+  }
+
+snippet derive "derive macro"
+  #[derive($1)]$0
+

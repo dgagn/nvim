@@ -21,8 +21,6 @@ return {
     event = 'LspAttach',
     opts = {
       scope = 'line',
-      update_event = { 'DiagnosticChanged', 'BufEnter' },
-      toggle_event = { 'InsertEnter' },
     },
   }
 }

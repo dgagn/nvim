@@ -37,9 +37,9 @@ function M.setup()
   map('v', 'O', 'o<Esc>a', { silent = true })
 
   -- c-;
-  map('i', '<f25>', '<esc>A,')
+  map('i', '<f25>', '<esc>A,<esc>')
   -- c-,
-  map('i', '<f26>', '<esc>A;')
+  map('i', '<f26>', '<esc>A;<esc>')
 
   map("n", "<leader>O", "O<Esc>j", { desc = 'Add an empty line above' })
   map("n", "<leader>o", "o<Esc>k")
@@ -49,9 +49,6 @@ function M.setup()
   map('n', "<leader>hs", "<cmd>sp<cr>")
   map('n', "<leader>vt", "<cmd>vsp<cr><cmd>terminal<cr>")
   map("n", "<leader>ht", "<cmd>sp<cr><cmd>terminal<cr>")
-
-  map('i', '<c-u>', '<c-o><c-u>', { silent = true })
-  map('i', '<c-d>', '<c-o><c-d>', { silent = true })
 
   map('n', 'gn', '<cmd>:bnext<cr>')
   map('n', 'gp', '<cmd>:bprev<cr>')
