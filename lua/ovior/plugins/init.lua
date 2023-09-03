@@ -1,10 +1,10 @@
 return {
   -- manages the indents
   {
-    'szw/vim-maximizer',
+    "szw/vim-maximizer",
     keys = {
-      {'<leader>m', '<cmd>MaximizerToggle<CR>'}
-    }
+      { "<leader>m", "<cmd>MaximizerToggle<CR>" },
+    },
   },
   {
     "stevearc/oil.nvim",
@@ -218,8 +218,8 @@ return {
     "voldikss/vim-floaterm",
     cmd = { "FloatermToggle", "FloatermKill", "FloatermNew" },
     config = function()
-      vim.g.floaterm_height = 0.4
-      vim.g.floaterm_wintype = "split"
+      vim.g.floaterm_height = 0.7
+      vim.g.floaterm_wintype = "float"
     end,
     keys = {
       { "<F1>", vim.cmd.FloatermToggle,               mode = "n" },
@@ -277,28 +277,64 @@ return {
   "vimwiki/vimwiki",
   {
     "nvim-lualine/lualine.nvim",
-    opts = {
-      options = {
-        theme = "rose-pine",
-        component_separators = "|",
-        section_separators = "",
-        icons_enabled = false,
-      },
-      sections = {
-        lualine_a = { "mode" },
-        lualine_b = {
-          {
-            "buffers",
+    opts = function()
+      local p = require("rose-pine.palette")
+
+      local theme = {
+        normal = {
+          a = { bg = p.rose, fg = p.base, gui = "bold" },
+          b = { bg = p.overlay, fg = p.rose },
+          c = { bg = "none", fg = p.text },
+        },
+        insert = {
+          a = { bg = p.foam, fg = p.base, gui = "bold" },
+          b = { bg = p.overlay, fg = p.foam },
+          c = { bg = "none", fg = p.text },
+        },
+        visual = {
+          a = { bg = p.iris, fg = p.base, gui = "bold" },
+          b = { bg = p.overlay, fg = p.iris },
+          c = { bg = "none", fg = p.text },
+        },
+        replace = {
+          a = { bg = p.pine, fg = p.base, gui = "bold" },
+          b = { bg = p.overlay, fg = p.pine },
+          c = { bg = "none", fg = p.text },
+        },
+        command = {
+          a = { bg = p.love, fg = p.base, gui = "bold" },
+          b = { bg = p.overlay, fg = p.love },
+          c = { bg = "none", fg = p.text },
+        },
+        inactive = {
+          a = { bg = p.base, fg = p.muted, gui = "bold" },
+          b = { bg = p.base, fg = p.muted },
+          c = { bg = "none", fg = p.muted },
+        },
+      }
+      return {
+        options = {
+          theme = theme,
+          component_separators = "|",
+          section_separators = "",
+          icons_enabled = false,
+        },
+        sections = {
+          lualine_a = { "mode" },
+          lualine_b = {
+            {
+              "buffers",
+            },
+          },
+          lualine_c = {
+            { "filename", path = 1 },
+            "branch",
+          },
+          lualine_x = {
+            "filetype",
           },
         },
-        lualine_c = {
-          { "filename", path = 1 },
-          "branch",
-        },
-        lualine_x = {
-          "filetype",
-        },
-      },
-    },
+      }
+    end,
   },
 }

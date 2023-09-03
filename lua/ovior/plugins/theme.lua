@@ -6,21 +6,28 @@ return {
     priority = 1000,
     lazy = false,
     config = function()
-      vim.cmd.colorscheme('rose-pine')
-      vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#ffffff' })
-      vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-      vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+      require("rose-pine").setup({
+        disable_background = true,
+        disable_float_background = true,
+        highlight_groups = {
+          CursorLine = { bg = "none" },
+          Normal = { bg = "none" },
+          NormalFloat = { bg = "none" },
+          CursorLineNr = { fg = "#ffffff" },
+        },
+      })
+      vim.cmd.colorscheme("rose-pine")
     end,
   },
   {
-    'stevearc/dressing.nvim',
-    opts = {}
+    "stevearc/dressing.nvim",
+    opts = {},
   },
   {
-    'dgagn/diagflow.nvim',
-    event = 'LspAttach',
+    "dgagn/diagflow.nvim",
+    event = "LspAttach",
     opts = {
-      scope = 'line',
+      scope = "line",
     },
-  }
+  },
 }
