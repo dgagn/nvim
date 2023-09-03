@@ -10,6 +10,7 @@ return {
       { "<c-n>", "<cmd>NeoTreeRevealToggle<cr>", desc = "Neotree toggle the tree" }
     },
     opts = {
+      enable_normal_mode_for_inputs = false,
       filesystem = {
         filtered_items = {
           hide_dotfiles = false,
@@ -27,5 +28,5 @@ return {
         }
       }
     }
-  }
+  },
 }

@@ -18,6 +18,43 @@ local M = {
       {
         'folke/neodev.nvim',
         opts = {}
+      },
+      {
+        "jose-elias-alvarez/null-ls.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        dependencies = { "mason.nvim" },
+        opts = function()
+          local nls = require("null-ls")
+          return {
+            root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
+            sources = {
+              nls.builtins.formatting.stylua,
+              nls.builtins.formatting.pint,
+              nls.builtins.diagnostics.eslint,
+              nls.builtins.formatting.prettier.with({
+                filetypes = {
+                  "javascript",
+                  "javascriptreact",
+                  "typescript",
+                  "typescriptreact",
+                  "vue",
+                  "css",
+                  "scss",
+                  "less",
+                  "html",
+                  "json",
+                  "jsonc",
+                  "yaml",
+                  "markdown",
+                  "markdown.mdx",
+                  "graphql",
+                  "handlebars",
+                  "astro"
+                }
+              }),
+            },
+          }
+        end,
       }
     },
     config = function()
@@ -34,6 +71,7 @@ local M = {
       map('n', ']d', vim.diagnostic.goto_next, 'Goto next diagnostic')
       map('n', 'gf', vim.diagnostic.open_float, 'Goto the float diagnostics')
       map('n', 'gF', require('telescope.builtin').diagnostics, 'Find all the float diagnostics')
+      map('n', '<leader>l', '<cmd>LspRestart<cr>', 'Restart the LSP');
 
       -- utils gotos
       map('n', 'gs', '^', 'Goto first non-blank in start')
@@ -66,6 +104,7 @@ local M = {
       local servers = {
         rust_analyzer = {},
         tsserver = {},
+        astro = {},
         clangd = {},
         lua_ls = {
           Lua = {

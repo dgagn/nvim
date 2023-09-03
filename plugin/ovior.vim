@@ -5,3 +5,4 @@ inoremap <c-j> <down>
 inoremap <c-k> <up>
 inoremap <c-l> <right>
 
+au FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o

@@ -1,62 +1,93 @@
 return {
   -- manages the indents
-  'tpope/vim-sleuth',
-  -- {'tpope/vim-unimpaired', event = "VeryLazy"},
-  {'tpope/vim-repeat', event = "VeryLazy"},
   {
-    'monkoose/matchparen.nvim',
-    opts = {}
+    "stevearc/oil.nvim",
+    opts = {},
+    -- Optional dependencies
+    dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   {
-    'mattn/emmet-vim',
-    ft = { "html", 'javascriptreact', 'typescriptreact' },
+    "ThePrimeagen/refactoring.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      require("refactoring").setup()
+    end,
+  },
+  "tpope/vim-sleuth",
+  { "tpope/vim-repeat", event = "VeryLazy" },
+  {
+    "folke/trouble.nvim",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    opts = {},
+    keys = {
+      { "<leader>tr", ":TroubleToggle<cr>", desc = "Show the diagnostic in a trouble dialog" },
+    },
   },
   {
-    'AndrewRadev/splitjoin.vim',
+    "monkoose/matchparen.nvim",
+    opts = {},
+  },
+  {
+    "mattn/emmet-vim",
+    ft = { "html", "astro", "javascriptreact", "typescriptreact" },
+  },
+  {
+    "AndrewRadev/splitjoin.vim",
     config = function()
       vim.g.splitjoin_html_attributes_bracket_on_new_line = 1
       vim.g.splitjoin_trailing_comma = 1
       vim.g.splitjoin_php_method_chain_full = 1
-    end
+    end,
   },
   {
     "christoomey/vim-tmux-navigator",
     keys = {
-      { '<C-h>', ':TmuxNavigateLeft<CR>',  desc = 'Move to the left tmux pane' },
-      { '<C-j>', ':TmuxNavigateDown<CR>',  desc = "Move to the down tmux pane" },
-      { '<C-k>', ':TmuxNavigateUp<CR>',    desc = "Move to the up tmux pane" },
-      { '<C-l>', ':TmuxNavigateRight<CR>', desc = "Move to the right tmux pane" },
-    }
+      { "<C-h>", ":TmuxNavigateLeft<CR>",  desc = "Move to the left tmux pane" },
+      { "<C-j>", ":TmuxNavigateDown<CR>",  desc = "Move to the down tmux pane" },
+      { "<C-k>", ":TmuxNavigateUp<CR>",    desc = "Move to the up tmux pane" },
+      { "<C-l>", ":TmuxNavigateRight<CR>", desc = "Move to the right tmux pane" },
+    },
   },
   {
-    'tpope/vim-fugitive',
+    "tpope/vim-fugitive",
     keys = {
-      { '<leader>gs', vim.cmd.Git, desc = 'Open git status' }
-    }
+      { "<leader>gs", vim.cmd.Git, desc = "Open git status" },
+    },
   },
   {
-    'folke/which-key.nvim',
+    "folke/which-key.nvim",
     opts = {
-      triggers = { '<leader>', 'g', '<c-w>' },
-    }
+      triggers = { "<leader>", "g", "<c-w>" },
+    },
   },
   {
-    'echasnovski/mini.bufremove',
-    event = 'VeryLazy',
+    "echasnovski/mini.bufremove",
+    event = "VeryLazy",
     opts = {},
     keys = {
-      { '<leader>x', function() require("mini.bufremove").delete(0, false) end, desc = "Delete the current buffer" }
-    }
+      {
+        "<leader>x",
+        function()
+          require("mini.bufremove").delete(0, false)
+        end,
+        desc = "Delete the current buffer",
+      },
+    },
+  },
+  {
+    "tpope/vim-surround",
+    event = "VeryLazy",
   },
   -- {
-  --   'tpope/vim-surround',
-  --   event = 'VeryLazy'
+  --   'echasnovski/mini.surround',
+  --   opts = {
+  --   }
   -- },
-  {
-    'echasnovski/mini.surround',
-    opts = {
-    }
-  },
   {
     "echasnovski/mini.comment",
     event = "VeryLazy",
@@ -69,52 +100,68 @@ return {
     },
   },
   {
-  'ThePrimeagen/harpoon',
-  opts = {},
-  event = 'VeryLazy',
-  keys = {
-    { '<leader>m', function() require('harpoon.mark').add_file() end,        desc = 'Mark the file' },
-    { '<c-e>',     function() require('harpoon.ui').toggle_quick_menu() end, desc = 'Open the harpoon quick menu' },
-    {
-      'g1',
-      function() require('harpoon.ui').nav_file(1) end,
-      desc =
-      'Goto the first file in the harpoon list'
-    },
-    {
-      'g2',
-      function() require('harpoon.ui').nav_file(2) end,
-      desc =
-      'Goto the second file in the harpoon list'
-    },
-    {
-      'g3',
-      function() require('harpoon.ui').nav_file(3) end,
-      desc =
-      'Goto the third file in the harpoon list'
-    },
-    {
-      'g4',
-      function() require('harpoon.ui').nav_file(4) end,
-      desc =
-      'Goto the fourth file in the harpoon list'
-    },
-  }
-},
-  {
-    'mbbill/undotree',
-    cmd = 'UndotreeToggle',
-    -- event = 'VeryLazy',
+    "ThePrimeagen/harpoon",
+    opts = {},
+    event = "VeryLazy",
     keys = {
-      { '<leader>u', vim.cmd.UndotreeToggle, desc = 'Open the undotree' }
+      {
+        "<leader>m",
+        function()
+          require("harpoon.mark").add_file()
+        end,
+        desc = "Mark the file",
+      },
+      {
+        "<c-e>",
+        function()
+          require("harpoon.ui").toggle_quick_menu()
+        end,
+        desc = "Open the harpoon quick menu",
+      },
+      {
+        "g1",
+        function()
+          require("harpoon.ui").nav_file(1)
+        end,
+        desc = "Goto the first file in the harpoon list",
+      },
+      {
+        "g2",
+        function()
+          require("harpoon.ui").nav_file(2)
+        end,
+        desc = "Goto the second file in the harpoon list",
+      },
+      {
+        "g3",
+        function()
+          require("harpoon.ui").nav_file(3)
+        end,
+        desc = "Goto the third file in the harpoon list",
+      },
+      {
+        "g4",
+        function()
+          require("harpoon.ui").nav_file(4)
+        end,
+        desc = "Goto the fourth file in the harpoon list",
+      },
     },
   },
+  -- {
+  --   "mbbill/undotree",
+  --   cmd = "UndotreeToggle",
+  --   -- event = 'VeryLazy',
+  --   keys = {
+  --     { "<leader>u", vim.cmd.UndotreeToggle, desc = "Open the undotree" },
+  --   },
+  -- },
   {
-    'echasnovski/mini.ai',
+    "echasnovski/mini.ai",
     event = "VeryLazy",
     dependencies = { "nvim-treesitter-textobjects" },
     opts = function()
-      local ai = require('mini.ai')
+      local ai = require("mini.ai")
 
       return {
         n_lines = 500,
@@ -125,25 +172,25 @@ return {
           }, {}),
           f = ai.gen_spec.treesitter({
             a = "@function.outer",
-            i = "@function.inner"
+            i = "@function.inner",
           }, {}),
           c = ai.gen_spec.treesitter({
             a = "@class.outer",
-            i = "@class.inner"
+            i = "@class.inner",
           }, {}),
           a = ai.gen_spec.treesitter({
             i = "@parameter.inner",
             a = "@parameter.outer",
           }, {}),
-        }
+        },
       }
     end,
-    config = function (_, opts)
-      require('mini.ai').setup(opts)
-    end
+    config = function(_, opts)
+      require("mini.ai").setup(opts)
+    end,
   },
   {
-    'nvim-pack/nvim-spectre',
+    "nvim-pack/nvim-spectre",
     cmd = "Spectre",
     opts = {
       open_cmd = "noswapfile vnew",
@@ -151,108 +198,111 @@ return {
     -- event = 'VeryLazy',
     keys = {
       {
-        '<leader>cr',
+        "<leader>cr",
         function()
-          require('spectre').open()
+          require("spectre").open()
         end,
-        desc = 'Show spectre'
-      }
-    }
+        desc = "Show spectre",
+      },
+    },
   },
   {
-    'mizlan/iswap.nvim',
-    cmd = {'ISwapWith', 'ISwapNodeWith'},
+    "mizlan/iswap.nvim",
+    cmd = { "ISwapWith", "ISwapNodeWith" },
     -- event = 'VeryLazy',
     opts = {
-      grey = 'disable',
+      grey = "disable",
     },
     keys = {
-      { '<leader>aa', vim.cmd.ISwapWith,     desc = 'Arrange the argument orders' },
-      { '<leader>an', vim.cmd.ISwapNodeWith, desc = 'Arrange the node orders' },
-    }
+      { "<leader>aa", vim.cmd.ISwapWith,     desc = "Arrange the argument orders" },
+      { "<leader>an", vim.cmd.ISwapNodeWith, desc = "Arrange the node orders" },
+    },
   },
   {
-    'voldikss/vim-floaterm',
-    cmd = { 'FloatermToggle', 'FloatermKill', 'FloatermNew' },
-    config = function ()
+    "voldikss/vim-floaterm",
+    cmd = { "FloatermToggle", "FloatermKill", "FloatermNew" },
+    config = function()
       vim.g.floaterm_height = 0.4
-      vim.g.floaterm_wintype = 'split'
+      vim.g.floaterm_wintype = "split"
     end,
     keys = {
-      { '<F1>', vim.cmd.FloatermToggle, mode = 'n' },
-      { '<F1>', '<esc><cmd>FloatermToggle<cr>', mode = 'i' },
-      { '<F1>', '<C-\\><C-n><cmd>FloatermToggle<cr>', mode = 't' },
-    }
+      { "<F1>", vim.cmd.FloatermToggle,               mode = "n" },
+      { "<F1>", "<esc><cmd>FloatermToggle<cr>",       mode = "i" },
+      { "<F1>", "<C-\\><C-n><cmd>FloatermToggle<cr>", mode = "t" },
+    },
   },
   {
-    'phpactor/phpactor',
-    ft = 'php',
+    "phpactor/phpactor",
+    ft = "php",
     build = "composer install --no-dev --optimize-autoloader",
-    config = function ()
-      vim.keymap.set('n', '<leader>pa', '<cmd>PhpactorContextMenu<cr>', { desc = "The php actor context menu" })
-    end
+    config = function()
+      vim.keymap.set("n", "<leader>pa", "<cmd>PhpactorContextMenu<cr>", { desc = "The php actor context menu" })
+    end,
   },
   {
-    'vim-test/vim-test',
-    config = function ()
-      vim.keymap.set('n', '<leader>tn', '<cmd>TestNearest<cr>', { desc = 'Test the nearest' })
-      vim.keymap.set('n', '<leader>tf', '<cmd>TestFile<cr>', { desc = 'Test the file' })
-      vim.keymap.set('n', '<leader>ts', '<cmd>TestSuite<cr>', { desc = 'Test the suite' })
-      vim.keymap.set('n', '<leader>tl', '<cmd>TestLast<cr>', { desc = 'Test the last test' })
-      vim.keymap.set('n', '<leader>tv', '<cmd>TestVisit<cr>', { desc = 'Visit test' })
+    "vim-test/vim-test",
+    config = function()
+      vim.keymap.set("n", "<leader>tn", "<cmd>TestNearest<cr>", { desc = "Test the nearest" })
+      vim.keymap.set("n", "<leader>tf", "<cmd>TestFile<cr>", { desc = "Test the file" })
+      vim.keymap.set("n", "<leader>ts", "<cmd>TestSuite<cr>", { desc = "Test the suite" })
+      vim.keymap.set("n", "<leader>tl", "<cmd>TestLast<cr>", { desc = "Test the last test" })
+      vim.keymap.set("n", "<leader>tv", "<cmd>TestVisit<cr>", { desc = "Visit test" })
 
       vim.cmd([[
         let test#strategy = 'neovim'
       ]])
-    end
+    end,
   },
   {
-    'ggandor/flit.nvim',
+    "ggandor/flit.nvim",
     enabled = true,
-    keys = function ()
+    keys = function()
       local ret = {}
       for _, key in ipairs({ "f", "F", "t", "T" }) do
         ret[#ret + 1] = { key, mode = { "n", "x", "o" }, desc = key }
       end
       return ret
     end,
+    dependencies = {
+      "ggandor/leap.nvim",
+    },
     opts = {
-      labeled_modes = 'nx',
-      multiline = false
-    }
+      labeled_modes = "nx",
+      multiline = false,
+    },
   },
   {
-    'tpope/vim-projectionist',
-    dependencies = 'tpope/vim-dispatch',
-    config = function ()
-      require('ovior.configs.projectionist')
+    "tpope/vim-projectionist",
+    dependencies = "tpope/vim-dispatch",
+    config = function()
+      require("ovior.configs.projectionist")
     end,
   },
-  'vimwiki/vimwiki',
+  "vimwiki/vimwiki",
   {
-    'nvim-lualine/lualine.nvim',
+    "nvim-lualine/lualine.nvim",
     opts = {
       options = {
-        theme = 'rose-pine',
-        component_separators = '|',
-        section_separators = '',
+        theme = "rose-pine",
+        component_separators = "|",
+        section_separators = "",
         icons_enabled = false,
       },
       sections = {
         lualine_a = { "mode" },
         lualine_b = {
           {
-            'buffers',
-          }
+            "buffers",
+          },
         },
         lualine_c = {
           { "filename", path = 1 },
-          "branch"
+          "branch",
         },
         lualine_x = {
-          'filetype'
-        }
-      }
-    }
+          "filetype",
+        },
+      },
+    },
   },
 }

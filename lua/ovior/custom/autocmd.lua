@@ -26,6 +26,7 @@ function M.setup()
     pattern = {
       "PlenaryTestPopup",
       "help",
+      "oil",
       "lspinfo",
       "man",
       "notify",

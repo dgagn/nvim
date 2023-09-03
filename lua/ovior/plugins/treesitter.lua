@@ -11,10 +11,14 @@ return {
           require('lazy.core.loader').disable_rtp_plugin('nvim-treesitter-textobjects')
         end
       },
-      {
-        'windwp/nvim-ts-autotag',
-        opts = {}
-      },
+      -- {
+      --   'windwp/nvim-ts-autotag',
+      --   opts = {
+      --     enable = true,
+      --     enable_rename = true,
+      --     enable_close_on_slash = false,
+      --   }
+      -- },
       {
         'nvim-treesitter/playground',
         cmd = 'TSPlaygroundToggle',

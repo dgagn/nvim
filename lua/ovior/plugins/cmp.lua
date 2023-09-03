@@ -1,12 +1,5 @@
 local M = {
   {
-    'windwp/nvim-autopairs',
-    config = function ()
-      local np = require('nvim-autopairs')
-      np.setup()
-    end
-  },
-  {
     'hrsh7th/nvim-cmp',
     dependencies = {
       -- snippets and cmp
@@ -23,17 +16,10 @@ local M = {
 
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
-      'windwp/nvim-autopairs',
     },
     event = 'InsertEnter',
     opts = function()
       local cmp = require('cmp')
-      local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-
-      cmp.event:on(
-        'confirm_done',
-        cmp_autopairs.on_confirm_done()
-      )
 
       return {
         completion = {
@@ -68,6 +54,7 @@ local M = {
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "luasnip" },
+          -- { name = "copilot" },
           { name = "path" },
           { name = "nvim_lsp_signature_help" },
         }, {
@@ -116,7 +103,7 @@ local M = {
             return '<space>'
           end
 
-          if vim.bo.filetype ~= "html" and vim.bo.filetype ~= "javascriptreact" and vim.bo.filetype ~= "typescriptreact" then
+          if vim.bo.filetype ~= "html" and vim.bo.filetype ~= "astro" and vim.bo.filetype ~= "javascriptreact" and vim.bo.filetype ~= "typescriptreact" then
             return '<tab>'
           end
 
@@ -129,12 +116,6 @@ local M = {
             -- If there's no last word, return false
             if not last_word then return false end
 
-            -- Check if the last word is camel case (contains an uppercase letter after a lowercase letter)
-            if string.find(last_word, "%l%u") then return false end
-
-            -- Check if the last word contains a digit
-            if string.find(last_word, "[^%*=@%-]%d") then return false end
-
             -- If it passed all the checks, return true
             return true
           end
@@ -142,7 +123,7 @@ local M = {
           local ts = require 'nvim-treesitter.ts_utils'
 
           local node_cursor = ts.get_node_at_cursor():type()
-          local is_valid_jsx = vim.bo.filetype == "html" or
+          local is_valid_jsx = vim.bo.filetype == "astro" or vim.bo.filetype == "html" or
               (node_cursor == "statement_block" or node_cursor == "jsx_element" or node_cursor == "parenthesized_expression")
 
           if not last_word_valid(content, col) then
@@ -166,21 +147,12 @@ local M = {
           local content = vim.api.nvim_get_current_line()
           local character_before = content:sub(col, col)
 
+
           if vim.bo.filetype ~= "html" and vim.bo.filetype ~= "javascriptreact" and vim.bo.filetype ~= "typescriptreact" then
             return '<tab>'
           end
 
-          local ts = require 'nvim-treesitter.ts_utils'
-
-          local node_cursor = ts.get_node_at_cursor():type()
-          local is_valid_jsx = vim.bo.filetype == "html" or
-              (node_cursor == "statement_block" or node_cursor == "jsx_element" or node_cursor == "parenthesized_expression" or node_cursor == "jsx_text")
-
-          if character_before ~= nil and character_before ~= " " and is_valid_jsx then
-            return '<Plug>(emmet-expand-abbr)'
-          end
-
-          return '<tab>'
+          return '<Plug>(emmet-expand-abbr)'
         end,
         expr = true,
         silent = true,
@@ -202,6 +174,27 @@ local M = {
       },
     }
   },
+  {
+    'zbirenbaum/copilot.lua',
+    event = 'InsertEnter',
+    opts = {
+      suggestion = {
+        enable = false
+      },
+      panel = {
+        enable = false
+      }
+    },
+    config = function(_, opts)
+      require('copilot').setup(opts)
+    end
+  },
+  {
+    'zbirenbaum/copilot-cmp',
+    config = function()
+      require('copilot_cmp').setup()
+    end,
+  }
 }
 
 return M
