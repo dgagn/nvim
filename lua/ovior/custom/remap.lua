@@ -82,6 +82,7 @@ function M.setup()
 
   map("n", "<leader>rb", ":Refactor extract_block")
   map("n", "<leader>rbf", ":Refactor extract_block_to_file")
+  map("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
 end
 
 return M

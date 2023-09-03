@@ -1,20 +1,16 @@
 return {
   -- manages the indents
   {
+    'szw/vim-maximizer',
+    keys = {
+      {'<leader>m', '<cmd>MaximizerToggle<CR>'}
+    }
+  },
+  {
     "stevearc/oil.nvim",
     opts = {},
     -- Optional dependencies
     dependencies = { "nvim-tree/nvim-web-devicons" },
-  },
-  {
-    "ThePrimeagen/refactoring.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-    },
-    config = function()
-      require("refactoring").setup()
-    end,
   },
   "tpope/vim-sleuth",
   { "tpope/vim-repeat", event = "VeryLazy" },
@@ -105,7 +101,7 @@ return {
     event = "VeryLazy",
     keys = {
       {
-        "<leader>m",
+        "<leader>aa",
         function()
           require("harpoon.mark").add_file()
         end,
