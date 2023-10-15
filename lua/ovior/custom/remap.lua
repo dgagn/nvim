@@ -3,7 +3,7 @@ local M = {}
 local map = vim.keymap.set
 
 function M.setup()
-  map("n", "s", "<nop>", { silent = true })
+  -- map("n", "s", "<nop>", { silent = true })
   map({ "n", "v" }, "<space>", "<nop>", { silent = true })
 
   map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -66,6 +66,9 @@ function M.setup()
   map("n", "gp", "<cmd>:bprev<cr>")
   map("n", "g$", "<cmd>:blast<cr>")
   map("n", "g^", "<cmd>:bfirst<cr>")
+
+  map("i", "<c-f>", "<Plug>luasnip-jump-next", { silent = true })
+  map("s", "<c-f>", "<Plug>luasnip-jump-next", { silent = true })
 
   map("n", "<c-c>", "<esc>")
 

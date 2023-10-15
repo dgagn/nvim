@@ -53,8 +53,10 @@ function M.setup()
 
   vim.opt.backspace = 'indent,eol,start'
 
+  vim.opt.autoread = true
+
   vim.diagnostic.config({
-    virtual_text = false,
+    virtual_text = true,
     float = {
       source = true
     }

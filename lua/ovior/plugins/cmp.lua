@@ -1,36 +1,33 @@
 local M = {
   {
-    'hrsh7th/nvim-cmp',
+    "hrsh7th/nvim-cmp",
     dependencies = {
       -- snippets and cmp
-      'L3MON4D3/LuaSnip',
-      'saadparwaiz1/cmp_luasnip',
-      'hrsh7th/cmp-nvim-lsp-signature-help',
+      "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
+      "hrsh7th/cmp-nvim-lsp-signature-help",
 
       -- buffer and path
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-path',
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
 
       -- Adds LSP completion capabilities
-      'hrsh7th/cmp-nvim-lsp',
+      "hrsh7th/cmp-nvim-lsp",
 
       -- Adds a number of user-friendly snippets
-      'rafamadriz/friendly-snippets',
+      "rafamadriz/friendly-snippets",
     },
-    event = 'InsertEnter',
+    event = "InsertEnter",
     opts = function()
-      local cmp = require('cmp')
+      local cmp = require("cmp")
 
       return {
         completion = {
-          completeopt = 'menu,menuone,noinsert',
-        },
-        experimental = {
-          ghost_text = true,
+          completeopt = "menu,menuone,noinsert",
         },
         snippet = {
           expand = function(args)
-            local luasnip = require('luasnip')
+            local luasnip = require("luasnip")
             if not luasnip then
               return
             end
@@ -49,26 +46,26 @@ local M = {
             else
               fallback()
             end
-          end, { "i", "s", "c", }),
+          end, { "i", "s", "c" }),
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "luasnip" },
-          -- { name = "copilot" },
           { name = "path" },
           { name = "nvim_lsp_signature_help" },
         }, {
-          { name = 'buffer' }
+          { name = "buffer" },
         }),
       }
-    end
+    end,
   },
   {
-    'L3MON4D3/LuaSnip',
-    after = 'nvim-cmp',
+    "L3MON4D3/LuaSnip",
+    after = "nvim-cmp",
     config = function()
-      local types = require('luasnip.util.types')
-      require('luasnip').config.set_config({
+      local types = require("luasnip.util.types")
+
+      require("luasnip").config.set_config({
         updateevents = "TextChanged,TextChangedI",
         enable_autosnippets = true,
         history = false,
@@ -76,19 +73,19 @@ local M = {
           [types.choiceNode] = {
             active = {
               virt_text = { { "← Current choice", "Comment" } },
-            }
-          }
-        }
+            },
+          },
+        },
       })
-      require('luasnip.loaders.from_lua').lazy_load({ paths = "~/.config/nvim/snips" })
-      require('luasnip.loaders.from_snipmate').lazy_load()
+
+      require("luasnip.loaders.from_snipmate").lazy_load()
     end,
     keys = {
       {
-        '<tab>',
+        "<tab>",
         function()
-          if require('luasnip').expand_or_locally_jumpable() then
-            return '<Plug>luasnip-expand-or-jump'
+          if require("luasnip").expandable() then
+            return "<Plug>luasnip-expand-snippet"
           end
 
           local _, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -96,15 +93,20 @@ local M = {
           local character_before = content:sub(col, col)
 
           if character_before == "n" and content:sub(col - 5) == "return" then
-            return '<space>'
+            return "<space>"
           end
 
           if character_before == "f" and content:sub(col - 1) == "if" then
-            return '<space>'
+            return "<space>"
           end
 
-          if vim.bo.filetype ~= "html" and vim.bo.filetype ~= "astro" and vim.bo.filetype ~= "javascriptreact" and vim.bo.filetype ~= "typescriptreact" then
-            return '<tab>'
+          if
+              vim.bo.filetype ~= "html"
+              and vim.bo.filetype ~= "astro"
+              and vim.bo.filetype ~= "javascriptreact"
+              and vim.bo.filetype ~= "typescriptreact"
+          then
+            return "<tab>"
           end
 
           local function last_word_valid(line, col)
@@ -114,87 +116,101 @@ local M = {
             local _, _, last_word = string.find(line_before_cursor, "([^%s]+)%s*$")
 
             -- If there's no last word, return false
-            if not last_word then return false end
+            if not last_word then
+              return false
+            end
 
             -- If it passed all the checks, return true
             return true
           end
 
-          local ts = require 'nvim-treesitter.ts_utils'
+          local ts = require("nvim-treesitter.ts_utils")
 
           local node_cursor = ts.get_node_at_cursor():type()
-          local is_valid_jsx = vim.bo.filetype == "astro" or vim.bo.filetype == "html" or
-              (node_cursor == "statement_block" or node_cursor == "jsx_element" or node_cursor == "parenthesized_expression")
+          local is_valid_jsx = vim.bo.filetype == "astro"
+              or vim.bo.filetype == "html"
+              or (
+                node_cursor == "statement_block"
+                or node_cursor == "jsx_element"
+                or node_cursor == "parenthesized_expression"
+              )
 
           if not last_word_valid(content, col) then
-            return '<tab>'
+            return "<tab>"
           end
 
           if character_before ~= nil and character_before ~= " " and is_valid_jsx then
-            return '<Plug>(emmet-expand-abbr)'
+            return "<Plug>(emmet-expand-abbr)"
           end
 
-          return '<tab>'
+          return "<tab>"
         end,
         expr = true,
         silent = true,
-        mode = { 'i', 's' }
+        mode = { "i", "s" },
       },
       {
-        '<tab>',
+        "<tab>",
         function()
           local _, col = unpack(vim.api.nvim_win_get_cursor(0))
           local content = vim.api.nvim_get_current_line()
           local character_before = content:sub(col, col)
 
-
-          if vim.bo.filetype ~= "html" and vim.bo.filetype ~= "javascriptreact" and vim.bo.filetype ~= "typescriptreact" then
-            return '<tab>'
+          if
+              vim.bo.filetype ~= "html"
+              and vim.bo.filetype ~= "javascriptreact"
+              and vim.bo.filetype ~= "typescriptreact"
+          then
+            return "<tab>"
           end
 
-          return '<Plug>(emmet-expand-abbr)'
+          return "<Plug>(emmet-expand-abbr)"
         end,
         expr = true,
         silent = true,
-        mode = { 'v' }
+        mode = { "v" },
       },
       {
-        '<s-tab>',
+        "<s-tab>",
         function()
-          local ls = require('luasnip')
+          local ls = require("luasnip")
           if ls.jumpable(-1) then
             ls.jump(-1)
           end
 
-          return '<c-d>'
+          return "<c-d>"
         end,
         silent = true,
         expr = true,
-        mode = { 'i', 's' }
+        mode = { "i", "s" },
       },
-    }
+    },
   },
   {
-    'zbirenbaum/copilot.lua',
-    event = 'InsertEnter',
+    "zbirenbaum/copilot.lua",
+    event = "InsertEnter",
     opts = {
       suggestion = {
-        enable = false
+        enable = true,
+        auto_trigger = true,
+        keymap = {
+          accept = "<c-u>",
+        },
       },
       panel = {
-        enable = false
-      }
+        enable = false,
+      },
     },
     config = function(_, opts)
-      require('copilot').setup(opts)
-    end
-  },
-  {
-    'zbirenbaum/copilot-cmp',
-    config = function()
-      require('copilot_cmp').setup()
+      require("copilot").setup(opts)
     end,
-  }
+  },
+  -- {
+  --   'zbirenbaum/copilot-cmp',
+  --   config = function()
+  --     require('copilot_cmp').setup()
+  --   end,
+  -- }
 }
 
 return M

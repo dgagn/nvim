@@ -15,27 +15,30 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 function M.setup()
-  local lazy = require('lazy')
-  local yank = require('ovior.custom.yank')
-  local set = require('ovior.custom.set')
-  local remap = require('ovior.custom.remap')
-  local aucmd = require('ovior.custom.autocmd')
+  local lazy = require("lazy")
+  local yank = require("ovior.custom.yank")
+  local set = require("ovior.custom.set")
+  local remap = require("ovior.custom.remap")
+  local aucmd = require("ovior.custom.autocmd")
 
   yank.setup()
   set.setup()
   remap.setup()
   aucmd.setup()
+
   lazy.setup({
     -- import my plugins in the plugins folder
     spec = {
-      { import = 'ovior.plugins' },
+      { import = "ovior.plugins" },
     },
     install = {
-      colorscheme = { 'rose-pine' }
+      colorscheme = { "rose-pine" },
     },
     -- please don't autoupdate plugins
     checker = { enable = false },
   })
+
+  local laravel = require("ovior.custom.laravel")
 end
 
 return M

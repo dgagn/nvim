@@ -215,18 +215,31 @@ return {
     },
   },
   {
-    "voldikss/vim-floaterm",
-    cmd = { "FloatermToggle", "FloatermKill", "FloatermNew" },
-    config = function()
-      vim.g.floaterm_height = 0.7
-      vim.g.floaterm_wintype = "float"
-    end,
+    "akinsho/toggleterm.nvim",
+    version = "*",
+    config = true,
+    opts = {
+      start_in_insert = false,
+    },
     keys = {
-      { "<F1>", vim.cmd.FloatermToggle,               mode = "n" },
-      { "<F1>", "<esc><cmd>FloatermToggle<cr>",       mode = "i" },
-      { "<F1>", "<C-\\><C-n><cmd>FloatermToggle<cr>", mode = "t" },
+      { "<F1>", "<cmd>ToggleTerm<cr>i",               mode = "n" },
+      { "<F1>", "<esc><cmd>ToggleTerm<cr>",       mode = "i" },
+      { "<F1>", "<C-\\><C-n><cmd>ToggleTerm<cr>", mode = "t" },
     },
   },
+  -- {
+  --   "voldikss/vim-floaterm",
+  --   cmd = { "FloatermToggle", "FloatermKill", "FloatermNew" },
+  --   config = function()
+  --     vim.g.floaterm_height = 0.7
+  --     vim.g.floaterm_wintype = "float"
+  --   end,
+  --   keys = {
+  --     { "<F1>", vim.cmd.FloatermToggle,               mode = "n" },
+  --     { "<F1>", "<esc><cmd>FloatermToggle<cr>",       mode = "i" },
+  --     { "<F1>", "<C-\\><C-n><cmd>FloatermToggle<cr>", mode = "t" },
+  --   },
+  -- },
   {
     "phpactor/phpactor",
     ft = "php",
@@ -266,6 +279,12 @@ return {
       labeled_modes = "nx",
       multiline = false,
     },
+  },
+  {
+    'ggandor/leap.nvim',
+    config = function()
+      require('leap').add_default_mappings()
+    end
   },
   {
     "tpope/vim-projectionist",
