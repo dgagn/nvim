@@ -3,8 +3,13 @@ local M = {}
 local map = vim.keymap.set
 
 function M.setup()
-  -- map("n", "s", "<nop>", { silent = true })
+  map("n", "s", "<nop>", { silent = true })
+  map("n", "<c-b>", "<nop>", { silent = true })
+  map("i", "<c-b>", "<nop>", { silent = true })
   map({ "n", "v" }, "<space>", "<nop>", { silent = true })
+
+  map("n", "<leader>;", "maA;<esc>`a", { desc = "Add a semicolon at the end of the line" })
+  map("n", "<leader>,", "maA,<esc>`a", { desc = "Add a comma at the end of the line" })
 
   map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
   map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
@@ -33,9 +38,6 @@ function M.setup()
   map("i", "<M-Left>", "<C-o>b")
   map("i", "<S-Tab>", "<C-d>")
 
-  map("i", "<c-a>", "<c-o>A", { desc = "Goto the end of the line", silent = true })
-  map("n", "<c-a>", "A", { desc = "Goto the end of the line", silent = true })
-
   map("i", "<c-i>", "<c-o>I", { desc = "Goto the start of the line" })
   map("n", "<c-i>", "I", { desc = "Goto the start of the line" })
 
@@ -44,14 +46,14 @@ function M.setup()
   map("v", "O", "o<Esc>a", { silent = true })
 
   -- c-;
-  map("i", "<f25>", "<esc>A,")
-  -- c-,
-  map("i", "<f26>", "<esc>A;")
+  -- map("i", "<f25>", "<esc>A,")
+  -- -- c-,
+  -- map("i", "<f26>", "<esc>A;")
 
   -- c-;
-  map("n", "<f25>", "<esc>A,")
-  -- c-,
-  map("n", "<f26>", "<esc>A;")
+  -- map("n", "<f25>", "<esc>A,")
+  -- -- c-,
+  -- map("n", "<f26>", "<esc>A;")
 
   map("n", "<leader>O", "O<Esc>j", { desc = "Add an empty line above" })
   map("n", "<leader>o", "o<Esc>k")

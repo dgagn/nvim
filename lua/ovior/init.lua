@@ -37,8 +37,6 @@ function M.setup()
     -- please don't autoupdate plugins
     checker = { enable = false },
   })
-
-  local laravel = require("ovior.custom.laravel")
 end
 
 return M

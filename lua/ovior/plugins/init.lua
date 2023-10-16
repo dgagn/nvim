@@ -79,11 +79,6 @@ return {
     "tpope/vim-surround",
     event = "VeryLazy",
   },
-  -- {
-  --   'echasnovski/mini.surround',
-  --   opts = {
-  --   }
-  -- },
   {
     "echasnovski/mini.comment",
     event = "VeryLazy",
@@ -144,14 +139,6 @@ return {
       },
     },
   },
-  -- {
-  --   "mbbill/undotree",
-  --   cmd = "UndotreeToggle",
-  --   -- event = 'VeryLazy',
-  --   keys = {
-  --     { "<leader>u", vim.cmd.UndotreeToggle, desc = "Open the undotree" },
-  --   },
-  -- },
   {
     "echasnovski/mini.ai",
     event = "VeryLazy",
@@ -191,7 +178,6 @@ return {
     opts = {
       open_cmd = "noswapfile vnew",
     },
-    -- event = 'VeryLazy',
     keys = {
       {
         "<leader>cr",
@@ -205,7 +191,6 @@ return {
   {
     "mizlan/iswap.nvim",
     cmd = { "ISwapWith", "ISwapNodeWith" },
-    -- event = 'VeryLazy',
     opts = {
       grey = "disable",
     },
@@ -227,19 +212,6 @@ return {
       { "<F1>", "<C-\\><C-n><cmd>ToggleTerm<cr>", mode = "t" },
     },
   },
-  -- {
-  --   "voldikss/vim-floaterm",
-  --   cmd = { "FloatermToggle", "FloatermKill", "FloatermNew" },
-  --   config = function()
-  --     vim.g.floaterm_height = 0.7
-  --     vim.g.floaterm_wintype = "float"
-  --   end,
-  --   keys = {
-  --     { "<F1>", vim.cmd.FloatermToggle,               mode = "n" },
-  --     { "<F1>", "<esc><cmd>FloatermToggle<cr>",       mode = "i" },
-  --     { "<F1>", "<C-\\><C-n><cmd>FloatermToggle<cr>", mode = "t" },
-  --   },
-  -- },
   {
     "phpactor/phpactor",
     ft = "php",
@@ -262,30 +234,30 @@ return {
       ]])
     end,
   },
-  {
-    "ggandor/flit.nvim",
-    enabled = true,
-    keys = function()
-      local ret = {}
-      for _, key in ipairs({ "f", "F", "t", "T" }) do
-        ret[#ret + 1] = { key, mode = { "n", "x", "o" }, desc = key }
-      end
-      return ret
-    end,
-    dependencies = {
-      "ggandor/leap.nvim",
-    },
-    opts = {
-      labeled_modes = "nx",
-      multiline = false,
-    },
-  },
-  {
-    'ggandor/leap.nvim',
-    config = function()
-      require('leap').add_default_mappings()
-    end
-  },
+  -- {
+  --   "ggandor/flit.nvim",
+  --   enabled = true,
+  --   keys = function()
+  --     local ret = {}
+  --     for _, key in ipairs({ "f", "F", "t", "T" }) do
+  --       ret[#ret + 1] = { key, mode = { "n", "x", "o" }, desc = key }
+  --     end
+  --     return ret
+  --   end,
+  --   dependencies = {
+  --     "ggandor/leap.nvim",
+  --   },
+  --   opts = {
+  --     labeled_modes = "nx",
+  --     multiline = false,
+  --   },
+  -- },
+  -- {
+  --   'ggandor/leap.nvim',
+  --   config = function()
+  --     require('leap').add_default_mappings()
+  --   end
+  -- },
   {
     "tpope/vim-projectionist",
     dependencies = "tpope/vim-dispatch",

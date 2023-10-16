@@ -19,6 +19,8 @@ local M = {
         "folke/neodev.nvim",
         opts = {},
       },
+      "rust-lang/rust.vim",
+      "simrat39/rust-tools.nvim",
       {
         "jose-elias-alvarez/null-ls.nvim",
         event = { "BufReadPre", "BufNewFile" },
@@ -71,6 +73,7 @@ local M = {
       map("n", "]d", vim.diagnostic.goto_next, "Goto next diagnostic")
       map("n", "gf", vim.diagnostic.open_float, "Goto the float diagnostics")
       map("n", "gF", require("telescope.builtin").diagnostics, "Find all the float diagnostics")
+
       map("n", "<leader>l", "<cmd>LspRestart<cr>", "Restart the LSP")
 
       -- utils gotos
@@ -104,7 +107,7 @@ local M = {
       end
 
       local servers = {
-        rust_analyzer = {},
+        -- rust_analyzer = {},
         tsserver = {},
         astro = {},
         clangd = {},
@@ -121,6 +124,62 @@ local M = {
         },
         jdtls = {},
       }
+
+      require("rust-tools").setup({
+        tools = {
+          autoSetHints = true,
+          inlay_hints = {
+            auto = false,
+            only_current_line = false,
+            show_parameter_hints = true,
+            parameter_hints_prefix = "<- ",
+            other_hints_prefix = "=> ",
+            max_len_align = false,
+            max_len_align_padding = 1,
+            right_align = false,
+            right_align_padding = 7,
+            highlight = "Comment",
+          },
+        },
+        server = {
+          on_attach = on_attach,
+          flags = {
+            debounce_text_changes = 150,
+          },
+          capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+          settings = {
+            ["rust-analyzer"] = {
+              cargo = {
+                allFeatures = true,
+                autoreload = true,
+                runBuildScripts = true,
+              },
+              checkOnSave = {
+                command = "clippy",
+                enable = true,
+              },
+              completion = {
+                autoimport = {
+                  enable = true,
+                },
+                postfix = {
+                  enable = false,
+                },
+              },
+              diagnostics = {
+                disabled = { "macro-error" },
+              },
+              procMacro = {
+                enable = true,
+              },
+              rustcSource = "discover",
+              updates = {
+                channel = "nightly",
+              },
+            },
+          },
+        },
+      })
 
       local lspconfig = require("lspconfig")
       local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -142,10 +201,6 @@ local M = {
         end,
       })
     end,
-  },
-  {
-    "mfussenegger/nvim-jdtls",
-    ft = "java",
   },
 }
 

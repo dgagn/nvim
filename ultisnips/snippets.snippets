@@ -1,0 +1,18 @@
+snippet snip "snippet definition"
+`!p snip.rv = "snippet"` ${1:tab_trigger} "${2:description}"
+$0
+`!p snip.rv = "endsnippet"`
+endsnippet
+
+
+snippet global "Global snippet" !
+`!p snip.rv = "global"` !p
+$0
+`!p snip.rv = "endglobal"`
+endsnippet
+
+snippet vis "${VISUAL}" i
+\$\{VISUAL${1:${2:default}${3:/transform/}}\}
+endsnippet
+
+# vim:ft=snippets:
