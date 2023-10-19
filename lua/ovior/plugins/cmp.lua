@@ -49,7 +49,7 @@ local M = {
           -- { name = "luasnip" },
           { name = "path" },
           { name = "nvim_lsp_signature_help" },
-          { name = 'ultisnips' }
+          { name = "ultisnips" },
         }, {
           { name = "buffer" },
         }),
@@ -57,8 +57,8 @@ local M = {
     end,
   },
   {
-    'SirVer/ultisnips',
-    after = 'nvim-cmp',
+    "SirVer/ultisnips",
+    after = "nvim-cmp",
   },
   -- {
   --   "L3MON4D3/LuaSnip",
@@ -196,6 +196,9 @@ local M = {
         auto_trigger = true,
         keymap = {
           accept = "<c-u>",
+          next = "<c-g>",
+          prev = "<c-f>",
+          dismiss = "<c-e>",
         },
       },
       panel = {

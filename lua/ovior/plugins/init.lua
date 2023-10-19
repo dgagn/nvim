@@ -1,17 +1,11 @@
 return {
   -- manages the indents
-  {
-    "szw/vim-maximizer",
-    keys = {
-      { "<leader>m", "<cmd>MaximizerToggle<CR>" },
-    },
-  },
-  {
-    "stevearc/oil.nvim",
-    opts = {},
-    -- Optional dependencies
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-  },
+  -- {
+  --   "szw/vim-maximizer",
+  --   keys = {
+  --     { "<leader>m", "<cmd>MaximizerToggle<CR>" },
+  --   },
+  -- },
   "tpope/vim-sleuth",
   { "tpope/vim-repeat", event = "VeryLazy" },
   {
@@ -96,42 +90,42 @@ return {
     event = "VeryLazy",
     keys = {
       {
-        "<leader>aa",
+        "<leader>m",
         function()
           require("harpoon.mark").add_file()
         end,
         desc = "Mark the file",
       },
       {
-        "<c-e>",
+        "<leader>e",
         function()
           require("harpoon.ui").toggle_quick_menu()
         end,
         desc = "Open the harpoon quick menu",
       },
       {
-        "g1",
+        "<leader>1",
         function()
           require("harpoon.ui").nav_file(1)
         end,
         desc = "Goto the first file in the harpoon list",
       },
       {
-        "g2",
+        "<leader>2",
         function()
           require("harpoon.ui").nav_file(2)
         end,
         desc = "Goto the second file in the harpoon list",
       },
       {
-        "g3",
+        "<leader>3",
         function()
           require("harpoon.ui").nav_file(3)
         end,
         desc = "Goto the third file in the harpoon list",
       },
       {
-        "g4",
+        "<leader>4",
         function()
           require("harpoon.ui").nav_file(4)
         end,

@@ -82,13 +82,9 @@ endsnippet
 snippet tests "test module"
 #[cfg(test)]
 mod tests {
-    #[allow(unused_imports)]
+    #![allow(unused_imports)]
     use super::*;
-
-    #[test]
-    fn test() {
-        assert_eq!(1, 1);
-    }
+    $0
 }
 endsnippet
 
@@ -302,7 +298,7 @@ impl<S> Layer<S> for $0 {
 endsnippet
 
 snippet al
-#[allow($0)]
+#![allow($0)]
 endsnippet
 
 snippet all
@@ -396,6 +392,12 @@ fn $1($2) -> $3 {
 }
 endsnippet
 
+snippet afn "function"
+async fn $1($2) {
+    $0
+}
+endsnippet
+
 snippet afnr "function"
 async fn $1($2) -> $3 {
     $0
@@ -409,5 +411,60 @@ impl std::ops::Deref for $1 {
     fn deref(&self) -> &Self::Target {
         &self.$0
     }
+}
+endsnippet
+
+snippet error "error"
+#[error($1)]
+endsnippet
+
+snippet eer "error"
+#[derive(Debug, thiserror::Error)]
+enum $1 {
+    $2
+}
+endsnippet
+
+snippet rule "add a rule"
+use crate::validation::{Validation, ValidationError};
+
+pub trait $1Rule<'a, T>
+{
+    fn $2(self) -> Validation<'a, T>;
+}
+
+impl<'a, T> $1Rule<'a, T> for Validation<'a, T>
+{
+    fn $2(mut self) -> Validation<'a, T> {
+        $0
+        self
+    }
+}
+endsnippet
+
+snippet handler "handler"
+use crate::prelude::*;
+use axum::extract::FromRequest;
+use serde::Deserialize;
+
+use crate::extractor::ValidatedJson;
+
+#[derive(Debug, Deserialize, FromRequest)]
+#[from_request(via(ValidatedJson))]
+pub struct $1Request {
+}
+
+validate_for!($1Request {
+});
+
+#[tracing::instrument(
+    name = "$2 handler",
+    skip(),
+)]
+pub async fn $2_handler(
+    body: $1Request,
+) -> AppResult<()> {
+    tracing::info!("body: {:?}", body);
+    Ok(())
 }
 endsnippet

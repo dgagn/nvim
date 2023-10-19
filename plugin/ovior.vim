@@ -28,7 +28,47 @@ let g:completion_matching_smart_case = 1
 let g:UltiSnipsEditSplit = 'horizontal'
 let g:UltiSnipsSnippetDirectories = ["ultisnips"]
 
-let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<nop>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+nnoremap <leader>lD <cmd>Telescope diagnostics severity=error<cr>
+nnoremap <leader>ld <cmd>Telescope diagnostics<cr>
+
+let g:htmllike_filetypes = ['html', 'astro', 'javascriptreact', 'typescriptreact']
+
+function! IsHTMLLikeFiletype()
+  for type in g:htmllike_filetypes
+    if &filetype == type
+      return 1
+    endif
+  endfor
+  return 0
+endfunction
+
+function! TabExpandFunc()
+  " Check if an UltiSnips snippet is expandable or if we can jump forwards in a snippet
+  if UltiSnips#CanExpandSnippet() || UltiSnips#CanJumpForwards()
+    return "\<C-R>=UltiSnips#ExpandSnippet()\<CR>"
+  endif
+
+  if IsHTMLLikeFiletype()
+      return "\<Plug>(emmet-expand-abbr)"
+  endif
+
+    return "\<tab>"
+endfunction
+
+function! TabExpandFuncVisual()
+  " Add the conditions for visual mode here similar to the above function
+  " For now, I'll add the emmet condition based on filetype
+  if IsHTMLLikeFiletype()
+    return "\<Plug>(emmet-expand-abbr)"
+  endif
+
+  return "\<tab>"
+endfunction
+
+inoremap <silent><expr> <tab> TabExpandFunc()
+xnoremap <silent><expr> <tab> TabExpandFuncVisual()
 

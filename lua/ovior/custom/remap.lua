@@ -45,15 +45,7 @@ function M.setup()
 
   map("v", "O", "o<Esc>a", { silent = true })
 
-  -- c-;
-  -- map("i", "<f25>", "<esc>A,")
-  -- -- c-,
-  -- map("i", "<f26>", "<esc>A;")
-
-  -- c-;
-  -- map("n", "<f25>", "<esc>A,")
-  -- -- c-,
-  -- map("n", "<f26>", "<esc>A;")
+  map("i", "<c-a>", "<esc>A")
 
   map("n", "<leader>O", "O<Esc>j", { desc = "Add an empty line above" })
   map("n", "<leader>o", "o<Esc>k")

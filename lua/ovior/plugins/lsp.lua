@@ -69,22 +69,22 @@ local M = {
         end
       end
 
-      map("n", "[d", vim.diagnostic.goto_prev, "Goto previous diagnostic")
-      map("n", "]d", vim.diagnostic.goto_next, "Goto next diagnostic")
-      map("n", "gf", vim.diagnostic.open_float, "Goto the float diagnostics")
-      map("n", "gF", require("telescope.builtin").diagnostics, "Find all the float diagnostics")
-
-      map("n", "<leader>l", "<cmd>LspRestart<cr>", "Restart the LSP")
-
-      -- utils gotos
-      map("n", "gs", "^", "Goto first non-blank in start")
-      map("n", "g;", "g;", "Goto older position in change list")
-      map("n", "g,", "g,", "Goto newer position in change list")
-
       local on_attach = function(client, bufnr)
         local lspmap = function(mode, keys, func, desc)
           map(mode, keys, func, { buffer = bufnr, desc = desc })
         end
+        map("n", "[d", vim.diagnostic.goto_prev, "Goto previous diagnostic")
+        map("n", "]d", vim.diagnostic.goto_next, "Goto next diagnostic")
+
+        map("n", "gf", vim.diagnostic.open_float, "Goto the float diagnostics")
+        map("n", "gF", require("telescope.builtin").diagnostics, "Find all the float diagnostics")
+
+        map("n", "<leader>l", "<cmd>LspRestart<cr>", "Restart the LSP")
+
+        -- utils gotos
+        map("n", "gs", "^", "Goto first non-blank in start")
+        map("n", "g;", "g;", "Goto older position in change list")
+        map("n", "g,", "g,", "Goto newer position in change list")
 
         lspmap("n", "gd", require("telescope.builtin").lsp_definitions, "Goto definition")
         lspmap("n", "gD", vim.lsp.buf.declaration, "Goto declaration")
@@ -107,7 +107,36 @@ local M = {
       end
 
       local servers = {
-        -- rust_analyzer = {},
+        rust_analyzer = {
+          ["rust-analyzer"] = {
+            checkOnSave = {
+              command = "clippy",
+            },
+            cargo = {
+              allFeatures = true,
+              autoreload = true,
+              runBuildScripts = true,
+            },
+            completion = {
+              autoimport = {
+                enable = true,
+              },
+              postfix = {
+                enable = false,
+              },
+            },
+            diagnostics = {
+              disabled = { "macro-error" },
+            },
+            procMacro = {
+              enable = true,
+            },
+            rustcSource = "discover",
+            updates = {
+              channel = "nightly",
+            },
+          },
+        },
         tsserver = {},
         astro = {},
         clangd = {},
@@ -142,42 +171,7 @@ local M = {
           },
         },
         server = {
-          on_attach = on_attach,
-          flags = {
-            debounce_text_changes = 150,
-          },
-          capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-          settings = {
-            ["rust-analyzer"] = {
-              cargo = {
-                allFeatures = true,
-                autoreload = true,
-                runBuildScripts = true,
-              },
-              checkOnSave = {
-                command = "clippy",
-                enable = true,
-              },
-              completion = {
-                autoimport = {
-                  enable = true,
-                },
-                postfix = {
-                  enable = false,
-                },
-              },
-              diagnostics = {
-                disabled = { "macro-error" },
-              },
-              procMacro = {
-                enable = true,
-              },
-              rustcSource = "discover",
-              updates = {
-                channel = "nightly",
-              },
-            },
-          },
+          standalone = false,
         },
       })
 
