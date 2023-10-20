@@ -1,6 +1,52 @@
 extends html, typescript
 priority 1
 
-snippet . "className"
+snippet cn "className"
 className="$0"
+endsnippet
+
+snippet client "use client"
+'use client';
+endsnippet
+
+snippet rsl "react function"
+import { PropsWithChildren } from 'react';
+
+type $1Props = PropsWithChildren<{
+}>;
+
+function $1(props: $1Props) {
+  return (
+    <>
+      $0
+    </>
+  );
+}
+
+export default $1;
+endsnippet
+
+snippet rsf "react function"
+import { PropsWithChildren } from 'react';
+
+type $1Props = JSX.IntrinsicElements['div'] & {
+};
+
+function $1(props: $1Props) {
+  return (
+    <>
+      $0
+    </>
+  );
+}
+
+export default $1;
+endsnippet
+
+snippet t "end tag"
+</$0>
+endsnippet
+
+snippet /div "end div tag"
+</div>$0
 endsnippet
