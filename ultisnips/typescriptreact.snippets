@@ -5,17 +5,12 @@ snippet cn "className"
 className="$0"
 endsnippet
 
-snippet client "use client"
+snippet uc "use client"
 'use client';
 endsnippet
 
-snippet rsl "react function"
-import { PropsWithChildren } from 'react';
-
-type $1Props = PropsWithChildren<{
-}>;
-
-function $1(props: $1Props) {
+snippet rse "react function"
+function $1() {
   return (
     <>
       $0
@@ -26,17 +21,33 @@ function $1(props: $1Props) {
 export default $1;
 endsnippet
 
-snippet rsf "react function"
-import { PropsWithChildren } from 'react';
-
-type $1Props = JSX.IntrinsicElements['div'] & {
+snippet rsc "react function"
+type $1Props = {
 };
 
 function $1(props: $1Props) {
   return (
-    <>
+    <div>
       $0
-    </>
+    </div>
+  );
+}
+
+export default $1;
+endsnippet
+
+snippet rsf "react function"
+import { PropsWithChildren } from 'react';
+
+type $1Props = PropsWithChildren<{
+}>;
+
+
+function $1(props: $1Props) {
+  return (
+    <div>
+      $0
+    </div>
   );
 }
 

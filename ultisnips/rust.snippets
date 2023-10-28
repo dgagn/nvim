@@ -150,6 +150,14 @@ snippet debug "debug"
 #[derive(Debug)]
 endsnippet
 
+snippet stest "sqlx test"
+#[sqlx::test]
+async fn $1(pool: PgPool) {
+    $0
+}
+endsnippet
+
+
 snippet atest "async test"
 #[tokio::test]
 async fn $1() {
@@ -314,6 +322,9 @@ let mut $1 = $2;
 endsnippet
 
 snippet middleware
+use axum::{middleware::Next, response::Response};
+use http::Request;
+
 async fn $1<B>(
     request: Request<B>,
     next: Next<B>,

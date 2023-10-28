@@ -137,6 +137,7 @@ local M = {
             },
           },
         },
+        sqlls = {},
         tsserver = {},
         astro = {},
         clangd = {},
@@ -151,7 +152,6 @@ local M = {
         jsonls = {
           schemas = require("schemastore").json.schemas(),
         },
-        jdtls = {},
       }
 
       require("rust-tools").setup({

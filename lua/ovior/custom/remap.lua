@@ -3,7 +3,7 @@ local M = {}
 local map = vim.keymap.set
 
 function M.setup()
-  map("n", "s", "<nop>", { silent = true })
+  -- map("n", "s", "<nop>", { silent = true })
   map("n", "<c-b>", "<nop>", { silent = true })
   map("i", "<c-b>", "<nop>", { silent = true })
   map({ "n", "v" }, "<space>", "<nop>", { silent = true })

@@ -85,55 +85,6 @@ return {
     },
   },
   {
-    "ThePrimeagen/harpoon",
-    opts = {},
-    event = "VeryLazy",
-    keys = {
-      {
-        "<leader>m",
-        function()
-          require("harpoon.mark").add_file()
-        end,
-        desc = "Mark the file",
-      },
-      {
-        "<leader>e",
-        function()
-          require("harpoon.ui").toggle_quick_menu()
-        end,
-        desc = "Open the harpoon quick menu",
-      },
-      {
-        "<leader>1",
-        function()
-          require("harpoon.ui").nav_file(1)
-        end,
-        desc = "Goto the first file in the harpoon list",
-      },
-      {
-        "<leader>2",
-        function()
-          require("harpoon.ui").nav_file(2)
-        end,
-        desc = "Goto the second file in the harpoon list",
-      },
-      {
-        "<leader>3",
-        function()
-          require("harpoon.ui").nav_file(3)
-        end,
-        desc = "Goto the third file in the harpoon list",
-      },
-      {
-        "<leader>4",
-        function()
-          require("harpoon.ui").nav_file(4)
-        end,
-        desc = "Goto the fourth file in the harpoon list",
-      },
-    },
-  },
-  {
     "echasnovski/mini.ai",
     event = "VeryLazy",
     dependencies = { "nvim-treesitter-textobjects" },
@@ -201,7 +152,7 @@ return {
       start_in_insert = false,
     },
     keys = {
-      { "<F1>", "<cmd>ToggleTerm<cr>i",               mode = "n" },
+      { "<F1>", "<cmd>ToggleTerm<cr>i",           mode = "n" },
       { "<F1>", "<esc><cmd>ToggleTerm<cr>",       mode = "i" },
       { "<F1>", "<C-\\><C-n><cmd>ToggleTerm<cr>", mode = "t" },
     },
@@ -228,30 +179,31 @@ return {
       ]])
     end,
   },
-  -- {
-  --   "ggandor/flit.nvim",
-  --   enabled = true,
-  --   keys = function()
-  --     local ret = {}
-  --     for _, key in ipairs({ "f", "F", "t", "T" }) do
-  --       ret[#ret + 1] = { key, mode = { "n", "x", "o" }, desc = key }
-  --     end
-  --     return ret
-  --   end,
-  --   dependencies = {
-  --     "ggandor/leap.nvim",
-  --   },
-  --   opts = {
-  --     labeled_modes = "nx",
-  --     multiline = false,
-  --   },
-  -- },
-  -- {
-  --   'ggandor/leap.nvim',
-  --   config = function()
-  --     require('leap').add_default_mappings()
-  --   end
-  -- },
+  {
+    "ggandor/flit.nvim",
+    enabled = true,
+    keys = function()
+      local ret = {}
+      for _, key in ipairs({ "f", "F", "t", "T" }) do
+        ret[#ret + 1] = { key, mode = { "n", "x", "o" }, desc = key }
+      end
+      return ret
+    end,
+    dependencies = {
+      "ggandor/leap.nvim",
+    },
+    opts = {
+      labeled_modes = "nx",
+      multiline = false,
+    },
+  },
+  {
+    "ggandor/leap.nvim",
+    config = function()
+      require("leap").add_default_mappings()
+      vim.api.nvim_set_hl(0, "LeapLabelPrimary", { bold = true, fg = "grey" })
+    end,
+  },
   {
     "tpope/vim-projectionist",
     dependencies = "tpope/vim-dispatch",

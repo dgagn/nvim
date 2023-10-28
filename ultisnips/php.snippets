@@ -1,0 +1,73 @@
+snippet fn "function"
+function $1() {
+    $0
+}
+endsnippet
+
+snippet pfn "function"
+public function $1() {
+    $0
+}
+endsnippet
+
+snippet prfn "function"
+protected function $1() {
+    $0
+}
+endsnippet
+
+snippet _fn "function"
+private function $1() {
+    $0
+}
+endsnippet
+
+snippet if "if"
+if ($1) {
+    $0
+}
+endsnippet
+
+snippet class "class" b
+<?php
+
+namespace `!v substitute(substitute(substitute(expand("%:p"), '\v(.*\/\U+)((\/\w+)+)\/\w+.php$', '\2', ''), '\/', '\\', 'g'), '\\', '', '')`;
+
+class `!p snip.rv = snip.basename or "ClassName"` ${1}
+{
+	${0}
+}
+endsnippet
+
+snippet enum "enum" b
+<?php
+
+namespace `!v substitute(substitute(substitute(expand("%:p"), '\v(.*\/\U+)((\/\w+)+)\/\w+.php$', '\2', ''), '\/', '\\', 'g'), '\\', '', '')`;
+
+enum `!p snip.rv = snip.basename or "Enum"` ${1}
+{
+	${0}
+}
+endsnippet
+
+snippet interface "Interface" b
+<?php
+
+namespace `!v substitute(substitute(substitute(expand("%:p"), '\v(.*\/\U+)((\/\w+)+)\/\w+.php$', '\2', ''), '\/', '\\', 'g'), '\\', '', '')`;
+
+interface `!p snip.rv = snip.basename or "InterfaceName"` ${1}
+{
+	${0}
+}
+endsnippet
+
+snippet trait "Trait" b
+<?php
+
+namespace `!v substitute(substitute(substitute(expand("%:p"), '\v(.*\/\U+)((\/\w+)+)\/\w+.php$', '\2', ''), '\/', '\\', 'g'), '\\', '', '')`;
+
+trait `!p snip.rv = snip.basename or "TraitName"` ${1}
+{
+    ${0}
+}
+endsnippet
