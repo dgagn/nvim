@@ -37,9 +37,9 @@ return {
   {
     "christoomey/vim-tmux-navigator",
     keys = {
-      { "<C-h>", ":TmuxNavigateLeft<CR>",  desc = "Move to the left tmux pane" },
-      { "<C-j>", ":TmuxNavigateDown<CR>",  desc = "Move to the down tmux pane" },
-      { "<C-k>", ":TmuxNavigateUp<CR>",    desc = "Move to the up tmux pane" },
+      { "<C-h>", ":TmuxNavigateLeft<CR>", desc = "Move to the left tmux pane" },
+      { "<C-j>", ":TmuxNavigateDown<CR>", desc = "Move to the down tmux pane" },
+      { "<C-k>", ":TmuxNavigateUp<CR>", desc = "Move to the up tmux pane" },
       { "<C-l>", ":TmuxNavigateRight<CR>", desc = "Move to the right tmux pane" },
     },
   },
@@ -140,7 +140,7 @@ return {
       grey = "disable",
     },
     keys = {
-      { "<leader>aa", vim.cmd.ISwapWith,     desc = "Arrange the argument orders" },
+      { "<leader>aa", vim.cmd.ISwapWith, desc = "Arrange the argument orders" },
       { "<leader>an", vim.cmd.ISwapNodeWith, desc = "Arrange the node orders" },
     },
   },
@@ -152,9 +152,53 @@ return {
       start_in_insert = false,
     },
     keys = {
-      { "<F1>", "<cmd>ToggleTerm<cr>i",           mode = "n" },
-      { "<F1>", "<esc><cmd>ToggleTerm<cr>",       mode = "i" },
+      { "<F1>", "<cmd>ToggleTerm<cr>i", mode = "n" },
+      { "<F1>", "<esc><cmd>ToggleTerm<cr>", mode = "i" },
       { "<F1>", "<C-\\><C-n><cmd>ToggleTerm<cr>", mode = "t" },
+    },
+  },
+  {
+    "ThePrimeagen/harpoon",
+    opts = {},
+    keys = {
+      {
+        "<leader>m",
+        function()
+          require("harpoon.mark").add_file()
+        end,
+        desc = "Mark the file",
+      },
+      {
+        "]1",
+        function()
+          require("harpoon.ui").nav_file(1)
+        end,
+      },
+      {
+        "]2",
+        function()
+          require("harpoon.ui").nav_file(2)
+        end,
+      },
+      {
+        "]3",
+        function()
+          require("harpoon.ui").nav_file(3)
+        end,
+      },
+      {
+        "]4",
+        function()
+          require("harpoon.ui").nav_file(4)
+        end,
+      },
+      {
+        "]h",
+        function()
+          require("harpoon.ui").toggle_quick_menu()
+        end,
+        desc = "Open the harpoon quick menu",
+      },
     },
   },
   {
