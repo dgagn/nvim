@@ -358,4 +358,5 @@ return {
       vim.g.pasta_disabled_filetypes = { "gitcommit", "gitrebase", "svn", "fugitive", "fugitiveblame", "qf", "help" }
     end,
   },
+  'tpope/vim-speeddating',
 }
