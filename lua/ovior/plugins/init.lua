@@ -37,17 +37,21 @@ return {
   {
     "christoomey/vim-tmux-navigator",
     keys = {
-      { "<C-h>", ":TmuxNavigateLeft<CR>", desc = "Move to the left tmux pane" },
-      { "<C-j>", ":TmuxNavigateDown<CR>", desc = "Move to the down tmux pane" },
-      { "<C-k>", ":TmuxNavigateUp<CR>", desc = "Move to the up tmux pane" },
+      { "<C-h>", ":TmuxNavigateLeft<CR>",  desc = "Move to the left tmux pane" },
+      { "<C-j>", ":TmuxNavigateDown<CR>",  desc = "Move to the down tmux pane" },
+      { "<C-k>", ":TmuxNavigateUp<CR>",    desc = "Move to the up tmux pane" },
       { "<C-l>", ":TmuxNavigateRight<CR>", desc = "Move to the right tmux pane" },
     },
   },
   {
     "tpope/vim-fugitive",
-    keys = {
-      { "<leader>gs", vim.cmd.Git, desc = "Open git status" },
+    dependencies = {
+      "tpope/vim-rhubarb",
     },
+    config = function()
+      vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "Open git status" })
+      vim.g.nvim_tree_disable_netrw = 0
+    end,
   },
   {
     "folke/which-key.nvim",
@@ -73,6 +77,7 @@ return {
     "tpope/vim-surround",
     event = "VeryLazy",
   },
+  "farmergreg/vim-lastplace",
   {
     "echasnovski/mini.comment",
     event = "VeryLazy",
@@ -140,7 +145,7 @@ return {
       grey = "disable",
     },
     keys = {
-      { "<leader>aa", vim.cmd.ISwapWith, desc = "Arrange the argument orders" },
+      { "<leader>aa", vim.cmd.ISwapWith,     desc = "Arrange the argument orders" },
       { "<leader>an", vim.cmd.ISwapNodeWith, desc = "Arrange the node orders" },
     },
   },
@@ -152,8 +157,8 @@ return {
       start_in_insert = false,
     },
     keys = {
-      { "<F1>", "<cmd>ToggleTerm<cr>i", mode = "n" },
-      { "<F1>", "<esc><cmd>ToggleTerm<cr>", mode = "i" },
+      { "<F1>", "<cmd>ToggleTerm<cr>i",           mode = "n" },
+      { "<F1>", "<esc><cmd>ToggleTerm<cr>",       mode = "i" },
       { "<F1>", "<C-\\><C-n><cmd>ToggleTerm<cr>", mode = "t" },
     },
   },
@@ -193,7 +198,7 @@ return {
         end,
       },
       {
-        "]h",
+        "],",
         function()
           require("harpoon.ui").toggle_quick_menu()
         end,
@@ -204,9 +209,10 @@ return {
   {
     "phpactor/phpactor",
     ft = "php",
-    build = "composer install --no-dev --optimize-autoloader",
+    run = "composer install --no-dev --optimize-autoloader",
     config = function()
       vim.keymap.set("n", "<leader>pa", "<cmd>PhpactorContextMenu<cr>", { desc = "The php actor context menu" })
+      vim.keymap.set("n", "<leader>pn", "<cmd>PhpactorClassNew<cr>", { desc = "Create a new class" })
     end,
   },
   {
@@ -242,6 +248,13 @@ return {
     },
   },
   {
+    "stevearc/oil.nvim",
+    opts = {},
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+  },
+  {
     "ggandor/leap.nvim",
     config = function()
       require("leap").add_default_mappings()
@@ -255,7 +268,6 @@ return {
       require("ovior.configs.projectionist")
     end,
   },
-  "vimwiki/vimwiki",
   {
     "nvim-lualine/lualine.nvim",
     opts = function()
@@ -316,6 +328,33 @@ return {
           },
         },
       }
+    end,
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require("gitsigns").setup()
+      vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr>", { desc = "Next hunk" })
+      vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr>", { desc = "Prev hunk" })
+      vim.keymap.set("n", "<leader>gh", "<cmd>Gitsigns stage_hunk<cr>", { desc = "Stage hunk" })
+      vim.keymap.set("n", "<leader>gH", "<cmd>Gitsigns undo_stage_hunk<cr>", { desc = "Undo Stage hunk" })
+      vim.keymap.set("n", "<leader>gp", "<cmd>Gitsigns preview_hunk<cr>", { desc = "Preview hunk" })
+      vim.keymap.set("n", "<leader>gb", "<cmd>Gitsigns blame_line<cr>", { desc = "Blame line" })
+    end,
+  },
+  {
+    "airblade/vim-rooter",
+    init = function()
+      vim.g.rooter_manual_only = 1
+    end,
+    config = function()
+      vim.cmd("Rooter")
+    end,
+  },
+  {
+    "sickill/vim-pasta",
+    config = function()
+      vim.g.pasta_disabled_filetypes = { "gitcommit", "gitrebase", "svn", "fugitive", "fugitiveblame", "qf", "help" }
     end,
   },
 }

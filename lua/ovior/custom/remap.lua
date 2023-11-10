@@ -61,6 +61,8 @@ function M.setup()
   map("n", "g$", "<cmd>:blast<cr>")
   map("n", "g^", "<cmd>:bfirst<cr>")
 
+  map("n", "gb", "<cmd>b#<cr>")
+
   map("i", "<c-f>", "<Plug>luasnip-jump-next", { silent = true })
   map("s", "<c-f>", "<Plug>luasnip-jump-next", { silent = true })
 

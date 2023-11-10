@@ -21,3 +21,22 @@ if ($1) {
     $2
 }
 endsnippet
+
+snippet hook "Function based on file name" b
+type `!p
+import re
+filename = vim.eval("expand('%:t:r')")
+func_name = re.sub(r'-([a-z])', lambda x: x.group(1).upper(), filename)
+if not func_name.lower().startswith("use"):
+    func_name = "use" + func_name
+type_name = func_name[0].upper() + func_name[1:] + "Props"
+snip.rv = type_name
+` = {
+  $2
+};
+export function `!p
+snip.rv = func_name
+`() {
+  $0
+}
+endsnippet

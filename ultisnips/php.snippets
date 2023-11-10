@@ -1,3 +1,628 @@
+global !p
+
+def to_singular(string):
+    global p
+    if 'p' not in globals():
+        import inflect
+        p = inflect.engine()
+    return p.singular_noun(string) or string
+
+def read_composer_json():
+	import json
+
+	composer_file = 'composer.json'
+	if not os.path.isfile(composer_file): return
+
+	with open(composer_file) as data_file:
+		config = json.load(data_file)
+
+	return config
+
+def get_autoload_paths():
+	config = read_composer_json()
+
+	if 'autoload' not in config: return []
+	if 'psr-4' not in config['autoload']: return []
+
+	paths = config['autoload']['psr-4']
+
+	if 'autoload-dev' in config and 'psr-4' in config['autoload-dev']:
+		 paths.update(config['autoload-dev']['psr-4'])
+
+	return paths
+
+def class_name_from_file():
+	return re.match(r'.*(?=\.)', fn).group()
+
+def get_namespace():
+	dir_path = os.path.dirname(path) + '/'
+	for ns, fp in get_autoload_paths().items():
+		m = re.search(r'' + re.escape(fp) + '(.*)', dir_path)
+		if m: return (ns.strip('\\') + '\\' + m.group(1).replace('/', '\\')).strip('\\')
+
+def is_custom_type(type):
+	return (len(t[1]) > 0 and t[1][0].isupper())
+
+def lowercase_first(string):
+	if len(string) < 1: return ''
+
+	return string[0].lower() + string[1:]
+
+def uppercase_first(string):
+	if len(string) < 1: return ''
+
+	return string[0].upper() + string[1:]
+
+def split_arg_and_type(arg):
+	parts = list(map(lambda s: s.strip(), arg.strip().split(' ')))
+
+	if len(parts) != 2:
+		return ['mixed', parts[0]]
+
+	return parts
+
+def generate_properties(args):
+	args = args.strip()
+
+	if args:
+		args = args.split(',')
+		args = list(map(split_arg_and_type, args))
+	else:
+		args = []
+
+	properies = ''
+	for arg in args:
+		properies += '\n    /** @var ' + arg[0] + ' */'
+		properies += '\n    private ' + arg[1] + ';\n'
+
+	return properies
+
+def set_fields_from_arguments(args):
+	args = args.strip()
+
+	if args:
+		args = args.split(',')
+		args = list(map(split_arg_and_type, args))
+	else:
+		args = []
+
+	properies = []
+	for arg in args:
+		properies.append('$this->' + arg[1][1:] + ' = ' + arg[1] + ';')
+
+	return properies
+
+def camel_to_snake(string):
+    string = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', string)
+    string = re.sub('(.)([0-9]+)', r'\1_\2', string)
+    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', string).lower()
+
+def to_pascal_case(value):
+    return "".join(value.replace('_', ' ').title().replace(' ', '').split())
+
+def docblock(args):
+	args = args.strip()
+
+	if args:
+		args = args.split(',')
+		args = list(map(split_arg_and_type, args))
+	else:
+		args = []
+
+	from functools import reduce
+	max_type_len = reduce(lambda curr, arg: len(arg[0]) if len(arg[0]) > curr else curr, args, 0)
+
+	block = ''
+	for arg in args:
+		block += '\n     * @param ' + arg[0].ljust(max_type_len) +' ' + arg[1]
+
+	if block: block += '\n     *'
+
+	return block
+endglobal
+
+snippet cast "cast laravel" b
+<?php
+
+namespace `!p snip.rv = get_namespace()`;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
+
+class `!p snip.rv = class_name_from_file()` implements CastsAttributes
+{
+    public function get(Model $model, string $key, mixed $value, array $attributes): mixed
+    {
+        return $value;
+    }
+
+    public function set(Model $model, string $key, mixed $value, array $attributes): mixed
+    {
+        return $value;
+    }
+}
+endsnippet
+
+snippet console "console" b
+<?php
+
+namespace `!p snip.rv = get_namespace()`;
+
+use Illuminate\Console\Command;
+
+class `!p snip.rv = class_name_from_file()` extends Command
+{
+    protected $signature = '$1';
+
+    protected $description = 'Command description';
+
+    public function handle()
+    {
+        $0
+    }
+}
+endsnippet
+
+snippet controller "controller" b
+<?php
+
+namespace `!p snip.rv = get_namespace()`;
+
+use Illuminate\Http\Request;
+
+class `!p snip.rv = class_name_from_file()` extends Controller
+{
+    public function index(Request $request)
+    {
+        $0
+    }
+}
+endsnippet
+
+snippet controller.invokable "invokable controller" b
+<?php
+
+namespace `!p snip.rv = get_namespace()`;
+
+use Illuminate\Http\Request;
+
+class `!p snip.rv = class_name_from_file()`
+{
+    public function __invoke(Request $request)
+    {
+        $0
+    }
+}
+endsnippet
+
+snippet construct "constructor"
+public function __construct($1)
+{
+    $0
+}
+endsnippet
+
+snippet dd "dd"
+dd($0);
+endsnippet
+
+snippet ray "ray"
+ray($0);
+endsnippet
+
+snippet factory "factory" b
+<?php
+
+namespace `!p snip.rv = get_namespace()`;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class `!p snip.rv = class_name_from_file()` extends Factory
+{
+    protected $model = `!p snip.rv = class_name_from_file()`;
+
+    public function definition()
+    {
+        return [
+            $0
+        ];
+    }
+}
+endsnippet
+
+snippet event "event" b
+<?php
+
+namespace `!p snip.rv = get_namespace()`;
+
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
+
+class `!p snip.rv = class_name_from_file()`
+{
+    use Dispatchable, InteractsWithSockets, SerializesModels;
+
+    public function __construct()
+    {
+        $0
+    }
+}
+endsnippet
+
+snippet job "job" b
+<?php
+
+namespace `!p snip.rv = get_namespace()`;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+
+class `!p snip.rv = class_name_from_file()` implements ShouldQueue
+{
+    use Dispatchable, Queueable;
+
+    public function __construct()
+    {
+        $0
+    }
+
+    public function handle()
+    {
+        $0
+    }
+}
+endsnippet
+
+snippet listener "listener" b
+<?php
+
+namespace `!p snip.rv = get_namespace()`;
+
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
+
+class `!p snip.rv = class_name_from_file()`
+{
+    public function __construct()
+    {
+        $0
+    }
+
+    public function handle()
+    {
+        $0
+    }
+}
+endsnippet
+
+snippet middleware "middleware" b
+<?php
+
+namespace `!p snip.rv = get_namespace()`;
+
+use Closure;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+class `!p snip.rv = class_name_from_file()`
+{
+    public function handle($request, Closure $next)
+    {
+        $0
+    }
+}
+endsnippet
+
+snippet provider "provider" b
+<?php
+
+namespace `!p snip.rv = get_namespace()`;
+
+use Illuminate\Support\ServiceProvider;
+
+class `!p snip.rv = class_name_from_file()` extends ServiceProvider
+{
+    public function register()
+    {
+        $0
+    }
+
+    public function boot()
+    {
+        $0
+    }
+}
+endsnippet
+
+snippet request "request" b
+<?php
+
+namespace `!p snip.rv = get_namespace()`;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class `!p snip.rv = class_name_from_file()` extends FormRequest
+{
+    public function authorize()
+    {
+        return true;
+    }
+
+    public function rules()
+    {
+        return [
+            $0
+        ];
+    }
+}
+endsnippet
+
+snippet resource "resource" b
+<?php
+
+namespace `!p snip.rv = get_namespace()`;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class `!p snip.rv = class_name_from_file()` extends JsonResource
+{
+    public function toArray(Request $request)
+    {
+        return [
+            $0
+        ];
+    }
+}
+endsnippet
+
+snippet builder "builder" b
+<?php
+
+namespace `!p snip.rv = get_namespace()`;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
+
+class `!p snip.rv = class_name_from_file()` extends Builder
+{
+    public function __construct(QueryBuilder $query)
+    {
+        parent::__construct($query);
+    }
+}
+endsnippet
+
+snippet action "action" b
+<?php
+
+namespace `!p snip.rv = get_namespace()`;
+
+class `!p snip.rv = class_name_from_file()`
+{
+    public function execute()
+    {
+        $0
+    }
+}
+endsnippet
+
+snippet exception "exception" b
+<?php
+
+namespace `!p snip.rv = get_namespace()`;
+
+use Exception;
+use Illuminate\Http\JsonResponse;
+
+class `!p snip.rv = class_name_from_file()` extends Exception
+{
+    public function render(): JsonResponse
+    {
+        return response()->json([
+            'message' => $this->getMessage(),
+        ], $this->getCode());
+    }
+}
+endsnippet
+
+snippet policy "policy" b
+<?php
+
+namespace `!p snip.rv = get_namespace()`;
+
+use Illuminate\Auth\Access\HandlesAuthorization;
+
+class `!p snip.rv = class_name_from_file()`
+{
+    use HandlesAuthorization;
+}
+endsnippet
+
+snippet rule "rule" b
+<?php
+
+namespace `!p snip.rv = get_namespace()`;
+
+use Closure;
+use Illuminate\Contracts\Validation\ValidationRule;
+
+class `!p snip.rv = class_name_from_file()` implements ValidationRule
+{
+    public function validate(string $attribute, mixed $value, Closure $fail): void
+    {
+        //
+    }
+}
+endsnippet
+
+snippet test "test" b
+<?php
+
+it('should $1', function () {
+    $0
+});
+endsnippet
+
+snippet migration "migration" b
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+    }
+
+    public function down(): void
+    {
+    }
+};
+endsnippet
+
+snippet migration.create "migration create" b
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('$1', function (Blueprint $table) {
+            $table->id();
+            $table->uuid()->unique();
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('$1');
+    }
+};
+endsnippet
+
+snippet model "Laravel Model" b
+<?php
+
+namespace `!p snip.rv = get_namespace()`;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class `!p snip.rv = class_name_from_file()` extends Model
+{
+    use HasFactory;
+
+    protected $guarded = [];
+}
+endsnippet
+
+snippet ns "php namespace" b
+namespace `!p snip.rv = get_namespace()`;
+endsnippet
+
+snippet hm "laravel has many"
+public function ${1:`!p snip.rv = camel_to_snake(lowercase_first(class_name_from_file()))`}()
+{
+    return $this->belongsToMany(${0:`!p snip.rv = to_singular(to_pascal_case(t[1]))`::class});
+}
+endsnippet
+
+snippet bt "laravel belongs to"
+public function ${1:`!p snip.rv = camel_to_snake(lowercase_first(class_name_from_file()))`}()
+{
+    return $this->belongsTo(${0:`!p snip.rv = to_pascal_case(t[1])`::class});
+}
+endsnippet
+
+snippet btm "laravel belongs to many"
+public function ${1:`!p snip.rv = camel_to_snake(lowercase_first(class_name_from_file()))`}()
+{
+    return $this->belongsToMany(${0:`!p snip.rv = to_singular(to_pascal_case(t[1]))`::class});
+}
+endsnippet
+
+snippet hmt "laravel has many through"
+public function ${1:`!p snip.rv = camel_to_snake(lowercase_first(class_name_from_file()))`}()
+{
+    return $this->hasManyThrough(${0:`!p snip.rv = to_singular(to_pascal_case(t[1]))`::class}, $2::class);
+}
+endsnippet
+
+snippet mt "laravel morph to"
+public function ${1:`!p snip.rv = camel_to_snake(lowercase_first(class_name_from_file()))`}()
+{
+    return $this->morphTo();
+}
+endsnippet
+
+snippet mm "laravel morph many"
+public function ${1:`!p snip.rv = camel_to_snake(lowercase_first(class_name_from_file()))`}()
+{
+    return $this->morphMany(${0:`!p snip.rv = to_singular(to_pascal_case(t[1]))`::class});
+    return $this->morphMany($1::class, $2);
+}
+endsnippet
+
+snippet ho "has one"
+public function ${1:`!p snip.rv = camel_to_snake(lowercase_first(class_name_from_file()))`}()
+{
+    return $this->hasOne(${0:`!p snip.rv = to_pascal_case(t[1])`::class});
+}
+endsnippet
+
+snippet c "php namespace and class" b
+<?php
+
+namespace `!p snip.rv = get_namespace()`;
+
+class `!p snip.rv = class_name_from_file()`
+{
+	$0
+}
+endsnippet
+
+snippet i "php namespace and interface" b
+<?php
+
+namespace `!p snip.rv = get_namespace()`;
+
+interface `!p snip.rv = class_name_from_file()`
+{
+	$0
+}
+endsnippet
+
+snippet t "php namespace and trait" b
+<?php
+
+namespace `!p snip.rv = get_namespace()`;
+
+trait `!p snip.rv = class_name_from_file()`
+{
+	$0
+}
+endsnippet
+
+snippet $t "this"
+$this->${0}
+endsnippet
+
+snippet con "constructor"
+public function __construct($1)
+{
+}
+endsnippet
+
 snippet fn "function" b
 function $1()
 {
@@ -6,21 +631,21 @@ function $1()
 endsnippet
 
 snippet pub "function" b
-public function $1()
+public function $1($2)
 {
     $0
 }
 endsnippet
 
 snippet pro "function" b
-protected function $1()
+protected function $1($2)
 {
     $0
 }
 endsnippet
 
 snippet pri "function" b
-private function $1()
+private function $1($2)
 {
     $0
 }
@@ -29,49 +654,5 @@ endsnippet
 snippet if "if" b
 if ($1) {
     $0
-}
-endsnippet
-
-snippet class "class" b
-<?php
-
-namespace `!v substitute(substitute(substitute(expand("%:p"), '\v(.*\/\U+)((\/\w+)+)\/\w+.php$', '\2', ''), '\/', '\\', 'g'), '\\', '', '')`;
-
-class `!p snip.rv = snip.basename or "ClassName"` ${1}
-{
-	${0}
-}
-endsnippet
-
-snippet enum "enum" b
-<?php
-
-namespace `!v substitute(substitute(substitute(expand("%:p"), '\v(.*\/\U+)((\/\w+)+)\/\w+.php$', '\2', ''), '\/', '\\', 'g'), '\\', '', '')`;
-
-enum `!p snip.rv = snip.basename or "Enum"` ${1}
-{
-	${0}
-}
-endsnippet
-
-snippet interface "Interface" b
-<?php
-
-namespace `!v substitute(substitute(substitute(expand("%:p"), '\v(.*\/\U+)((\/\w+)+)\/\w+.php$', '\2', ''), '\/', '\\', 'g'), '\\', '', '')`;
-
-interface `!p snip.rv = snip.basename or "InterfaceName"` ${1}
-{
-	${0}
-}
-endsnippet
-
-snippet trait "Trait" b
-<?php
-
-namespace `!v substitute(substitute(substitute(expand("%:p"), '\v(.*\/\U+)((\/\w+)+)\/\w+.php$', '\2', ''), '\/', '\\', 'g'), '\\', '', '')`;
-
-trait `!p snip.rv = snip.basename or "TraitName"` ${1}
-{
-    ${0}
 }
 endsnippet

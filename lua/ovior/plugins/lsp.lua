@@ -79,7 +79,7 @@ local M = {
         map("n", "gf", vim.diagnostic.open_float, "Goto the float diagnostics")
         map("n", "gF", require("telescope.builtin").diagnostics, "Find all the float diagnostics")
 
-        map("n", "<leader>l", "<cmd>LspRestart<cr>", "Restart the LSP")
+        map("n", "<leader>z", "<cmd>LspRestart<cr>", "Restart the LSP")
 
         -- utils gotos
         map("n", "gs", "^", "Goto first non-blank in start")
@@ -104,6 +104,7 @@ local M = {
         lspmap("n", "<leader>ca", vim.lsp.buf.code_action, "Code action")
 
         lspmap("n", "<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Find workspace symbols")
+
       end
 
       local servers = {
@@ -147,7 +148,8 @@ local M = {
             telemetry = { enable = false },
           },
         },
-        intelephense = {},
+        intelephense = {
+        },
         tailwindcss = {},
         jsonls = {
           schemas = require("schemastore").json.schemas(),

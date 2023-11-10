@@ -22,6 +22,13 @@ function M.setup()
   })
 
   vim.api.nvim_create_autocmd("FileType", {
+    pattern = "oil_preview",
+    callback = function(params)
+      vim.keymap.set("n", "y", "o", { buffer = params.buf, remap = true, nowait = true })
+    end,
+  })
+
+  vim.api.nvim_create_autocmd("FileType", {
     group = augroup("close_with_q"),
     pattern = {
       "PlenaryTestPopup",
