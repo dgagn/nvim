@@ -49,7 +49,7 @@ return {
       "tpope/vim-rhubarb",
     },
     config = function()
-      vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "Open git status" })
+      vim.keymap.set("n", "<leader>gg", vim.cmd.Git, { desc = "Open git status" })
       vim.g.nvim_tree_disable_netrw = 0
     end,
   },
@@ -198,7 +198,7 @@ return {
         end,
       },
       {
-        "],",
+        "<leader>e",
         function()
           require("harpoon.ui").toggle_quick_menu()
         end,
@@ -336,10 +336,11 @@ return {
       require("gitsigns").setup()
       vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr>", { desc = "Next hunk" })
       vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr>", { desc = "Prev hunk" })
+      vim.keymap.set("n", "<leader>gs", "<cmd>Gitsigns stage_buffer<cr>", { desc = "Stage hunk" })
+      vim.keymap.set("n", "<leader>gB", "<cmd>Gitsigns reset_buffer<cr>", { desc = "Reset buffer" })
       vim.keymap.set("n", "<leader>gh", "<cmd>Gitsigns stage_hunk<cr>", { desc = "Stage hunk" })
       vim.keymap.set("n", "<leader>gH", "<cmd>Gitsigns undo_stage_hunk<cr>", { desc = "Undo Stage hunk" })
       vim.keymap.set("n", "<leader>gp", "<cmd>Gitsigns preview_hunk<cr>", { desc = "Preview hunk" })
-      vim.keymap.set("n", "<leader>gb", "<cmd>Gitsigns blame_line<cr>", { desc = "Blame line" })
     end,
   },
   {
