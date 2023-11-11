@@ -55,6 +55,19 @@ return {
           desc = "Find help for a command",
         },
         {
+          "<leader>fa",
+          function()
+            local cwd = vim.fn.expand("%:p:h")
+            if vim.bo.filetype == "oil" then
+              cwd = string.gsub(cwd, "^oil://", "")
+            end
+            builtin.find_files({
+              cwd = cwd,
+              previewer = false,
+            })
+          end,
+        },
+        {
           "<leader>/",
           function()
             builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({

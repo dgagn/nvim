@@ -33,7 +33,6 @@ function M.setup()
     pattern = {
       "PlenaryTestPopup",
       "help",
-      "oil",
       "lspinfo",
       "man",
       "notify",
@@ -50,6 +49,16 @@ function M.setup()
     callback = function(event)
       vim.bo[event.buf].buflisted = false
       vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
+    end,
+  })
+
+  -- close buffer on q
+  vim.api.nvim_create_autocmd("FileType", {
+    group = augroup("close_buffer_with_q"),
+    pattern = { "oil" },
+    callback = function(event)
+      vim.keymap.set("n", "q", function() require("mini.bufremove").delete(0, false) end,
+        { buffer = event.buf, silent = true })
     end,
   })
 

@@ -50,7 +50,6 @@ return {
     },
     config = function()
       vim.keymap.set("n", "<leader>gg", vim.cmd.Git, { desc = "Open git status" })
-      vim.g.nvim_tree_disable_netrw = 0
     end,
   },
   {
@@ -209,7 +208,7 @@ return {
   {
     "phpactor/phpactor",
     ft = "php",
-    run = "composer install --no-dev --optimize-autoloader",
+    build = "composer install --no-dev --optimize-autoloader",
     config = function()
       vim.keymap.set("n", "<leader>pa", "<cmd>PhpactorContextMenu<cr>", { desc = "The php actor context menu" })
       vim.keymap.set("n", "<leader>pn", "<cmd>PhpactorClassNew<cr>", { desc = "Create a new class" })
@@ -249,18 +248,27 @@ return {
   },
   {
     "stevearc/oil.nvim",
-    opts = {},
-    dependencies = {
-      "nvim-tree/nvim-web-devicons",
+    opts = {
+      default_file_explorer = true,
+      delete_to_trash = true,
+      columns = {},
+      skip_confirm_for_simple_edits = true,
+      view_options = {
+        -- Show files and directories that start with "."
+        show_hidden = true,
+        is_always_hidden = function(name, bufnr)
+          return name == ".DS_Store" or name == "thumbs.db"
+        end,
+      },
     },
   },
-  {
-    "ggandor/leap.nvim",
-    config = function()
-      require("leap").add_default_mappings()
-      vim.api.nvim_set_hl(0, "LeapLabelPrimary", { bold = true, fg = "grey" })
-    end,
-  },
+  -- {
+  --   "ggandor/leap.nvim",
+  --   config = function()
+  --     require("leap").add_default_mappings()
+  --     vim.api.nvim_set_hl(0, "LeapLabelPrimary", { bold = true, fg = "grey" })
+  --   end,
+  -- },
   {
     "tpope/vim-projectionist",
     dependencies = "tpope/vim-dispatch",
@@ -358,5 +366,6 @@ return {
       vim.g.pasta_disabled_filetypes = { "gitcommit", "gitrebase", "svn", "fugitive", "fugitiveblame", "qf", "help" }
     end,
   },
-  'tpope/vim-speeddating',
+  "tpope/vim-speeddating",
+  "tpope/vim-eunuch",
 }

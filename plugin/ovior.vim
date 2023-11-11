@@ -5,6 +5,9 @@ inoremap <c-j> <down>
 inoremap <c-k> <up>
 inoremap <c-l> <right>
 
+nnoremap Q q
+nnoremap q <Nop>
+
 au FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 let s:inlay_hints_enabled = 0
