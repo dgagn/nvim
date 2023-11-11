@@ -257,7 +257,7 @@ return {
         -- Show files and directories that start with "."
         show_hidden = true,
         is_always_hidden = function(name, bufnr)
-          return name == ".DS_Store" or name == "thumbs.db"
+          return name == ".DS_Store" or name == "thumbs.db" or name == ".."
         end,
       },
     },

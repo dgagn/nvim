@@ -20,6 +20,16 @@ return {
           desc = "Find files",
         },
         {
+          "<leader>fF",
+          function()
+            builtin.find_files({
+              previewer = false,
+              find_command = { "fd", "--type", "f", "--hidden", "--follow", "--no-ignore" },
+            })
+          end,
+          desc = "Find files",
+        },
+        {
           "<leader>fb",
           builtin.buffers,
           desc = "Find in buffers",
@@ -30,12 +40,22 @@ return {
           desc = "Find live grep",
         },
         {
+          "<leader>fA",
+          function()
+            builtin.live_grep({
+              no_ignore = false,
+              search_dirs = { vim.fn.expand("%:p:h") },
+            })
+          end,
+          desc = "Find live grep",
+        },
+        {
           "<leader>fw",
           builtin.grep_string,
           desc = "Find current word",
         },
         {
-          "<leader>fd",
+          "<leader>fD",
           builtin.diagnostics,
           desc = "Find diagnostics",
         },
@@ -53,6 +73,20 @@ return {
           "<leader>hh",
           builtin.help_tags,
           desc = "Find help for a command",
+        },
+        {
+          "<leader>fq",
+          function()
+            local cwd = vim.fn.expand("%:p:h")
+            if vim.bo.filetype == "oil" then
+              cwd = string.gsub(cwd, "^oil://", "")
+            end
+            builtin.find_files({
+              cwd = cwd,
+              find_command = { "fd", "--type", "d", "--hidden", "--follow", "--exclude", ".git" },
+              previewer = false,
+            })
+          end,
         },
         {
           "<leader>fa",
