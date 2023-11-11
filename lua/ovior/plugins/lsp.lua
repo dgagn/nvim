@@ -82,7 +82,6 @@ local M = {
         map("n", "<leader>z", "<cmd>LspRestart<cr>", "Restart the LSP")
 
         -- utils gotos
-        map("n", "gs", "^", "Goto first non-blank in start")
         map("n", "g;", "g;", "Goto older position in change list")
         map("n", "g,", "g,", "Goto newer position in change list")
 

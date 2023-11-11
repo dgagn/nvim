@@ -344,6 +344,7 @@ return {
       require("gitsigns").setup()
       vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr>", { desc = "Next hunk" })
       vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr>", { desc = "Prev hunk" })
+      vim.keymap.set("n", "gs", "<cmd>Gitsigns stage_buffer<cr>", { desc = "Stage hunk" })
       vim.keymap.set("n", "<leader>gs", "<cmd>Gitsigns stage_buffer<cr>", { desc = "Stage hunk" })
       vim.keymap.set("n", "<leader>gB", "<cmd>Gitsigns reset_buffer<cr>", { desc = "Reset buffer" })
       vim.keymap.set("n", "<leader>gh", "<cmd>Gitsigns stage_hunk<cr>", { desc = "Stage hunk" })

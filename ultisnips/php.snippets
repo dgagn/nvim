@@ -533,7 +533,7 @@ endsnippet
 snippet hm "laravel has many"
 public function ${1:`!p snip.rv = camel_to_snake(lowercase_first(class_name_from_file()))`}()
 {
-    return $this->belongsToMany(${0:`!p snip.rv = to_singular(to_pascal_case(t[1]))`::class});
+    return $this->hasMany(${0:`!p snip.rv = to_singular(to_pascal_case(t[1]))`::class});
 }
 endsnippet
 
@@ -617,6 +617,12 @@ snippet $t "this"
 $this->${0}
 endsnippet
 
+snippet __ "constructor"
+public function __construct($1)
+{
+}
+endsnippet
+
 snippet con "constructor"
 public function __construct($1)
 {
@@ -655,4 +661,22 @@ snippet if "if" b
 if ($1) {
     $0
 }
+endsnippet
+
+snippet it "it"
+it('$1', function () {
+    $0
+});
+endsnippet
+
+snippet be "before each"
+beforeEach(function () {
+    $0
+});
+endsnippet
+
+snippet af "after each"
+afterEach(function () {
+    $0
+});
 endsnippet
