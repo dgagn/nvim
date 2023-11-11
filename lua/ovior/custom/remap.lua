@@ -14,6 +14,8 @@ function M.setup()
   map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
   map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+  map("n", "<c-n>", "<cmd>Oil<CR>", { desc = "Open Oil" })
+
   map("n", "<leader>q", ":q<cr>", { desc = "Quit the window" })
   map("n", "q:", ":q") -- fuging anoying
   map("n", "<space>s", ":w<cr>", { desc = "Save the file" })
