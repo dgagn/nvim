@@ -75,6 +75,20 @@ return {
           desc = "Find help for a command",
         },
         {
+          "<leader>fd",
+          function()
+            local cwd = vim.fn.expand("%:p:h")
+            if vim.bo.filetype == "oil" then
+              cwd = string.gsub(cwd, "^oil://", "")
+            end
+            builtin.find_files({
+              cwd = cwd,
+              find_command = { "fd", "--type", "d", "--hidden", "--follow", "--exclude", ".git" },
+              previewer = false,
+            })
+          end,
+        },
+        {
           "<leader>fq",
           function()
             local cwd = vim.fn.expand("%:p:h")
