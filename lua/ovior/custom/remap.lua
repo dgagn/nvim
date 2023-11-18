@@ -2,6 +2,17 @@ local M = {}
 
 local map = vim.keymap.set
 
+local close_all_buffers = function ()
+  local bufremove = require("mini.bufremove")
+  local current_buf = vim.api.nvim_get_current_buf()
+
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if buf ~= current_buf and not vim.startswith(vim.api.nvim_buf_get_name(buf), "term://") then
+      bufremove.delete(buf, false)
+    end
+  end
+end
+
 function M.setup()
   map("n", "s", "<nop>", { silent = true })
   map("n", "<c-b>", "<nop>", { silent = true })
@@ -64,6 +75,7 @@ function M.setup()
   map("n", "g^", "<cmd>:bfirst<cr>")
 
   map("n", "gb", "<cmd>b#<cr>")
+  map('n', '<leader>X', close_all_buffers, { desc = 'Close all buffer except the current one', noremap = true, silent = true });
 
   map("i", "<c-f>", "<Plug>luasnip-jump-next", { silent = true })
   map("s", "<c-f>", "<Plug>luasnip-jump-next", { silent = true })
@@ -71,7 +83,7 @@ function M.setup()
   map("n", "<c-c>", "<esc>")
 
   map("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-  map("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
 end
+
 
 return M
