@@ -55,6 +55,8 @@ function M.setup()
 
   vim.opt.autoread = true
 
+  vim.opt.colorcolumn = "80"
+
   vim.diagnostic.config({
     virtual_text = true,
     float = {

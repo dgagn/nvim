@@ -703,28 +703,28 @@ public function __construct($1)
 }
 endsnippet
 
-snippet fn "function" b
+snippet fun "function"
 function $1()
 {
     $0
 }
 endsnippet
 
-snippet pub "function" b
+snippet pub "function"
 public function $1($2)
 {
     $0
 }
 endsnippet
 
-snippet pro "function" b
+snippet pro "function"
 protected function $1($2)
 {
     $0
 }
 endsnippet
 
-snippet pri "function" b
+snippet pri "function"
 private function $1($2)
 {
     $0
@@ -753,4 +753,20 @@ snippet af "after each"
 afterEach(function () {
     $0
 });
+endsnippet
+
+snippet rg "route get"
+Route::get('$1', $0);
+endsnippet
+
+snippet rp "route post"
+Route::post('$1', $0);
+endsnippet
+
+snippet rpu "route put"
+Route::put('$1', $0);
+endsnippet
+
+snippet rd "route delete"
+Route::delete('$1', $0);
 endsnippet

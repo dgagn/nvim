@@ -229,24 +229,6 @@ return {
     end,
   },
   {
-    "ggandor/flit.nvim",
-    enabled = true,
-    keys = function()
-      local ret = {}
-      for _, key in ipairs({ "f", "F", "t", "T" }) do
-        ret[#ret + 1] = { key, mode = { "n", "x", "o" }, desc = key }
-      end
-      return ret
-    end,
-    dependencies = {
-      "ggandor/leap.nvim",
-    },
-    opts = {
-      labeled_modes = "nx",
-      multiline = false,
-    },
-  },
-  {
     "stevearc/oil.nvim",
     opts = {
       default_file_explorer = true,
@@ -262,13 +244,6 @@ return {
       },
     },
   },
-  -- {
-  --   "ggandor/leap.nvim",
-  --   config = function()
-  --     require("leap").add_default_mappings()
-  --     vim.api.nvim_set_hl(0, "LeapLabelPrimary", { bold = true, fg = "grey" })
-  --   end,
-  -- },
   {
     "tpope/vim-projectionist",
     dependencies = "tpope/vim-dispatch",
