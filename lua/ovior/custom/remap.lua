@@ -83,6 +83,10 @@ function M.setup()
   map("n", "<c-c>", "<esc>")
 
   map("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
+  -- map the base64 encode and decode
+  map("v", "g;", "<cmd>!python3 -m base64 -d<cr>", { desc = "Base64 decode" })
+  map("v", "g:", "<cmd>!python3 -m base64<cr>", { desc = "Base64 encode" })
 end
 
 
