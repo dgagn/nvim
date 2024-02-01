@@ -1,0 +1,45 @@
+snippet sout "System.out.println"
+System.out.println(${1});${0}
+endsnippet
+
+snippet fori "for index"
+for (int ${1:i} = 0; $1 < ${2:10}; $1++) {
+    ${0}
+}
+endsnippet
+
+snippet forr "for reverse"
+for (int ${1:i} = ${2:10}; $1 >= 0; $1--) {
+    ${0}
+}
+endsnippet
+
+snippet fore "fore"
+for (${1:Type} ${2:element} : ${3:collection}) {
+    ${0}
+}
+endsnippet
+
+snippet if "if"
+if (${1:true}) {
+    ${0}
+}
+endsnippet
+
+snippet fun "fun"
+public ${1:void} ${2:methodName}(${3:args}) {
+    ${0}
+}
+endsnippet
+
+snippet class "class"
+public class ${1:`!p snip.rv = snip.basename or "ClassName"`} {
+    ${0}
+}
+endsnippet
+
+snippet main "main"
+public static void main(String[] args) {
+    ${0}
+}
+endsnippet

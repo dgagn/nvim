@@ -31,7 +31,7 @@ let g:completion_matching_smart_case = 1
 let g:UltiSnipsEditSplit = 'horizontal'
 let g:UltiSnipsSnippetDirectories = ["ultisnips"]
 
-let g:UltiSnipsExpandTrigger="<f12>"
+let g:UltiSnipsExpandTrigger="<c-0>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
