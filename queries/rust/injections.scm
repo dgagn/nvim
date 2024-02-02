@@ -11,7 +11,7 @@
       ] @sql
     )
   )
-  (#match? @_macro_identifer "^query")
+  (#match? @_macro_identifier "^query")
   (#offset! @sql 0 1 0 -1)
   (set! "priority" 105)
 )

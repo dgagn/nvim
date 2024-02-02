@@ -1,5 +1,7 @@
 return {
   -- is there really something better than rose-pine?
+  -- { 'chriskempson/base16-vim' },
+  -- { 'folke/tokyonight.nvim' },
   {
     "rose-pine/neovim",
     name = "rose-pine",
