@@ -148,19 +148,20 @@ return {
       { "<leader>an", vim.cmd.ISwapNodeWith, desc = "Arrange the node orders" },
     },
   },
-  {
-    "akinsho/toggleterm.nvim",
-    version = "*",
-    config = true,
-    opts = {
-      start_in_insert = false,
-    },
-    keys = {
-      { "<F1>", "<cmd>ToggleTerm<cr>i",           mode = "n" },
-      { "<F1>", "<esc><cmd>ToggleTerm<cr>",       mode = "i" },
-      { "<F1>", "<C-\\><C-n><cmd>ToggleTerm<cr>", mode = "t" },
-    },
-  },
+  -- {
+  --   "akinsho/toggleterm.nvim",
+  --   version = "*",
+  --   config = true,
+  --   opts = {
+  --     start_in_insert = false,
+  --     direction = 'bottom',
+  --   },
+  --   keys = {
+  --     { "<F1>", "<cmd>ToggleTerm<cr>i",           mode = "n" },
+  --     { "<F1>", "<esc><cmd>ToggleTerm<cr>",       mode = "i" },
+  --     { "<F1>", "<C-\\><C-n><cmd>ToggleTerm<cr>", mode = "t" },
+  --   },
+  -- },
   {
     "ThePrimeagen/harpoon",
     opts = {},
@@ -197,7 +198,7 @@ return {
         end,
       },
       {
-        "<leader>e",
+        "<F3>",
         function()
           require("harpoon.ui").toggle_quick_menu()
         end,
@@ -317,6 +318,9 @@ return {
     "lewis6991/gitsigns.nvim",
     config = function()
       require("gitsigns").setup()
+      vim.keymap.set("n", "<right>", "<cmd>Gitsigns next_hunk<cr>", { desc = "Next hunk" })
+      vim.keymap.set("n", "<left>", "<cmd>Gitsigns prev_hunk<cr>", { desc = "Prev hunk" })
+
       vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr>", { desc = "Next hunk" })
       vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr>", { desc = "Prev hunk" })
       vim.keymap.set("n", "gs", "<cmd>Gitsigns stage_buffer<cr>", { desc = "Stage hunk" })

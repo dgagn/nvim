@@ -16,6 +16,11 @@ local M = {
         opts = {},
       },
       {
+        "danymat/neogen",
+        dependencies = "nvim-treesitter/nvim-treesitter",
+        config = true,
+      },
+      {
         "folke/neodev.nvim",
         opts = {},
       },
@@ -33,6 +38,7 @@ local M = {
               nls.builtins.formatting.stylua,
               nls.builtins.formatting.pint,
               nls.builtins.diagnostics.eslint,
+              nls.builtins.formatting.black,
               nls.builtins.formatting.prettier.with({
                 filetypes = {
                   "javascript",
@@ -87,7 +93,7 @@ local M = {
 
         lspmap("n", "gd", require("telescope.builtin").lsp_definitions, "Goto definition")
         lspmap("n", "gD", vim.lsp.buf.declaration, "Goto declaration")
-        lspmap("n", "gI", require("telescope.builtin").lsp_implementations, "Goto implementation")
+        lspmap("n", "gi", require("telescope.builtin").lsp_implementations, "Goto implementation")
         lspmap("n", "gt", require("telescope.builtin").lsp_type_definitions, "Goto type definition")
         lspmap("n", "K", vim.lsp.buf.hover, "Show hover information")
 
@@ -135,6 +141,8 @@ local M = {
               channel = "nightly",
             },
           },
+        },
+        pylsp = {
         },
         sqlls = {},
         tsserver = {},

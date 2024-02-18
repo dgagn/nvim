@@ -5,12 +5,12 @@ return {
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
       { "JoosepAlviste/nvim-ts-context-commentstring", lazy = true },
-      {
-        "nvim-treesitter/nvim-treesitter-context",
-        init = function()
-          require("lazy.core.loader").disable_rtp_plugin("nvim-treesitter-textobjects")
-        end,
-      },
+      -- {
+      --   "nvim-treesitter/nvim-treesitter-context",
+      --   init = function()
+      --     require("lazy.core.loader").disable_rtp_plugin("nvim-treesitter-textobjects")
+      --   end,
+      -- },
       -- {
       --   'windwp/nvim-ts-autotag',
       --   opts = {
@@ -43,9 +43,6 @@ return {
           node_incremental = "<Esc>wW",
           node_decremental = "<m-space>",
         },
-      },
-      context_commentstring = {
-        enable = true,
       },
       autotag = {
         enable = true,

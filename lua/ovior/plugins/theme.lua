@@ -28,7 +28,6 @@ return {
   {
     "dgagn/diagflow.nvim",
     event = "LspAttach",
-    branch = "add-border",
     opts = {
       scope = "line",
     },

@@ -43,7 +43,6 @@ function M.setup()
   vim.opt.splitright = true
 
   vim.opt.cursorline = true
-  vim.opt.termguicolors = true
 
   vim.opt.updatetime = 250
   vim.opt.timeout = true
@@ -56,6 +55,8 @@ function M.setup()
   vim.opt.autoread = true
 
   vim.opt.colorcolumn = "80"
+
+  vim.g.skip_ts_contextt_commentstring_module = true
 
   vim.diagnostic.config({
     virtual_text = true,

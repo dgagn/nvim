@@ -32,7 +32,7 @@ function M.setup()
       { import = "ovior.plugins" },
     },
     install = {
-      colorscheme = { "base16-github" },
+      colorscheme = { "rose-pine" },
     },
     -- please don't autoupdate plugins
     checker = { enable = false },
