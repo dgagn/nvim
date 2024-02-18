@@ -88,8 +88,8 @@ function M.setup()
   map("v", "g;", "<cmd>!python3 -m base64 -d<cr>", { desc = "Base64 decode" })
   map("v", "g:", "<cmd>!python3 -m base64<cr>", { desc = "Base64 encode" })
 
-  map("n", "<up>", vim.diagnostic.goto_next, { desc = "Goto next diagnostic" })
-  map("n", "<down>", vim.diagnostic.goto_prev, { desc = "Goto previous diagnostic" })
+  map("n", "<down>", vim.diagnostic.goto_next, { desc = "Goto next diagnostic" })
+  map("n", "<up>", vim.diagnostic.goto_prev, { desc = "Goto previous diagnostic" })
 end
 
 
