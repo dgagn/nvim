@@ -30,6 +30,7 @@ return {
     event = "LspAttach",
     opts = {
       scope = "line",
+      placement = "inline"
     },
   },
 }

@@ -138,31 +138,6 @@ return {
     },
   },
   {
-    "mizlan/iswap.nvim",
-    cmd = { "ISwapWith", "ISwapNodeWith" },
-    opts = {
-      grey = "disable",
-    },
-    keys = {
-      { "<leader>aa", vim.cmd.ISwapWith,     desc = "Arrange the argument orders" },
-      { "<leader>an", vim.cmd.ISwapNodeWith, desc = "Arrange the node orders" },
-    },
-  },
-  -- {
-  --   "akinsho/toggleterm.nvim",
-  --   version = "*",
-  --   config = true,
-  --   opts = {
-  --     start_in_insert = false,
-  --     direction = 'bottom',
-  --   },
-  --   keys = {
-  --     { "<F1>", "<cmd>ToggleTerm<cr>i",           mode = "n" },
-  --     { "<F1>", "<esc><cmd>ToggleTerm<cr>",       mode = "i" },
-  --     { "<F1>", "<C-\\><C-n><cmd>ToggleTerm<cr>", mode = "t" },
-  --   },
-  -- },
-  {
     "ThePrimeagen/harpoon",
     opts = {},
     keys = {
@@ -237,7 +212,6 @@ return {
       columns = {},
       skip_confirm_for_simple_edits = true,
       view_options = {
-        -- Show files and directories that start with "."
         show_hidden = true,
         is_always_hidden = function(name, bufnr)
           return name == ".DS_Store" or name == "thumbs.db" or name == ".."
@@ -335,6 +309,7 @@ return {
     "airblade/vim-rooter",
     init = function()
       vim.g.rooter_manual_only = 1
+      vim.g.rooter_patterns = { ".git", ".gitignore", ".gitmodules", "Makefile", "package.json", "Cargo.toml" }
     end,
     config = function()
       vim.cmd("Rooter")
@@ -346,6 +321,5 @@ return {
       vim.g.pasta_disabled_filetypes = { "gitcommit", "gitrebase", "svn", "fugitive", "fugitiveblame", "qf", "help" }
     end,
   },
-  "tpope/vim-speeddating",
   "tpope/vim-eunuch",
 }
