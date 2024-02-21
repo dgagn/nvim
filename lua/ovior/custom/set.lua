@@ -20,7 +20,7 @@ function M.setup()
   vim.opt.wrap = false
 
   vim.opt.signcolumn = 'yes'
-  vim.opt.guicursor = ""
+  -- vim.opt.guicursor = ""
 
   vim.opt.swapfile = false
   vim.opt.backup = false

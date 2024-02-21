@@ -1,11 +1,10 @@
 return {
-  -- manages the indents
-  -- {
-  --   "szw/vim-maximizer",
-  --   keys = {
-  --     { "<leader>m", "<cmd>MaximizerToggle<CR>" },
-  --   },
-  -- },
+  {
+    "mbbill/undotree",
+    keys = {
+      { "<leader>u", ":UndotreeToggle<cr>", desc = "Open the undotree" },
+    }
+  },
   "tpope/vim-sleuth",
   { "tpope/vim-repeat", event = "VeryLazy" },
   {
