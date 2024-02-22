@@ -3,7 +3,7 @@ return {
     "mbbill/undotree",
     keys = {
       { "<leader>u", ":UndotreeToggle<cr>", desc = "Open the undotree" },
-    }
+    },
   },
   "tpope/vim-sleuth",
   { "tpope/vim-repeat", event = "VeryLazy" },
@@ -232,40 +232,40 @@ return {
 
       local theme = {
         normal = {
-          a = { bg = p.rose, fg = p.base, gui = "bold" },
-          b = { bg = p.overlay, fg = p.rose },
+          a = { bg = "none", fg = p.rose, gui = "bold" },
+          b = { bg = "none", fg = p.rose },
           c = { bg = "none", fg = p.text },
         },
         insert = {
-          a = { bg = p.foam, fg = p.base, gui = "bold" },
-          b = { bg = p.overlay, fg = p.foam },
+          a = { bg = "none", fg = p.foam, gui = "bold" },
+          b = { bg = "none", fg = p.foam },
           c = { bg = "none", fg = p.text },
         },
         visual = {
-          a = { bg = p.iris, fg = p.base, gui = "bold" },
-          b = { bg = p.overlay, fg = p.iris },
+          a = { bg = "none", fg = p.iris, gui = "bold" },
+          b = { bg = "none", fg = p.iris },
           c = { bg = "none", fg = p.text },
         },
         replace = {
-          a = { bg = p.pine, fg = p.base, gui = "bold" },
-          b = { bg = p.overlay, fg = p.pine },
+          a = { bg = "none", fg = p.pine, gui = "bold" },
+          b = { bg = "none", fg = p.pine },
           c = { bg = "none", fg = p.text },
         },
         command = {
-          a = { bg = p.love, fg = p.base, gui = "bold" },
-          b = { bg = p.overlay, fg = p.love },
+          a = { bg = "none", fg = p.love, gui = "bold" },
+          b = { bg = "none", fg = p.love },
           c = { bg = "none", fg = p.text },
         },
         inactive = {
-          a = { bg = p.base, fg = p.muted, gui = "bold" },
-          b = { bg = p.base, fg = p.muted },
+          a = { bg = "none", fg = p.base, gui = "bold" },
+          b = { bg = "none", fg = p.muted },
           c = { bg = "none", fg = p.muted },
         },
       }
       return {
         options = {
           theme = theme,
-          component_separators = "|",
+          component_separators = "-",
           section_separators = "",
           icons_enabled = false,
         },
@@ -274,7 +274,7 @@ return {
           lualine_b = {
             {
               "buffers",
-            },
+            }
           },
           lualine_c = {
             { "filename", path = 1 },
