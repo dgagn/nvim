@@ -142,8 +142,7 @@ local M = {
             },
           },
         },
-        pylsp = {
-        },
+        pylsp = {},
         sqlls = {},
         tsserver = {},
         astro = {},

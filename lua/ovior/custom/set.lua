@@ -20,13 +20,15 @@ function M.setup()
   vim.opt.wrap = false
 
   vim.opt.signcolumn = 'yes'
-  -- vim.opt.guicursor = ""
 
   vim.opt.swapfile = false
   vim.opt.backup = false
   vim.opt.undofile = true
   vim.opt.undolevels = 10000
   vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+
+  -- disable mouse
+  vim.opt.mouse = ''
 
   vim.g.loaded_matchparen = 1
   vim.opt.showmatch = true

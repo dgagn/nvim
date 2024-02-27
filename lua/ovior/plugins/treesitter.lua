@@ -5,34 +5,13 @@ return {
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
       { "JoosepAlviste/nvim-ts-context-commentstring", lazy = true },
-      -- {
-      --   "nvim-treesitter/nvim-treesitter-context",
-      --   init = function()
-      --     require("lazy.core.loader").disable_rtp_plugin("nvim-treesitter-textobjects")
-      --   end,
-      -- },
-      -- {
-      --   'windwp/nvim-ts-autotag',
-      --   opts = {
-      --     enable = true,
-      --     enable_rename = true,
-      --     enable_close_on_slash = false,
-      --   }
-      -- },
-      {
-        "nvim-treesitter/playground",
-        cmd = "TSPlaygroundToggle",
-        config = function()
-          require("nvim-treesitter.configs").setup({})
-        end,
-      },
     },
     build = ":TSUpdate",
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
     end,
     opts = {
-      ensure_installed = "all",
+      ensure_installed = { "python", "lua", "typescript", "javascript", "json", "yaml", "html", "css", "bash", "c", "cpp", "rust", "go", "java", "toml", "jsonc" },
       auto_install = false,
       highlight = { enable = true },
       indent = { enable = true },
@@ -48,5 +27,38 @@ return {
         enable = true,
       },
     },
+  },
+  {
+    "echasnovski/mini.ai",
+    event = "VeryLazy",
+    dependencies = { "nvim-treesitter-textobjects" },
+    opts = function()
+      local ai = require("mini.ai")
+
+      return {
+        n_lines = 500,
+        custom_textobjects = {
+          o = ai.gen_spec.treesitter({
+            a = { "@block.outer", "@conditional.outer", "@loop.outer" },
+            i = { "@block.inner", "@conditional.outer", "@loop.inner" },
+          }, {}),
+          f = ai.gen_spec.treesitter({
+            a = "@function.outer",
+            i = "@function.inner",
+          }, {}),
+          c = ai.gen_spec.treesitter({
+            a = "@class.outer",
+            i = "@class.inner",
+          }, {}),
+          a = ai.gen_spec.treesitter({
+            i = "@parameter.inner",
+            a = "@parameter.outer",
+          }, {}),
+        },
+      }
+    end,
+    config = function(_, opts)
+      require("mini.ai").setup(opts)
+    end,
   },
 }

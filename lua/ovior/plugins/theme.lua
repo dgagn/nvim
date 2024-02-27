@@ -1,7 +1,5 @@
 return {
   -- is there really something better than rose-pine?
-  -- { 'chriskempson/base16-vim' },
-  -- { 'folke/tokyonight.nvim' },
   {
     "rose-pine/neovim",
     name = "rose-pine",
@@ -30,7 +28,76 @@ return {
     event = "LspAttach",
     opts = {
       scope = "line",
-      placement = "inline"
+      placement = "top",
     },
   },
+  {
+    "nvim-lualine/lualine.nvim",
+    opts = function()
+      local p = require("rose-pine.palette")
+
+      local theme = {
+        normal = {
+          a = { bg = "none", fg = p.rose, gui = "bold" },
+          b = { bg = "none", fg = p.rose },
+          c = { bg = "none", fg = p.text },
+        },
+        insert = {
+          a = { bg = "none", fg = p.foam, gui = "bold" },
+          b = { bg = "none", fg = p.foam },
+          c = { bg = "none", fg = p.text },
+        },
+        visual = {
+          a = { bg = "none", fg = p.iris, gui = "bold" },
+          b = { bg = "none", fg = p.iris },
+          c = { bg = "none", fg = p.text },
+        },
+        replace = {
+          a = { bg = "none", fg = p.pine, gui = "bold" },
+          b = { bg = "none", fg = p.pine },
+          c = { bg = "none", fg = p.text },
+        },
+        command = {
+          a = { bg = "none", fg = p.love, gui = "bold" },
+          b = { bg = "none", fg = p.love },
+          c = { bg = "none", fg = p.text },
+        },
+        inactive = {
+          a = { bg = "none", fg = p.base, gui = "bold" },
+          b = { bg = "none", fg = p.muted },
+          c = { bg = "none", fg = p.muted },
+        },
+      }
+      return {
+        options = {
+          theme = theme,
+          component_separators = "-",
+          section_separators = "",
+          icons_enabled = false,
+        },
+        sections = {
+          lualine_a = { "mode" },
+          lualine_b = {
+            {
+              "buffers",
+            }
+          },
+          lualine_c = {
+            { "filename", path = 1 },
+            "branch",
+          },
+          lualine_x = {
+            "filetype",
+          },
+        },
+      }
+    end,
+  },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = 'ibl',
+    opts = {
+      scope = { enabled = false }
+    }
+  }
 }

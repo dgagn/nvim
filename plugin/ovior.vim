@@ -5,6 +5,8 @@ inoremap <c-j> <down>
 inoremap <c-k> <up>
 inoremap <c-l> <right>
 
+vnoremap s :s/\v
+
 nnoremap Q q
 nnoremap q <Nop>
 

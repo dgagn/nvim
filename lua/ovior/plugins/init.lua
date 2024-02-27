@@ -5,8 +5,6 @@ return {
       { "<leader>u", ":UndotreeToggle<cr>", desc = "Open the undotree" },
     },
   },
-  "tpope/vim-sleuth",
-  { "tpope/vim-repeat", event = "VeryLazy" },
   {
     "folke/trouble.nvim",
     dependencies = {
@@ -18,38 +16,8 @@ return {
     },
   },
   {
-    "monkoose/matchparen.nvim",
-    opts = {},
-  },
-  {
     "mattn/emmet-vim",
     ft = { "html", "astro", "javascriptreact", "typescriptreact" },
-  },
-  {
-    "AndrewRadev/splitjoin.vim",
-    config = function()
-      vim.g.splitjoin_html_attributes_bracket_on_new_line = 1
-      vim.g.splitjoin_trailing_comma = 1
-      vim.g.splitjoin_php_method_chain_full = 1
-    end,
-  },
-  {
-    "christoomey/vim-tmux-navigator",
-    keys = {
-      { "<C-h>", ":TmuxNavigateLeft<CR>",  desc = "Move to the left tmux pane" },
-      { "<C-j>", ":TmuxNavigateDown<CR>",  desc = "Move to the down tmux pane" },
-      { "<C-k>", ":TmuxNavigateUp<CR>",    desc = "Move to the up tmux pane" },
-      { "<C-l>", ":TmuxNavigateRight<CR>", desc = "Move to the right tmux pane" },
-    },
-  },
-  {
-    "tpope/vim-fugitive",
-    dependencies = {
-      "tpope/vim-rhubarb",
-    },
-    config = function()
-      vim.keymap.set("n", "<leader>gg", vim.cmd.Git, { desc = "Open git status" })
-    end,
   },
   {
     "folke/which-key.nvim",
@@ -70,55 +38,6 @@ return {
         desc = "Delete the current buffer",
       },
     },
-  },
-  {
-    "tpope/vim-surround",
-    event = "VeryLazy",
-  },
-  "farmergreg/vim-lastplace",
-  {
-    "echasnovski/mini.comment",
-    event = "VeryLazy",
-    opts = {
-      options = {
-        custom_commentstring = function()
-          return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
-        end,
-      },
-    },
-  },
-  {
-    "echasnovski/mini.ai",
-    event = "VeryLazy",
-    dependencies = { "nvim-treesitter-textobjects" },
-    opts = function()
-      local ai = require("mini.ai")
-
-      return {
-        n_lines = 500,
-        custom_textobjects = {
-          o = ai.gen_spec.treesitter({
-            a = { "@block.outer", "@conditional.outer", "@loop.outer" },
-            i = { "@block.inner", "@conditional.outer", "@loop.inner" },
-          }, {}),
-          f = ai.gen_spec.treesitter({
-            a = "@function.outer",
-            i = "@function.inner",
-          }, {}),
-          c = ai.gen_spec.treesitter({
-            a = "@class.outer",
-            i = "@class.inner",
-          }, {}),
-          a = ai.gen_spec.treesitter({
-            i = "@parameter.inner",
-            a = "@parameter.outer",
-          }, {}),
-        },
-      }
-    end,
-    config = function(_, opts)
-      require("mini.ai").setup(opts)
-    end,
   },
   {
     "nvim-pack/nvim-spectre",
@@ -218,107 +137,5 @@ return {
       },
     },
   },
-  {
-    "tpope/vim-projectionist",
-    dependencies = "tpope/vim-dispatch",
-    config = function()
-      require("ovior.configs.projectionist")
-    end,
-  },
-  {
-    "nvim-lualine/lualine.nvim",
-    opts = function()
-      local p = require("rose-pine.palette")
-
-      local theme = {
-        normal = {
-          a = { bg = "none", fg = p.rose, gui = "bold" },
-          b = { bg = "none", fg = p.rose },
-          c = { bg = "none", fg = p.text },
-        },
-        insert = {
-          a = { bg = "none", fg = p.foam, gui = "bold" },
-          b = { bg = "none", fg = p.foam },
-          c = { bg = "none", fg = p.text },
-        },
-        visual = {
-          a = { bg = "none", fg = p.iris, gui = "bold" },
-          b = { bg = "none", fg = p.iris },
-          c = { bg = "none", fg = p.text },
-        },
-        replace = {
-          a = { bg = "none", fg = p.pine, gui = "bold" },
-          b = { bg = "none", fg = p.pine },
-          c = { bg = "none", fg = p.text },
-        },
-        command = {
-          a = { bg = "none", fg = p.love, gui = "bold" },
-          b = { bg = "none", fg = p.love },
-          c = { bg = "none", fg = p.text },
-        },
-        inactive = {
-          a = { bg = "none", fg = p.base, gui = "bold" },
-          b = { bg = "none", fg = p.muted },
-          c = { bg = "none", fg = p.muted },
-        },
-      }
-      return {
-        options = {
-          theme = theme,
-          component_separators = "-",
-          section_separators = "",
-          icons_enabled = false,
-        },
-        sections = {
-          lualine_a = { "mode" },
-          lualine_b = {
-            {
-              "buffers",
-            }
-          },
-          lualine_c = {
-            { "filename", path = 1 },
-            "branch",
-          },
-          lualine_x = {
-            "filetype",
-          },
-        },
-      }
-    end,
-  },
-  {
-    "lewis6991/gitsigns.nvim",
-    config = function()
-      require("gitsigns").setup()
-      vim.keymap.set("n", "<right>", "<cmd>Gitsigns next_hunk<cr>", { desc = "Next hunk" })
-      vim.keymap.set("n", "<left>", "<cmd>Gitsigns prev_hunk<cr>", { desc = "Prev hunk" })
-
-      vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr>", { desc = "Next hunk" })
-      vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr>", { desc = "Prev hunk" })
-      vim.keymap.set("n", "gs", "<cmd>Gitsigns stage_buffer<cr>", { desc = "Stage hunk" })
-      vim.keymap.set("n", "<leader>gs", "<cmd>Gitsigns stage_buffer<cr>", { desc = "Stage hunk" })
-      vim.keymap.set("n", "<leader>gB", "<cmd>Gitsigns reset_buffer<cr>", { desc = "Reset buffer" })
-      vim.keymap.set("n", "<leader>gh", "<cmd>Gitsigns stage_hunk<cr>", { desc = "Stage hunk" })
-      vim.keymap.set("n", "<leader>gH", "<cmd>Gitsigns undo_stage_hunk<cr>", { desc = "Undo Stage hunk" })
-      vim.keymap.set("n", "<leader>gp", "<cmd>Gitsigns preview_hunk<cr>", { desc = "Preview hunk" })
-    end,
-  },
-  {
-    "airblade/vim-rooter",
-    init = function()
-      vim.g.rooter_manual_only = 1
-      vim.g.rooter_patterns = { ".git", ".gitignore", ".gitmodules", "Makefile", "package.json", "Cargo.toml" }
-    end,
-    config = function()
-      vim.cmd("Rooter")
-    end,
-  },
-  {
-    "sickill/vim-pasta",
-    config = function()
-      vim.g.pasta_disabled_filetypes = { "gitcommit", "gitrebase", "svn", "fugitive", "fugitiveblame", "qf", "help" }
-    end,
-  },
-  "tpope/vim-eunuch",
+  "tpope/vim-dadbod"
 }
