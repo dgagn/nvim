@@ -1,37 +1,3 @@
-snippet _ "force type error"
-let _: () = $0
-endsnippet
-
-snippet ma "match"
-match $1 {
-    $2 => {
-        //
-    },
-}
-endsnippet
-
-snippet mao "match option"
-match $1 {
-    Some($2) => {
-        //
-    },
-    None => {
-        //
-    },
-}
-endsnippet
-
-snippet mar "match result"
-match $1 {
-    Ok($2) => {
-        //
-    },
-    Err($3) => {
-        //
-    },
-}
-endsnippet
-
 snippet i "impl"
 impl $1 {
     $2
@@ -61,24 +27,6 @@ trait $1 {
 }
 endsnippet
 
-snippet si "struct implement"
-struct $1 {
-    $2
-}
-
-impl $1 {
-    $3
-}
-endsnippet
-
-snippet d "debug"
-dbg!($0);
-endsnippet
-
-snippet pl "println"
-println!("$0");
-endsnippet
-
 snippet tests "test module"
 #[cfg(test)]
 mod tests {
@@ -88,27 +36,9 @@ mod tests {
 }
 endsnippet
 
-snippet a "assert"
-assert!($0);
-endsnippet
-
-snippet ae "assert_eq"
-assert_eq!($1, $2);
-endsnippet
-
-snippet ane "assert_ne"
-assert_ne!($1, $2);
-endsnippet
-
-snippet test "a single test"
+snippet te "a single test"
 #[test]
 fn $1() {
-    $0
-}
-endsnippet
-
-snippet new "new function"
-fn new($1) -> Self {
     $0
 }
 endsnippet
@@ -117,11 +47,17 @@ snippet td "todo!"
 todo!()
 endsnippet
 
-snippet display "display impl"
-impl std::fmt::Display for $1 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", $2)
-    }
+snippet ts "sqlx test"
+#[sqlx::test]
+async fn $1(pool: PgPool) {
+    $0
+}
+endsnippet
+
+snippet tt "async test"
+#[tokio::test]
+async fn $1() {
+    $0
 }
 endsnippet
 
@@ -138,30 +74,89 @@ enum $2 {
 }
 endsnippet
 
-snippet dr "derive"
-#[derive($1)]
-endsnippet
-
-snippet derive "derive"
-#[derive($1)]
-endsnippet
-
-snippet debug "debug"
-#[derive(Debug)]
-endsnippet
-
-snippet stest "sqlx test"
-#[sqlx::test]
-async fn $1(pool: PgPool) {
+snippet for "for"
+for ${1:elem} in ${2:collection} {
     $0
 }
 endsnippet
 
-
-snippet atest "async test"
-#[tokio::test]
-async fn $1() {
+snippet fori "fori"
+for ${1:i} in 0..${2:10} {
     $0
+}
+endsnippet
+
+snippet ifl
+if let Some($1) = $2 {
+    $3
+}
+endsnippet
+
+snippet le "let else"
+let $1 = $2 else {
+    $3
+};
+endsnippet
+
+snippet ty "type"
+type $1 = $2;
+endsnippet
+
+snippet fr "from request parts"
+#[async_trait::async_trait]
+impl<S> FromRequestParts<S> for $1
+where
+    S: Send + Sync,
+{
+    type Rejection = $2;
+
+    async fn from_request_parts(parts: &mut Parts, _state: &S) -> Result<Self, Self::Rejection> {
+        Ok(Self)
+    }
+}
+endsnippet
+
+snippet amain "async main"
+#[tokio::main]
+async fn main() {
+    $0
+}
+endsnippet
+
+snippet main "main"
+fn main() {
+    $0
+}
+endsnippet
+
+snippet f "function"
+fn $1($2) {
+    $0
+}
+endsnippet
+
+snippet fn "function"
+fn $1($2) -> $3 {
+    $0
+}
+endsnippet
+
+snippet af "function"
+async fn $1($2) {
+    $0
+}
+endsnippet
+
+snippet afn "function"
+async fn $1($2) -> $3 {
+    $0
+}
+endsnippet
+
+snippet ee "error"
+#[derive(Debug, thiserror::Error)]
+enum $1 {
+    $2
 }
 endsnippet
 
@@ -225,71 +220,6 @@ where
 }
 endsnippet
 
-snippet future
-use futures_core::ready;
-use pin_project::pin_project;
-use std::future::Future;
-
-#[pin_project]
-pub struct $1<F> {
-    #[pin]
-    inner: F,
-}
-
-impl<F> Future for $1<F>
-where
-    F: Future,
-{
-    type Output = F::Output;
-
-    fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
-        let this = self.project();
-        let result: F::Output = ready!(this.inner.poll(cx));
-        Poll::Ready(result)
-    }
-}
-endsnippet
-
-snippet body
-use http_body::Body;
-
-#[pin_project]
-pub struct $1<B> {
-    #[pin]
-    inner: B,
-}
-
-impl<B> Body for $1<B>
-where
-    B: Body,
-{
-    type Data = B::Data;
-    type Error = B::Error;
-
-    fn poll_data(
-        self: Pin<&mut Self>,
-        cx: &mut Context<'_>,
-    ) -> Poll<Option<Result<Self::Data, Self::Error>>> {
-        self.project().inner.poll_data(cx)
-    }
-
-    fn poll_trailers(
-        self: Pin<&mut Self>,
-        cx: &mut Context<'_>,
-    ) -> Poll<Result<Option<http::HeaderMap>, Self::Error>> {
-        self.project().inner.poll_trailers(cx)
-    }
-
-    fn is_end_stream(&self) -> bool {
-        self.inner.is_end_stream()
-    }
-
-    fn size_hint(&self) -> http_body::SizeHint {
-        self.inner.size_hint()
-    }
-}
-endsnippet
-
 snippet layer
 use tower::Layer;
 
@@ -305,22 +235,6 @@ impl<S> Layer<S> for $0 {
 }
 endsnippet
 
-snippet al
-#![allow($0)]
-endsnippet
-
-snippet all
-#![allow($0)]
-endsnippet
-
-snippet l
-let $1 = $2;
-endsnippet
-
-snippet lm
-let mut $1 = $2;
-endsnippet
-
 snippet middleware
 use axum::{middleware::Next, response::Response};
 use http::Request;
@@ -331,151 +245,5 @@ async fn $1<B>(
 ) -> Response {
     let response = next.run(request).await;
     response
-}
-endsnippet
-
-snippet for "for"
-for ${1:elem} in ${2:collection} {
-    $0
-}
-endsnippet
-
-snippet fori "fori"
-for ${1:i} in 0..${2:10} {
-    $0
-}
-endsnippet
-
-snippet ifl
-if let Some($1) = $2 {
-    $3
-}
-endsnippet
-
-snippet ty "type"
-type $1 = $2;
-endsnippet
-
-snippet from "from"
-impl From<$1> for $2 {
-    fn from($3: $1) -> Self {
-        $0
-    }
-}
-endsnippet
-
-snippet fromrequestparts "from request parts"
-#[async_trait::async_trait]
-impl<S> FromRequestParts<S> for $1
-where
-    S: Send + Sync,
-{
-    type Rejection = $2;
-
-    async fn from_request_parts(parts: &mut Parts, _state: &S) -> Result<Self, Self::Rejection> {
-        Ok(Self)
-    }
-}
-endsnippet
-
-snippet amain "async main"
-#[tokio::main]
-async fn main() {
-    $0
-}
-endsnippet
-
-snippet main "main"
-fn main() {
-    $0
-}
-endsnippet
-
-snippet fn "function"
-fn $1($2) {
-    $0
-}
-endsnippet
-
-snippet fnr "function"
-fn $1($2) -> $3 {
-    $0
-}
-endsnippet
-
-snippet afn "function"
-async fn $1($2) {
-    $0
-}
-endsnippet
-
-snippet afnr "function"
-async fn $1($2) -> $3 {
-    $0
-}
-endsnippet
-
-snippet deref "deref"
-impl std::ops::Deref for $1 {
-    type Target = $2;
-
-    fn deref(&self) -> &Self::Target {
-        &self.$0
-    }
-}
-endsnippet
-
-snippet error "error"
-#[error($1)]
-endsnippet
-
-snippet eer "error"
-#[derive(Debug, thiserror::Error)]
-enum $1 {
-    $2
-}
-endsnippet
-
-snippet rule "add a rule"
-use crate::validation::{Validation, ValidationError};
-
-pub trait $1Rule<'a, T>
-{
-    fn $2(self) -> Validation<'a, T>;
-}
-
-impl<'a, T> $1Rule<'a, T> for Validation<'a, T>
-{
-    fn $2(mut self) -> Validation<'a, T> {
-        $0
-        self
-    }
-}
-endsnippet
-
-snippet handler "handler"
-use crate::prelude::*;
-use axum::extract::FromRequest;
-use serde::Deserialize;
-
-use crate::extractor::ValidatedJson;
-
-#[derive(Debug, Deserialize, FromRequest)]
-#[from_request(via(ValidatedJson))]
-pub struct $1Request {
-}
-
-validate_for!($1Request {
-});
-
-#[tracing::instrument(
-    name = "$2 handler",
-    skip(),
-)]
-pub async fn $2_handler(
-    body: $1Request,
-) -> AppResult<()> {
-    tracing::info!("body: {:?}", body);
-    Ok(())
 }
 endsnippet

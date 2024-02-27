@@ -40,4 +40,3 @@ vim.g.projectionist_heuristics = {
 }
 
 vim.keymap.set('n', '<leader>af', '<cmd>A<cr>', {desc = 'Alternate file'})
-
