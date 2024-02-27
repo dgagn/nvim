@@ -21,15 +21,9 @@ return {
   },
   -- surround helpers
   {
-    "echasnovski/mini.surround",
-    config = function()
-      require("mini.surround").setup()
-    end,
+    "tpope/vim-surround",
+    event = "VeryLazy",
   },
-  -- {
-  --   "tpope/vim-surround",
-  --   event = "VeryLazy",
-  -- },
   { 'numToStr/Comment.nvim', opts = {} },
   -- Can manage a project with a set of conventions like laravel
   {
