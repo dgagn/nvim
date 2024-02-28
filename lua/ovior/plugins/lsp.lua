@@ -1,5 +1,32 @@
 local M = {
   {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+        rust = { "rustfmt" },
+        sh = { "shfmt" },
+        javascript = { { "prettier", "prettierd" } },
+        php = { "pint" },
+        sql = { "sql_formatter" },
+      },
+      formatters = {
+        rustfmt = {
+          prepend_args = { "--edition", "2021" },
+        },
+        shfmt = {
+          prepend_args = { "-i", "2" },
+        },
+        sql_formatter = {
+          prepend_args = { "--config", "/Users/danygagnon/.sql/format.json" },
+        },
+      },
+    },
+    init = function()
+      vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+    end,
+  },
+  {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
@@ -26,44 +53,44 @@ local M = {
       },
       "rust-lang/rust.vim",
       "simrat39/rust-tools.nvim",
-      {
-        "jose-elias-alvarez/null-ls.nvim",
-        event = { "BufReadPre", "BufNewFile" },
-        dependencies = { "mason.nvim", "simrat39/rust-tools.nvim" },
-        opts = function()
-          local nls = require("null-ls")
-          return {
-            root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
-            sources = {
-              nls.builtins.formatting.stylua,
-              nls.builtins.formatting.pint,
-              nls.builtins.diagnostics.eslint,
-              nls.builtins.formatting.black,
-              nls.builtins.formatting.prettier.with({
-                filetypes = {
-                  "javascript",
-                  "javascriptreact",
-                  "typescript",
-                  "typescriptreact",
-                  "vue",
-                  "css",
-                  "scss",
-                  "less",
-                  "html",
-                  "json",
-                  "jsonc",
-                  "yaml",
-                  "markdown",
-                  "markdown.mdx",
-                  "graphql",
-                  "handlebars",
-                  "astro",
-                },
-              }),
-            },
-          }
-        end,
-      },
+      -- {
+      --   "jose-elias-alvarez/null-ls.nvim",
+      --   event = { "BufReadPre", "BufNewFile" },
+      --   dependencies = { "mason.nvim", "simrat39/rust-tools.nvim" },
+      --   opts = function()
+      --     local nls = require("null-ls")
+      --     return {
+      --       root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
+      --       sources = {
+      --         nls.builtins.formatting.stylua,
+      --         nls.builtins.formatting.pint,
+      --         nls.builtins.diagnostics.eslint,
+      --         nls.builtins.formatting.black,
+      --         nls.builtins.formatting.prettier.with({
+      --           filetypes = {
+      --             "javascript",
+      --             "javascriptreact",
+      --             "typescript",
+      --             "typescriptreact",
+      --             "vue",
+      --             "css",
+      --             "scss",
+      --             "less",
+      --             "html",
+      --             "json",
+      --             "jsonc",
+      --             "yaml",
+      --             "markdown",
+      --             "markdown.mdx",
+      --             "graphql",
+      --             "handlebars",
+      --             "astro",
+      --           },
+      --         }),
+      --       },
+      --     }
+      --   end,
+      -- },
     },
     config = function()
       -- diagnostics
@@ -74,6 +101,10 @@ local M = {
           vim.keymap.set(mode, keybind, fn, desc)
         end
       end
+
+      map("n", "<leader>fm", function()
+        require("conform").format({ async = true, fallback_lsp = true })
+      end, "Format the code based on lsp")
 
       local on_attach = function(client, bufnr)
         local lspmap = function(mode, keys, func, desc)
@@ -103,9 +134,6 @@ local M = {
         lspmap("n", "<leader>fs", require("telescope.builtin").lsp_document_symbols, "Find document symbols")
 
         lspmap("n", "<leader>r", vim.lsp.buf.rename, "Rename symbol")
-        lspmap("n", "<leader>fm", function()
-          vim.lsp.buf.format({ async = true })
-        end, "Format the code based on lsp")
         lspmap("n", "<leader>ca", vim.lsp.buf.code_action, "Code action")
 
         lspmap("n", "<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Find workspace symbols")
