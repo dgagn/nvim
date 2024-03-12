@@ -20,12 +20,6 @@ return {
     ft = { "html", "astro", "javascriptreact", "typescriptreact" },
   },
   {
-    "folke/which-key.nvim",
-    opts = {
-      triggers = { "<leader>", "g", "<c-w>" },
-    },
-  },
-  {
     "echasnovski/mini.bufremove",
     event = "VeryLazy",
     opts = {},

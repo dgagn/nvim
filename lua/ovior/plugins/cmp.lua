@@ -87,6 +87,9 @@ local M = {
     config = function()
       require("chatgpt").setup({
         api_key = os.getenv("OPENAI_API_KEY"),
+        openai_params = {
+          model = "gpt-4-0613"
+        }
       })
     end,
   }

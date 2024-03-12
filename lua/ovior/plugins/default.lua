@@ -61,4 +61,5 @@ return {
     },
   },
   'tpope/vim-tbone',
+  'theprimeagen/vim-be-good',
 }

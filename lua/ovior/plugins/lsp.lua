@@ -53,44 +53,6 @@ local M = {
       },
       "rust-lang/rust.vim",
       "simrat39/rust-tools.nvim",
-      -- {
-      --   "jose-elias-alvarez/null-ls.nvim",
-      --   event = { "BufReadPre", "BufNewFile" },
-      --   dependencies = { "mason.nvim", "simrat39/rust-tools.nvim" },
-      --   opts = function()
-      --     local nls = require("null-ls")
-      --     return {
-      --       root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
-      --       sources = {
-      --         nls.builtins.formatting.stylua,
-      --         nls.builtins.formatting.pint,
-      --         nls.builtins.diagnostics.eslint,
-      --         nls.builtins.formatting.black,
-      --         nls.builtins.formatting.prettier.with({
-      --           filetypes = {
-      --             "javascript",
-      --             "javascriptreact",
-      --             "typescript",
-      --             "typescriptreact",
-      --             "vue",
-      --             "css",
-      --             "scss",
-      --             "less",
-      --             "html",
-      --             "json",
-      --             "jsonc",
-      --             "yaml",
-      --             "markdown",
-      --             "markdown.mdx",
-      --             "graphql",
-      --             "handlebars",
-      --             "astro",
-      --           },
-      --         }),
-      --       },
-      --     }
-      --   end,
-      -- },
     },
     config = function()
       -- diagnostics
@@ -191,18 +153,18 @@ local M = {
 
       require("rust-tools").setup({
         tools = {
-          autoSetHints = true,
+          autoSetHints = false,
           inlay_hints = {
             auto = false,
             only_current_line = false,
-            show_parameter_hints = true,
-            parameter_hints_prefix = "<- ",
-            other_hints_prefix = "=> ",
+            show_parameter_hints = false,
+            parameter_hints_prefix = "< ",
+            other_hints_prefix = " ",
             max_len_align = false,
             max_len_align_padding = 1,
             right_align = false,
             right_align_padding = 7,
-            highlight = "Comment",
+            highlight = "DimComment",
           },
         },
         server = {
