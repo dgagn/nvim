@@ -25,11 +25,11 @@ function M.setup()
   map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
   map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-  map("n", "<c-n>", "<cmd>Oil<CR>", { desc = "Open Oil" })
+  map("n", "<c-n>", "<cmd>Oil --float<CR>", { desc = "Open Oil" })
 
   map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit the window" })
   map("n", "q:", ":q") -- fuging anoying
-  map("n", "<leader>s", "<cmd>w<cr>", { desc = "Save the file" })
+  map("n", "<leader>s", ":w<cr>", { desc = "Save the file" })
 
   map("n", "<C-d>", "<C-d>zz")
   map("n", "<C-u>", "<C-u>zz")
@@ -82,7 +82,7 @@ function M.setup()
 
   map("n", "<c-c>", "<esc>")
 
-  map("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+  map("n", "-", "<CMD>Oil --float<CR>", { desc = "Open parent directory" })
 
   -- map the base64 encode and decode
   map("v", "g;", "<cmd>!python3 -m base64 -d<cr>", { desc = "Base64 decode" })
