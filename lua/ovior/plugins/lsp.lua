@@ -6,9 +6,12 @@ local M = {
         lua = { "stylua" },
         rust = { "rustfmt" },
         sh = { "shfmt" },
-        javascript = { { "prettier", "prettierd" } },
         php = { "pint" },
         sql = { "sql_formatter" },
+        typescript = { { "prettier", "prettierd" } },
+        typescriptreact = { { "prettier", "prettierd" } },
+        javascriptreact = { { "prettier", "prettierd" } },
+        javascript = { { "prettier", "prettierd" } },
       },
       formatters = {
         rustfmt = {
@@ -53,6 +56,20 @@ local M = {
       },
       "rust-lang/rust.vim",
       "simrat39/rust-tools.nvim",
+      {
+        "jose-elias-alvarez/null-ls.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        dependencies = { "mason.nvim", "simrat39/rust-tools.nvim" },
+        opts = function()
+          local nls = require("null-ls")
+          return {
+            root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
+            sources = {
+              nls.builtins.diagnostics.eslint,
+            },
+          }
+        end,
+      },
     },
     config = function()
       -- diagnostics
@@ -102,6 +119,7 @@ local M = {
       end
 
       local servers = {
+        wgsl_analyzer = {},
         rust_analyzer = {
           ["rust-analyzer"] = {
             checkOnSave = {

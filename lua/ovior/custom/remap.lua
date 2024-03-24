@@ -27,9 +27,9 @@ function M.setup()
 
   map("n", "<c-n>", "<cmd>Oil<CR>", { desc = "Open Oil" })
 
-  map("n", "<leader>q", ":q<cr>", { desc = "Quit the window" })
+  map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit the window" })
   map("n", "q:", ":q") -- fuging anoying
-  map("n", "<space>s", ":w<cr>", { desc = "Save the file" })
+  map("n", "<leader>s", "<cmd>w<cr>", { desc = "Save the file" })
 
   map("n", "<C-d>", "<C-d>zz")
   map("n", "<C-u>", "<C-u>zz")
@@ -90,6 +90,9 @@ function M.setup()
 
   map("n", "<down>", vim.diagnostic.goto_next, { desc = "Goto next diagnostic" })
   map("n", "<up>", vim.diagnostic.goto_prev, { desc = "Goto previous diagnostic" })
+
+  map("n", "<leader>Z", "<cmd>Copilot toggle<cr>", { desc = "Copilot toggle" })
+  map("i", "<ctrl-s>", "<cmd>Copilot toggle<cr>", { desc = "Copilot toggle" })
 end
 
 

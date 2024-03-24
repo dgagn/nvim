@@ -1,4 +1,4 @@
-let g:user_emmet_leader_key = "<c-a>"
+let g:user_emmet_leader_key = "<c-e>"
 
 inoremap <c-h> <left>
 inoremap <c-j> <down>

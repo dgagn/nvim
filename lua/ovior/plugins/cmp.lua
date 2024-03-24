@@ -83,16 +83,25 @@ local M = {
     end,
   },
   {
-    "jackMort/ChatGPT.nvim",
+    "robitx/gp.nvim",
     config = function()
-      require("chatgpt").setup({
-        api_key = os.getenv("OPENAI_API_KEY"),
-        openai_params = {
-          model = "gpt-4-0613"
-        }
+      require("gp").setup({
+        open_api_key = os.getenv("OPENAI_API_KEY"),
       })
     end,
-  }
+  },
+  -- {
+  --   "jackMort/ChatGPT.nvim",
+  --   config = function()
+  --     require("chatgpt").setup({
+  --       api_key = os.getenv("OPENAI_API_KEY"),
+  --       openai_params = {
+  --         model = "gpt-4",
+  --         max_tokens = 4096,
+  --       }
+  --     })
+  --   end,
+  -- }
 }
 
 return M
