@@ -40,7 +40,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 nnoremap <leader>lD <cmd>Telescope diagnostics severity=error<cr>
 nnoremap <leader>ld <cmd>Telescope diagnostics<cr>
 
-let g:htmllike_filetypes = ['html', 'astro', 'javascriptreact', 'typescriptreact']
+let g:htmllike_filetypes = ['html', 'astro', 'javascriptreact', 'typescriptreact', 'php']
 
 function! IsHTMLLikeFiletype()
   for type in g:htmllike_filetypes

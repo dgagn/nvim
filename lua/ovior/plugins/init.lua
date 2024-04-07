@@ -17,7 +17,7 @@ return {
   },
   {
     "mattn/emmet-vim",
-    ft = { "html", "astro", "javascriptreact", "typescriptreact" },
+    ft = { "html", "php", "astro", "javascriptreact", "typescriptreact" },
   },
   {
     "echasnovski/mini.bufremove",
@@ -41,7 +41,7 @@ return {
     },
     keys = {
       {
-        "<leader>cr",
+        "<leader>fr",
         function()
           require("spectre").open()
         end,
@@ -85,7 +85,7 @@ return {
         end,
       },
       {
-        "<F3>",
+        "<c-e>",
         function()
           require("harpoon.ui").toggle_quick_menu()
         end,
@@ -96,7 +96,22 @@ return {
   {
     "phpactor/phpactor",
     ft = "php",
-    build = "composer install --no-dev --optimize-autoloader",
+    build = function()
+      local handle = io.open("composer --version")
+      if not handle then
+        print("Composer is not installed")
+        return
+      end
+      local result = handle:read("*a")
+      handle:close()
+
+      if not string.match(result, "Composer version") then
+        print("Composer is not installed")
+        return
+      end
+
+      vim.cmd("!composer install --no-dev --optimize-autoloader")
+    end,
     config = function()
       vim.keymap.set("n", "<leader>pa", "<cmd>PhpactorContextMenu<cr>", { desc = "The php actor context menu" })
       vim.keymap.set("n", "<leader>pn", "<cmd>PhpactorClassNew<cr>", { desc = "Create a new class" })

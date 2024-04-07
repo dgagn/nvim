@@ -9,6 +9,7 @@ local M = {
         php = { "pint" },
         sql = { "sql_formatter" },
         typescript = { { "prettier", "prettierd" } },
+        astro = { { "prettier", "prettierd" } },
         typescriptreact = { { "prettier", "prettierd" } },
         javascriptreact = { { "prettier", "prettierd" } },
         javascript = { { "prettier", "prettierd" } },
@@ -155,6 +156,17 @@ local M = {
         tsserver = {},
         astro = {},
         clangd = {},
+        html = {
+          format = {
+            templating = true,
+            wrapLineLength = 120,
+            wrapAttributes = "auto",
+          },
+          hover = {
+            documentation = true,
+            references = true,
+          },
+        },
         lua_ls = {
           Lua = {
             workspace = { checkThirdParty = false },

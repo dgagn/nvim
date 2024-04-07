@@ -7,19 +7,18 @@ function M.setup()
   vim.opt.number = true
   vim.opt.relativenumber = true
 
-  vim.opt.breakindent = true
-
   vim.opt.ignorecase = true
   vim.opt.smartcase = true
 
   vim.opt.softtabstop = 4
   vim.opt.shiftwidth = 4
   vim.opt.expandtab = true
+
   vim.opt.smartindent = true
 
   vim.opt.wrap = false
 
-  vim.opt.signcolumn = 'yes'
+  vim.opt.signcolumn = "yes"
 
   vim.opt.swapfile = false
   vim.opt.backup = false
@@ -28,7 +27,7 @@ function M.setup()
   vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 
   -- disable mouse
-  vim.opt.mouse = ''
+  vim.opt.mouse = ""
 
   vim.g.loaded_matchparen = 1
   vim.opt.showmatch = true
@@ -50,9 +49,9 @@ function M.setup()
   vim.opt.timeout = true
   vim.opt.timeoutlen = 300
 
-  vim.o.completeopt = 'menuone,noselect'
+  vim.o.completeopt = "menuone,noselect"
 
-  vim.opt.backspace = 'indent,eol,start'
+  vim.opt.backspace = "indent,eol,start"
 
   vim.opt.autoread = true
 
@@ -63,8 +62,8 @@ function M.setup()
   vim.diagnostic.config({
     virtual_text = true,
     float = {
-      source = true
-    }
+      source = true,
+    },
   })
 end
 

@@ -3,8 +3,6 @@ local M = {
     "hrsh7th/nvim-cmp",
     dependencies = {
       -- snippets and cmp
-      -- "L3MON4D3/LuaSnip",
-      -- "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-nvim-lsp-signature-help",
 
       -- buffer and path
@@ -13,9 +11,6 @@ local M = {
 
       -- Adds LSP completion capabilities
       "hrsh7th/cmp-nvim-lsp",
-
-      -- Adds a number of user-friendly snippets
-      "rafamadriz/friendly-snippets",
     },
     event = "InsertEnter",
     opts = function()
@@ -82,26 +77,6 @@ local M = {
       require("copilot").setup(opts)
     end,
   },
-  {
-    "robitx/gp.nvim",
-    config = function()
-      require("gp").setup({
-        open_api_key = os.getenv("OPENAI_API_KEY"),
-      })
-    end,
-  },
-  -- {
-  --   "jackMort/ChatGPT.nvim",
-  --   config = function()
-  --     require("chatgpt").setup({
-  --       api_key = os.getenv("OPENAI_API_KEY"),
-  --       openai_params = {
-  --         model = "gpt-4",
-  --         max_tokens = 4096,
-  --       }
-  --     })
-  --   end,
-  -- }
 }
 
 return M

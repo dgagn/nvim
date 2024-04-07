@@ -59,7 +59,5 @@ return {
       { "<C-k>", ":TmuxNavigateUp<CR>",    desc = "Move to the up tmux pane" },
       { "<C-l>", ":TmuxNavigateRight<CR>", desc = "Move to the right tmux pane" },
     },
-  },
-  'tpope/vim-tbone',
-  'theprimeagen/vim-be-good',
+  }
 }

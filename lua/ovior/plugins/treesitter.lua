@@ -60,9 +60,5 @@ return {
     config = function(_, opts)
       require("mini.ai").setup(opts)
     end,
-  },
-  {
-    "nvim-treesitter/playground",
-    event = "VeryLazy",
   }
 }
