@@ -53,7 +53,7 @@ endfunction
 
 function! TabExpandFunc()
   " Check if an UltiSnips snippet is expandable or if we can jump forwards in a snippet
-  if UltiSnips#CanExpandSnippet() || UltiSnips#CanJumpForwards()
+  if UltiSnips#CanExpandSnippet()
     return "\<C-R>=UltiSnips#ExpandSnippet()\<CR>"
   endif
 
