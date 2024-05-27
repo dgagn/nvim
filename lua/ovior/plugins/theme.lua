@@ -1,3 +1,5 @@
+hello = "world"
+
 return {
   -- is there really something better than rose-pine?
   {
@@ -29,6 +31,10 @@ return {
     opts = {
       scope = "line",
       placement = "top",
+      update_event = {
+        "BufReadPost",
+        "DiagnosticChanged",
+      },
     },
   },
   {

@@ -1,4 +1,7 @@
+hello = "world"
+
 local M = {}
+
 
 local function augroup(name)
   return vim.api.nvim_create_augroup("ovior_" .. name, { clear = true })
