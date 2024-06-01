@@ -27,7 +27,7 @@ function M.setup()
 
   map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit the window" })
   map("n", "q:", ":q") -- fuging anoying
-  map("n", "<leader>s", ":w<cr>", { desc = "Save the file" })
+  map("n", "<leader>s", "<cmd>w<cr>", { desc = "Save the file" })
 
   map("n", "<C-d>", "<C-d>zz")
   map("n", "<C-u>", "<C-u>zz")
@@ -58,6 +58,8 @@ function M.setup()
 
   map("i", "<c-a>", "<esc>A")
 
+  map("n", "<leader>r", "<cmd>e<cr>", { desc = "Refresh the file" })
+
   map("n", "<leader>O", "O<Esc>j", { desc = "Add an empty line above" })
   map("n", "<leader>o", "o<Esc>k")
   map("t", "<c-x>", "<c-\\><c-n>")
@@ -67,10 +69,10 @@ function M.setup()
   map("n", "<leader>vt", "<cmd>vsp<cr><cmd>terminal<cr>")
   map("n", "<leader>ht", "<cmd>sp<cr><cmd>terminal<cr>")
 
-  map("n", "gn", "<cmd>:bnext<cr>")
-  map("n", "gp", "<cmd>:bprev<cr>")
-  map("n", "g$", "<cmd>:blast<cr>")
-  map("n", "g^", "<cmd>:bfirst<cr>")
+  map("n", "gn", "<cmd>bnext<cr>")
+  map("n", "gp", "<cmd>bprev<cr>")
+  map("n", "g$", "<cmd>blast<cr>")
+  map("n", "g^", "<cmd>bfirst<cr>")
 
   map("n", "gb", "<cmd>b#<cr>")
   map('n', '<leader>X', close_all_buffers, { desc = 'Close all buffer except the current one', noremap = true, silent = true });
