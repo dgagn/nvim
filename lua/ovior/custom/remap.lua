@@ -58,7 +58,7 @@ function M.setup()
 
   map("i", "<c-a>", "<esc>A")
 
-  map("n", "<leader>r", "<cmd>e<cr>", { desc = "Refresh the file" })
+  map("n", "<leader>R", "<cmd>e<cr>", { desc = "Refresh the file" })
 
   map("n", "<leader>O", "O<Esc>j", { desc = "Add an empty line above" })
   map("n", "<leader>o", "o<Esc>k")
