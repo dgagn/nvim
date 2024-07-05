@@ -1,5 +1,3 @@
-hello = "world"
-
 return {
   -- is there really something better than rose-pine?
   {

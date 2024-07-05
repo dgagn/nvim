@@ -1,4 +1,5 @@
 return {
+  "lepture/vim-jinja",
   {
     "mbbill/undotree",
     keys = {
@@ -19,6 +20,7 @@ return {
     "mattn/emmet-vim",
     ft = { "html", "php", "astro", "javascriptreact", "typescriptreact" },
   },
+  "wuelnerdotexe/vim-astro",
   {
     "echasnovski/mini.bufremove",
     event = "VeryLazy",

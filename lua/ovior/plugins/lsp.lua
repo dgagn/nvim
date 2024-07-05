@@ -140,7 +140,9 @@ local M = {
               },
             },
             diagnostics = {
-              disabled = { "macro-error" },
+              enable = true,
+              disabled = { "macro-error", "unresolved-proc-macro" },
+              enableExperimental = true,
             },
             procMacro = {
               enable = true,
