@@ -40,7 +40,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 nnoremap <leader>lD <cmd>Telescope diagnostics severity=error<cr>
 nnoremap <leader>ld <cmd>Telescope diagnostics<cr>
 
-let g:htmllike_filetypes = ['html', 'astro', 'javascriptreact', 'typescriptreact', 'php']
+let g:htmllike_filetypes = ['html', 'astro', 'javascriptreact', 'typescriptreact', 'php', 'jinja.html']
 
 function! IsHTMLLikeFiletype()
   for type in g:htmllike_filetypes
@@ -58,10 +58,15 @@ function! TabExpandFunc()
   endif
 
   if IsHTMLLikeFiletype()
-      return "\<Plug>(emmet-expand-abbr)"
+        let l:before_cursor = getline('.')[0:col('.')-2]
+        if l:before_cursor =~ '\w\|>\|/\|-' " regex to match word character, >, /, or -
+          return "\<Plug>(emmet-expand-abbr)"
+        else
+          return "\<tab>"
+        endif
   endif
 
-    return "\<tab>"
+  return "\<tab>"
 endfunction
 
 function! TabExpandFuncVisual()
@@ -78,3 +83,5 @@ inoremap <silent><expr> <tab> TabExpandFunc()
 xnoremap <silent><expr> <tab> TabExpandFuncVisual()
 
 set autoread
+
+let test#rust#cargotest#test_options = '-- --nocapture'

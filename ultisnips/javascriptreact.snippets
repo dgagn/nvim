@@ -1,0 +1,73 @@
+extends html, typescript
+priority 1
+
+snippet cn "className"
+className="$0"
+endsnippet
+
+snippet uc "use client"
+'use client';
+endsnippet
+
+snippet ue "useEffect"
+useEffect(() => {
+	$0
+}, []);
+endsnippet
+
+snippet us "use state hook" b
+const [$1, set${1/\w+/\u$0/g}] = useState($2);
+endsnippet
+
+snippet um "use memo"
+const $1 = useMemo(() => {
+	$0
+}, []);
+endsnippet
+
+snippet ed "export default"
+export default $0;
+endsnippet
+
+snippet rse "react function"
+function $1() {
+	return (
+		<>
+			$0
+		</>
+	);
+}
+
+export default $1;
+endsnippet
+
+snippet rsf "React function component based on file name" b
+function `!p
+import re
+filename = vim.eval("expand('%:t:r')")
+component_name = re.sub(r'(?:^|-)(\w)', lambda x: x.group(1).upper(), filename)
+snip.rv = component_name
+`(props) {
+	return (
+		<div>
+			$0
+		</div>
+	);
+}
+
+export default `!p
+snip.rv = component_name
+`;
+endsnippet
+
+snippet rsc "react function"
+function $1(props) {
+	return (
+		<div>
+			$0
+		</div>
+	);
+}
+
+export default $1;
+endsnippet
