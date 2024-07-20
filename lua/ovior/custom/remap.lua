@@ -27,6 +27,8 @@ function M.setup()
 
   map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit the window" })
   map("n", "q:", ":q") -- fuging anoying
+
+  -- Prevent this from being mapped in oil
   map("n", "<leader>s", "<cmd>w<cr>", { desc = "Save the file" })
 
   map("n", "<C-d>", "<C-d>zz")

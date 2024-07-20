@@ -26,6 +26,7 @@ function M.setup()
     pattern = "oil_preview",
     callback = function(params)
       vim.keymap.set("n", "y", "o", { buffer = params.buf, remap = true, nowait = true })
+      vim.keymap.set("n", "<leader>s", "<nop>");
     end,
   })
 
