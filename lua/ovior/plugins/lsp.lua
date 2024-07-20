@@ -191,27 +191,6 @@ local M = {
         jdtls = {},
       }
 
-      require("rust-tools").setup({
-        tools = {
-          autoSetHints = false,
-          inlay_hints = {
-            auto = false,
-            only_current_line = false,
-            show_parameter_hints = false,
-            parameter_hints_prefix = "< ",
-            other_hints_prefix = " ",
-            max_len_align = false,
-            max_len_align_padding = 1,
-            right_align = false,
-            right_align_padding = 7,
-            highlight = "DimComment",
-          },
-        },
-        server = {
-          standalone = false,
-        },
-      })
-
       local lspconfig = require("lspconfig")
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
