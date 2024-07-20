@@ -40,7 +40,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 nnoremap <leader>lD <cmd>Telescope diagnostics severity=error<cr>
 nnoremap <leader>ld <cmd>Telescope diagnostics<cr>
 
-let g:htmllike_filetypes = ['html', 'astro', 'javascriptreact', 'typescriptreact', 'php', 'jinja.html']
+let g:htmllike_filetypes = ['html', 'astro', 'javascriptreact', 'typescriptreact', 'php', 'jinja.html', 'mustache']
 
 function! IsHTMLLikeFiletype()
   for type in g:htmllike_filetypes
@@ -85,3 +85,5 @@ xnoremap <silent><expr> <tab> TabExpandFuncVisual()
 set autoread
 
 let test#rust#cargotest#test_options = '-- --nocapture'
+
+au BufRead,BufNewFile *.hbs set filetype=mustache

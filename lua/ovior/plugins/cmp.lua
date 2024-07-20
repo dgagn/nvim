@@ -1,9 +1,24 @@
 local M = {
   {
+		"ray-x/lsp_signature.nvim",
+		event = "VeryLazy",
+		opts = {},
+		config = function(_, opts)
+			-- Get signatures (and _only_ signatures) when in argument lists.
+			require "lsp_signature".setup({
+				doc_lines = 0,
+        bind = true, -- This is mandatory, otherwise border config won't get registered.
+        handler_opts = {
+          border = "rounded"
+        }
+			})
+		end
+	},
+  {
     "hrsh7th/nvim-cmp",
     dependencies = {
       -- snippets and cmp
-      "hrsh7th/cmp-nvim-lsp-signature-help",
+      -- "hrsh7th/cmp-nvim-lsp-signature-help",
 
       -- buffer and path
       "hrsh7th/cmp-buffer",

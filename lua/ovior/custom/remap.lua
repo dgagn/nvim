@@ -56,6 +56,8 @@ function M.setup()
 
   map("v", "O", "o<Esc>a", { silent = true })
 
+  map("n", "<leader>%", "<cmd>vsp<cr>")
+
   map("i", "<c-a>", "<esc>A")
 
   map("n", "<leader>R", "<cmd>e<cr>", { desc = "Refresh the file" })

@@ -55,8 +55,16 @@ local M = {
         "folke/neodev.nvim",
         opts = {},
       },
-      "rust-lang/rust.vim",
-      "simrat39/rust-tools.nvim",
+      {
+        "rust-lang/rust.vim",
+        ft = "rust",
+        config = function()
+          vim.g.rustfmt_autosave = 1
+          vim.g.rustfmt_emit_files = 1
+          vim.g.rustfmt_fail_silently = 0
+          vim.g.rust_clip_command = 'wl-copy'
+        end
+      },
       -- {
       --   "jose-elias-alvarez/null-ls.nvim",
       --   event = { "BufReadPre", "BufNewFile" },

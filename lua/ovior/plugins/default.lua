@@ -5,9 +5,11 @@ return {
   { "tpope/vim-repeat", event = "VeryLazy" },
   -- Adds a match to parens
   {
-    "monkoose/matchparen.nvim",
-    opts = {},
-  },
+		'andymass/vim-matchup',
+		config = function()
+			vim.g.matchup_matchparen_offscreen = { method = "popup" }
+		end
+	},
   -- goto last place in the buffer you were
   "farmergreg/vim-lastplace",
   -- format some trailing comma with gS

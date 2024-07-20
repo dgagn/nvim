@@ -1,5 +1,5 @@
 return {
-  "lepture/vim-jinja",
+  "mustache/vim-mustache-handlebars",
   {
     "mbbill/undotree",
     keys = {
@@ -18,7 +18,7 @@ return {
   },
   {
     "mattn/emmet-vim",
-    ft = { "html", "php", "astro", "javascriptreact", "typescriptreact" },
+    ft = { "html", "php", "astro", "javascriptreact", "typescriptreact", "mustache" },
   },
   "wuelnerdotexe/vim-astro",
   {
