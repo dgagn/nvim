@@ -2,7 +2,7 @@ local M = {}
 
 local map = vim.keymap.set
 
-local close_all_buffers = function ()
+local close_all_buffers = function()
   local bufremove = require("mini.bufremove")
   local current_buf = vim.api.nvim_get_current_buf()
 
@@ -28,8 +28,7 @@ function M.setup()
   map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit the window" })
   map("n", "q:", ":q") -- fuging anoying
 
-  -- Prevent this from being mapped in oil
-  map("n", "<leader>s", "<cmd>w<cr>", { desc = "Save the file" })
+  map("n", "<leader>s", "<cmd>w<cr>", { desc = "Save the file", silent = true })
 
   map("n", "<C-d>", "<C-d>zz")
   map("n", "<C-u>", "<C-u>zz")
@@ -79,7 +78,12 @@ function M.setup()
   map("n", "g^", "<cmd>bfirst<cr>")
 
   map("n", "gb", "<cmd>b#<cr>")
-  map('n', '<leader>X', close_all_buffers, { desc = 'Close all buffer except the current one', noremap = true, silent = true });
+  map(
+    "n",
+    "<leader>X",
+    close_all_buffers,
+    { desc = "Close all buffer except the current one", noremap = true, silent = true }
+  )
 
   map("i", "<c-f>", "<Plug>luasnip-jump-next", { silent = true })
   map("s", "<c-f>", "<Plug>luasnip-jump-next", { silent = true })
@@ -98,6 +102,5 @@ function M.setup()
   map("n", "<leader>Z", "<cmd>Copilot toggle<cr>", { desc = "Copilot toggle" })
   map("i", "<ctrl-s>", "<cmd>Copilot toggle<cr>", { desc = "Copilot toggle" })
 end
-
 
 return M

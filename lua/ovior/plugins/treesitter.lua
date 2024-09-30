@@ -18,9 +18,10 @@ return {
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = "<Esc>wW",
-          node_incremental = "<Esc>wW",
-          node_decremental = "<m-space>",
+          init_selection = "+",
+          node_incremental = "+",
+          scope_incremental = "s+",
+          node_decremental = "s-",
         },
       },
       autotag = {

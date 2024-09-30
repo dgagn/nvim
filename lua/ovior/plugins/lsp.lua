@@ -1,36 +1,5 @@
 local M = {
   {
-    "stevearc/conform.nvim",
-    opts = {
-      formatters_by_ft = {
-        lua = { "stylua" },
-        rust = { "rustfmt" },
-        sh = { "shfmt" },
-        php = { "pint" },
-        sql = { "sql_formatter" },
-        typescript = { { "prettier", "prettierd" } },
-        astro = { { "prettier", "prettierd" } },
-        typescriptreact = { { "prettier", "prettierd" } },
-        javascriptreact = { { "prettier", "prettierd" } },
-        javascript = { { "prettier", "prettierd" } },
-      },
-      formatters = {
-        rustfmt = {
-          prepend_args = { "--edition", "2021" },
-        },
-        shfmt = {
-          prepend_args = { "-i", "2" },
-        },
-        sql_formatter = {
-          prepend_args = { "--config", "/Users/danygagnon/.sql/format.json" },
-        },
-      },
-    },
-    init = function()
-      vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-    end,
-  },
-  {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
@@ -65,20 +34,24 @@ local M = {
           vim.g.rust_clip_command = 'wl-copy'
         end
       },
-      -- {
-      --   "jose-elias-alvarez/null-ls.nvim",
-      --   event = { "BufReadPre", "BufNewFile" },
-      --   dependencies = { "mason.nvim", "simrat39/rust-tools.nvim" },
-      --   opts = function()
-      --     local nls = require("null-ls")
-      --     return {
-      --       root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
-      --       sources = {
-      --         -- nls.builtins.diagnostics.eslint,
-      --       },
-      --     }
-      --   end,
-      -- },
+      {
+        "jose-elias-alvarez/null-ls.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        dependencies = { "mason.nvim", "simrat39/rust-tools.nvim" },
+        opts = function()
+          local nls = require("null-ls")
+          return {
+            root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
+            sources = {
+              nls.builtins.diagnostics.checkstyle.with({
+                  extra_args = { "-c", "/Users/danygagnon/checkstyle.xml" }, -- or "/sun_checks.xml" or path to self written rules
+              }),
+              nls.builtins.diagnostics.eslint,
+              nls.builtins.formatting.prettier,
+            },
+          }
+        end,
+      },
     },
     config = function()
       -- diagnostics
@@ -127,6 +100,8 @@ local M = {
         lspmap("n", "<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Find workspace symbols")
       end
 
+      require('java').setup()
+
       local servers = {
         wgsl_analyzer = {},
         rust_analyzer = {
@@ -163,7 +138,7 @@ local M = {
         },
         pylsp = {},
         sqlls = {},
-        tsserver = {},
+        ts_ls = {},
         astro = {},
         clangd = {},
         html = {
@@ -183,6 +158,7 @@ local M = {
             telemetry = { enable = false },
           },
         },
+        angularls = {},
         intelephense = {},
         tailwindcss = {},
         jsonls = {

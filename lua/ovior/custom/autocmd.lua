@@ -26,7 +26,6 @@ function M.setup()
     pattern = "oil_preview",
     callback = function(params)
       vim.keymap.set("n", "y", "o", { buffer = params.buf, remap = true, nowait = true })
-      vim.keymap.set("n", "<leader>s", "<nop>");
     end,
   })
 
@@ -61,6 +60,17 @@ function M.setup()
     callback = function(event)
       vim.keymap.set("n", "q", function() require("mini.bufremove").delete(0, false) end,
         { buffer = event.buf, silent = true })
+      -- vim.keymap.set("n", "<leader>s", "<nop>");
+    end,
+  })
+
+  vim.api.nvim_create_autocmd("BufEnter", {
+    group = augroup("restore_leader_s"),
+    callback = function()
+      local ft = vim.bo.filetype
+      if ft ~= "oil" then
+        vim.keymap.set("n", "<leader>s", ":w<CR>", { silent = true })
+      end
     end,
   })
 
