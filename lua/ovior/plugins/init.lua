@@ -135,11 +135,19 @@ return {
   },
   {
     "stevearc/oil.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
+      -- columns = {},
+      columns = { "icon" },
       default_file_explorer = true,
       delete_to_trash = true,
-      columns = {},
       skip_confirm_for_simple_edits = true,
+      keymaps = {
+        ["<C-h>"] = false,
+        ["<C-l>"] = false,
+        ["<C-k>"] = false,
+        ["<C-j>"] = false,
+      },
       view_options = {
         show_hidden = true,
         is_always_hidden = function(name, bufnr)
