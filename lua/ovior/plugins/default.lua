@@ -26,8 +26,6 @@ return {
     "tpope/vim-surround",
     event = "VeryLazy",
   },
-  { 'numToStr/Comment.nvim', opts = {} },
-  -- Can manage a project with a set of conventions like laravel
   {
     "tpope/vim-projectionist",
     dependencies = "tpope/vim-dispatch",
