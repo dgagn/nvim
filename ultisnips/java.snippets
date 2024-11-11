@@ -1,45 +1,119 @@
+global !p
+import os
+from xml.etree import ElementTree
+
+def get_package_name(pom_file_path):
+  namespaces = {'xmlns' : 'http://maven.apache.org/POM/4.0.0'}
+
+  tree = ElementTree.parse(pom_file_path)
+  root = tree.getroot()
+
+  groupId = root.find(".//xmlns:groupId", namespaces=namespaces)
+  return groupId.text
+
+def find_nearest_pom():
+    current_dir = os.path.dirname(vim.current.buffer.name)
+
+    while current_dir and current_dir != os.path.sep:
+        pom_path = os.path.join(current_dir, 'pom.xml')
+        if os.path.isfile(pom_path):
+            return pom_path
+        current_dir = os.path.dirname(current_dir)
+
+    return ''
+
+def get_current_file_package():
+    pom_file_path = find_nearest_pom()
+    if not pom_file_path:
+        return ''
+
+    package_prefix = get_package_name(pom_file_path)
+
+    current_file_path = vim.current.buffer.name
+    src_main_java_path = os.path.join(os.path.dirname(pom_file_path), 'src', 'main', 'java')
+    src_test_java_path = os.path.join(os.path.dirname(pom_file_path), 'src', 'test', 'java')
+
+    if current_file_path.startswith(src_main_java_path):
+        relative_path = os.path.relpath(current_file_path, src_main_java_path)
+    elif current_file_path.startswith(src_test_java_path):
+        relative_path = os.path.relpath(current_file_path, src_test_java_path)
+    else:
+        return ''
+
+    directory_path = os.path.dirname(relative_path)
+    directory_path = directory_path.replace(os.path.sep, '.')
+
+    if directory_path.startswith(package_prefix):
+        directory_path = directory_path[len(package_prefix):]
+
+        if directory_path.startswith('.'):
+            directory_path = directory_path[1:]
+
+    if directory_path:
+        return package_prefix + '.' + directory_path
+    else:
+        return package_prefix
+
+endglobal
+
+snippet pkg "package" b
+package `!p snip.rv = get_current_file_package()`;
+endsnippet
+
+snippet c "java class" b
+package `!p snip.rv = get_current_file_package()`;
+
+public class `!p snip.rv = snip.basename` {
+  ${0}
+}
+endsnippet
+
+snippet i "java interface" b
+package `!p snip.rv = get_current_file_package()`;
+
+public interface `!p snip.rv = snip.basename` {
+  ${0}
+}
+endsnippet
+
+snippet e "java interface" b
+package `!p snip.rv = get_current_file_package()`;
+
+public enum `!p snip.rv = snip.basename` {
+  ${0}
+}
+endsnippet
+
 snippet sout "System.out.println"
 System.out.println(${1});${0}
 endsnippet
 
 snippet fori "for index"
 for (int ${1:i} = 0; $1 < ${2:10}; $1++) {
-    ${0}
+  ${0}
 }
 endsnippet
 
 snippet forr "for reverse"
 for (int ${1:i} = ${2:10}; $1 >= 0; $1--) {
-    ${0}
+  ${0}
 }
 endsnippet
 
 snippet fore "fore"
 for (${1:Type} ${2:element} : ${3:collection}) {
-    ${0}
-}
-endsnippet
-
-snippet if "if"
-if (${1:true}) {
-    ${0}
+  ${0}
 }
 endsnippet
 
 snippet fun "fun"
 public ${1:void} ${2:methodName}(${3:args}) {
-    ${0}
+  ${0}
 }
 endsnippet
 
-snippet class "class"
-public class ${1:`!p snip.rv = snip.basename or "ClassName"`} {
-    ${0}
-}
-endsnippet
-
-snippet main "main"
-public static void main(String[] args) {
-    ${0}
+snippet ctor "constructor"
+public `!p snip.rv = snip.basename`(${1}) {
+  ${0}
 }
 endsnippet

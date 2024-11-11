@@ -129,7 +129,7 @@ return {
       vim.keymap.set("n", "<leader>tv", "<cmd>TestVisit<cr>", { desc = "Visit test" })
 
       vim.cmd([[
-        let test#strategy = 'neovim'
+        let test#strategy = 'vimux'
       ]])
     end,
   },
@@ -172,5 +172,6 @@ return {
       -- VimTeX configuration goes here, e.g.
       vim.g.vimtex_view_method = "zathura"
     end
-  }
+  },
+  "preservim/vimux"
 }

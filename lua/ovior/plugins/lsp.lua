@@ -29,11 +29,12 @@ local M = {
         "folke/neodev.nvim",
         opts = {},
       },
+      'skywind3000/asyncrun.vim',
       {
         "rust-lang/rust.vim",
         ft = "rust",
         config = function()
-          vim.g.rustfmt_autosave = 1
+          -- vim.g.rustfmt_autosave = 1
           vim.g.rustfmt_emit_files = 1
           vim.g.rustfmt_fail_silently = 0
           vim.g.rust_clip_command = 'wl-copy'
@@ -50,6 +51,9 @@ local M = {
             sources = {
               nls.builtins.diagnostics.eslint,
               nls.builtins.formatting.prettier,
+              -- nls.builtins.diagnostics.checkstyle.with({
+              --   extra_args = { "-c", "/home/ovior/school/inf2050/session/src/main/resources/checkstyle.xml" }
+              -- }),
             },
           }
         end,
@@ -65,14 +69,20 @@ local M = {
         end
       end
 
-      map("n", "<leader>fm", function()
-        require("conform").format({ async = true, fallback_lsp = true })
-      end, "Format the code based on lsp")
-
       local on_attach = function(client, bufnr)
         local lspmap = function(mode, keys, func, desc)
           map(mode, keys, func, { buffer = bufnr, desc = desc })
         end
+
+        map("n", "<leader>fm", function()
+          local ft = vim.bo.filetype
+          if ft == "java" then
+            local jdtls = require('jdtls')
+            jdtls.organize_imports()
+          end
+          vim.lsp.buf.format({ bufnr = bufnr, id=client.id })
+        end, "Format the code based on lsp")
+
         map("n", "[d", vim.diagnostic.goto_prev, "Goto previous diagnostic")
         map("n", "]d", vim.diagnostic.goto_next, "Goto next diagnostic")
 
@@ -210,9 +220,9 @@ local M = {
                 -- Enable code formatting
                 format = {
                     enabled = true,
-                    -- Use the Google Style guide for code formattingh
+                    -- Use the Google Style guide for code formatting
                     settings = {
-                        url = vim.fn.stdpath("config") .. "/lang_servers/intellij-java-google-style.xml",
+                        url = vim.fn.stdpath("config") .. "/lang_servers/intellij-google-style.xml",
                         profile = "GoogleStyle"
                     }
                 },
@@ -234,7 +244,7 @@ local M = {
                 },
                 -- Setup automatical package import oranization on file save
                 saveActions = {
-                    organizeImports = true
+                    organizeImports = false
                 },
                 -- Customize completion options
                 completion = {
@@ -258,11 +268,6 @@ local M = {
                     },
                     -- Set the order in which the language server should organize imports
                     importOrder = {
-                        "java",
-                        "jakarta",
-                        "javax",
-                        "com",
-                        "org",
                     }
                 },
                 sources = {

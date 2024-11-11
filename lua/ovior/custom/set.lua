@@ -55,7 +55,7 @@ function M.setup()
 
   vim.opt.autoread = true
 
-  vim.opt.colorcolumn = "80"
+  vim.opt.colorcolumn = "100"
 
   vim.g.skip_ts_contextt_commentstring_module = true
 

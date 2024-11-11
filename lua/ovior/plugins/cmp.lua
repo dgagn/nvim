@@ -55,13 +55,13 @@ local M = {
               fallback()
             end
           end, { "i", "s", "c" }),
+          ['<c-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+          ['<c-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          -- { name = "luasnip" },
           { name = "path" },
           { name = "nvim_lsp_signature_help" },
-          { name = "ultisnips" },
         }, {
           { name = "buffer" },
         }),

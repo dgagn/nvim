@@ -36,6 +36,7 @@ let g:UltiSnipsSnippetDirectories = ["ultisnips"]
 let g:UltiSnipsExpandTrigger="<c-0>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:VimuxHeight = "40"
 
 nnoremap <leader>lD <cmd>Telescope diagnostics severity=error<cr>
 nnoremap <leader>ld <cmd>Telescope diagnostics<cr>

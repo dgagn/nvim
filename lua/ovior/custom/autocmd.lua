@@ -84,6 +84,42 @@ function M.setup()
       vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
     end,
   })
+
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "java",
+    callback = function()
+      vim.keymap.set("n", "o", function()
+        local line = vim.api.nvim_get_current_line()
+        if line:match("^%s*%*") then
+          return "o* "
+        else
+          return "o"
+        end
+      end, { buffer = true, expr = true })
+
+      vim.keymap.set("n", "O", function()
+        local line = vim.api.nvim_get_current_line()
+        if line:match("^%s*%*") then
+          return "O* "
+        else
+          return "O"
+        end
+      end, { buffer = true, expr = true })
+
+      vim.keymap.set("i", "<CR>", function()
+        local line = vim.api.nvim_get_current_line()
+        local col = vim.api.nvim_win_get_cursor(0)[2]
+
+        if line:match("^%s*%*") then
+          return "<CR>* "
+        elseif line:match("^%s*/%*%*") then
+          return "<CR>* "
+        else
+          return "<CR>"
+        end
+      end, { buffer = true, expr = true })
+    end
+  })
 end
 
 return M
