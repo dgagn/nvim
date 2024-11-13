@@ -68,9 +68,7 @@ function M.setup()
   map("t", "<c-x>", "<c-\\><c-n>")
 
   map("n", "<leader>%", "<cmd>vsp<cr>")
-  map("n", "<leader>hs", "<cmd>sp<cr>")
-  map("n", "<leader>vt", "<cmd>vsp<cr><cmd>terminal<cr>")
-  map("n", "<leader>ht", "<cmd>sp<cr><cmd>terminal<cr>")
+  map("n", "<leader>\"", "<cmd>sp<cr>")
 
   map("n", "gn", "<cmd>bnext<cr>")
   map("n", "gp", "<cmd>bprev<cr>")

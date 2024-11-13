@@ -20,10 +20,6 @@ return {
     end,
   },
   {
-    "stevearc/dressing.nvim",
-    opts = {},
-  },
-  {
     "dgagn/diagflow.nvim",
     event = "LspAttach",
     opts = {

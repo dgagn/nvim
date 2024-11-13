@@ -29,7 +29,6 @@ local M = {
         "folke/neodev.nvim",
         opts = {},
       },
-      'skywind3000/asyncrun.vim',
       {
         "rust-lang/rust.vim",
         ft = "rust",
@@ -51,9 +50,15 @@ local M = {
             sources = {
               nls.builtins.diagnostics.eslint,
               nls.builtins.formatting.prettier,
-              -- nls.builtins.diagnostics.checkstyle.with({
-              --   extra_args = { "-c", "/home/ovior/school/inf2050/session/src/main/resources/checkstyle.xml" }
-              -- }),
+              function()
+                local checkstyle_config_path = "src/main/resources/checkstyle.xml"
+                if vim.fn.filereadable(checkstyle_config_path) == 1 then
+                  return nls.builtins.diagnostics.checkstyle.with({
+                    extra_args = { "-c", checkstyle_config_path }
+                  })
+                end
+                return nil
+              end
             },
           }
         end,
@@ -95,14 +100,14 @@ local M = {
         map("n", "g;", "g;", "Goto older position in change list")
         map("n", "g,", "g,", "Goto newer position in change list")
 
-        lspmap("n", "gd", require("telescope.builtin").lsp_definitions, "Goto definition")
+        lspmap("n", "gd", vim.lsp.buf.definition, "Goto definition")
         lspmap("n", "gD", vim.lsp.buf.declaration, "Goto declaration")
-        lspmap("n", "gi", require("telescope.builtin").lsp_implementations, "Goto implementation")
-        lspmap("n", "gt", require("telescope.builtin").lsp_type_definitions, "Goto type definition")
+        lspmap("n", "gi", vim.lsp.buf.implementation, "Goto implementation")
+        lspmap("n", "gt", vim.lsp.buf.type_definition, "Goto type definition")
         lspmap("n", "K", vim.lsp.buf.hover, "Show hover information")
 
         lspmap("n", "gr", require("telescope.builtin").lsp_references, "Goto references")
-        lspmap({ "i", "n" }, "<c-s>", vim.lsp.buf.signature_help, "Show signature help")
+        lspmap({ "i", "n" }, "<leader>S", vim.lsp.buf.signature_help, "Show signature help")
 
         lspmap("n", "<leader>fs", require("telescope.builtin").lsp_document_symbols, "Find document symbols")
 
@@ -217,15 +222,6 @@ local M = {
         -- Configure settings in the JDTLS server
         local settings = {
             java = {
-                -- Enable code formatting
-                format = {
-                    enabled = true,
-                    -- Use the Google Style guide for code formatting
-                    settings = {
-                        url = vim.fn.stdpath("config") .. "/lang_servers/intellij-google-style.xml",
-                        profile = "GoogleStyle"
-                    }
-                },
                 -- Enable downloading archives from eclipse automatically
                 eclipse = {
                     downloadSource = true
@@ -368,25 +364,24 @@ local M = {
             },
             cargo = {
               allFeatures = true,
-              autoreload = true,
-              runBuildScripts = true,
+              -- autoreload = true,
+              -- runBuildScripts = true,
             },
-            completion = {
-              autoimport = {
-                enable = true,
-              },
-              postfix = {
-                enable = false,
-              },
-            },
+            -- completion = {
+            --   autoimport = {
+            --     enable = true,
+            --   },
+            --   postfix = {
+            --     enable = false,
+            --   },
+            -- },
             diagnostics = {
               enable = true,
-              disabled = { "macro-error", "unresolved-proc-macro" },
-              enableExperimental = true,
+              disabled = { "macro-error", "unresolved-proc-macro" }
             },
-            procMacro = {
-              enable = true,
-            },
+            -- procMacro = {
+            --   enable = true,
+            -- },
             rustcSource = "discover",
             updates = {
               channel = "nightly",
@@ -443,7 +438,7 @@ local M = {
         end,
       })
     end,
-  },
+  }
 }
 
 return M

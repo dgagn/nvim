@@ -1,11 +1,4 @@
 return {
-  "mustache/vim-mustache-handlebars",
-  {
-    "mbbill/undotree",
-    keys = {
-      { "<leader>u", ":UndotreeToggle<cr>", desc = "Open the undotree" },
-    },
-  },
   {
     "folke/trouble.nvim",
     dependencies = {
@@ -13,14 +6,13 @@ return {
     },
     opts = {},
     keys = {
-      { "<leader>tr", ":TroubleToggle<cr>", desc = "Show the diagnostic in a trouble dialog" },
+      { "<leader>d", ":TroubleToggle<cr>", desc = "Show the diagnostic in a trouble dialog" },
     },
   },
   {
     "mattn/emmet-vim",
     ft = { "html", "php", "astro", "javascriptreact", "typescriptreact", "mustache" },
   },
-  "wuelnerdotexe/vim-astro",
   {
     "echasnovski/mini.bufremove",
     event = "VeryLazy",
@@ -32,22 +24,6 @@ return {
           require("mini.bufremove").delete(0, false)
         end,
         desc = "Delete the current buffer",
-      },
-    },
-  },
-  {
-    "nvim-pack/nvim-spectre",
-    cmd = "Spectre",
-    opts = {
-      open_cmd = "noswapfile vnew",
-    },
-    keys = {
-      {
-        "<leader>fr",
-        function()
-          require("spectre").open()
-        end,
-        desc = "Show spectre",
       },
     },
   },
@@ -158,20 +134,5 @@ return {
   },
   "tpope/vim-dadbod",
   "tpope/vim-dotenv",
-  {
-    "iamcco/markdown-preview.nvim",
-    ft = "markdown",
-    run = function()
-      vim.fn["mkdp#util#install"]()
-    end
-  },
-  {
-    "lervag/vimtex",
-    lazy = false,
-    init = function()
-      -- VimTeX configuration goes here, e.g.
-      vim.g.vimtex_view_method = "zathura"
-    end
-  },
   "preservim/vimux"
 }

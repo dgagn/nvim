@@ -2,36 +2,63 @@ global !p
 import os
 from xml.etree import ElementTree
 
-def get_package_name(pom_file_path):
-  namespaces = {'xmlns' : 'http://maven.apache.org/POM/4.0.0'}
+def get_package_name_from_pom(pom_file_path):
+    """Extract the package (groupId) from a Maven pom.xml file."""
+    namespaces = {'xmlns': 'http://maven.apache.org/POM/4.0.0'}
+    tree = ElementTree.parse(pom_file_path)
+    root = tree.getroot()
+    groupId = root.find(".//xmlns:groupId", namespaces=namespaces)
+    if groupId is None:
+        parent_groupId = root.find(".//xmlns:parent/xmlns:groupId", namespaces=namespaces)
+        if parent_groupId is not None:
+            return parent_groupId.text
+    return groupId.text if groupId is not None else ''
 
-  tree = ElementTree.parse(pom_file_path)
-  root = tree.getroot()
+def get_package_name_from_gradle(build_gradle_path):
+    """Extract the package (group) from a Gradle build file."""
+    with open(build_gradle_path, 'r') as file:
+        for line in file:
+            line = line.strip()
+            if line.startswith('group ='):
+                # Extract group value from 'group = ...'
+                return line.split('=')[1].strip().strip('"').strip("'")
+    return ''
 
-  groupId = root.find(".//xmlns:groupId", namespaces=namespaces)
-  return groupId.text
-
-def find_nearest_pom():
+def find_nearest_build_file():
+    """Find the nearest pom.xml or build.gradle in the current directory hierarchy."""
     current_dir = os.path.dirname(vim.current.buffer.name)
 
     while current_dir and current_dir != os.path.sep:
         pom_path = os.path.join(current_dir, 'pom.xml')
+        gradle_path = os.path.join(current_dir, 'build.gradle.kts')
         if os.path.isfile(pom_path):
-            return pom_path
+            return pom_path, 'maven'
+        elif os.path.isfile(gradle_path):
+            return gradle_path, 'gradle'
         current_dir = os.path.dirname(current_dir)
 
+    return '', ''
+
+def get_package_name():
+    """Get the package name based on the nearest build file (pom.xml or build.gradle)."""
+    build_file_path, build_type = find_nearest_build_file()
+    if build_type == 'maven':
+        return get_package_name_from_pom(build_file_path)
+    elif build_type == 'gradle':
+        return get_package_name_from_gradle(build_file_path)
     return ''
 
 def get_current_file_package():
-    pom_file_path = find_nearest_pom()
-    if not pom_file_path:
+    """Determine the package path of the current file based on the nearest build file."""
+    package_prefix = get_package_name()
+    if not package_prefix:
         return ''
 
-    package_prefix = get_package_name(pom_file_path)
-
     current_file_path = vim.current.buffer.name
-    src_main_java_path = os.path.join(os.path.dirname(pom_file_path), 'src', 'main', 'java')
-    src_test_java_path = os.path.join(os.path.dirname(pom_file_path), 'src', 'test', 'java')
+    build_file_path, _ = find_nearest_build_file()
+    project_root = os.path.dirname(build_file_path)
+    src_main_java_path = os.path.join(project_root, 'src', 'main', 'java')
+    src_test_java_path = os.path.join(project_root, 'src', 'test', 'java')
 
     if current_file_path.startswith(src_main_java_path):
         relative_path = os.path.relpath(current_file_path, src_main_java_path)
@@ -40,19 +67,15 @@ def get_current_file_package():
     else:
         return ''
 
-    directory_path = os.path.dirname(relative_path)
-    directory_path = directory_path.replace(os.path.sep, '.')
+    directory_path = os.path.dirname(relative_path).replace(os.path.sep, '.')
 
+    # Normalize the package path
     if directory_path.startswith(package_prefix):
         directory_path = directory_path[len(package_prefix):]
-
         if directory_path.startswith('.'):
             directory_path = directory_path[1:]
 
-    if directory_path:
-        return package_prefix + '.' + directory_path
-    else:
-        return package_prefix
+    return f"{package_prefix}.{directory_path}" if directory_path else package_prefix
 
 endglobal
 
@@ -65,6 +88,31 @@ package `!p snip.rv = get_current_file_package()`;
 
 public class `!p snip.rv = snip.basename` {
   ${0}
+}
+endsnippet
+
+snippet test "java class" b
+package `!p snip.rv = get_current_file_package()`;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class `!p snip.rv = snip.basename` {
+  ${0}
+}
+endsnippet
+
+snippet stest "java test springboot" b
+package `!p snip.rv = get_current_file_package()`;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class `!p snip.rv = snip.basename` {
+    @Test
+    void contextLoads() {
+        ${0}
+    }
 }
 endsnippet
 

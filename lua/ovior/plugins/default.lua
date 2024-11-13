@@ -3,13 +3,6 @@ return {
   "tpope/vim-sleuth",
   -- Instead of repeating last change, repeat last action
   { "tpope/vim-repeat", event = "VeryLazy" },
-  -- Adds a match to parens
-  {
-		'andymass/vim-matchup',
-		config = function()
-			vim.g.matchup_matchparen_offscreen = { method = "popup" }
-		end
-	},
   -- goto last place in the buffer you were
   "farmergreg/vim-lastplace",
   -- format some trailing comma with gS
@@ -48,16 +41,4 @@ return {
       vim.g.pasta_disabled_filetypes = { "gitcommit", "gitrebase", "svn", "fugitive", "fugitiveblame", "qf", "help" }
     end,
   },
-  -- unix helpers
-  "tpope/vim-eunuch",
-  -- life changer plugin making buffer splits the same as tmux splits
-  {
-    "christoomey/vim-tmux-navigator",
-    keys = {
-      { "<C-h>", ":TmuxNavigateLeft<CR>",  desc = "Move to the left tmux pane" },
-      { "<C-j>", ":TmuxNavigateDown<CR>",  desc = "Move to the down tmux pane" },
-      { "<C-k>", ":TmuxNavigateUp<CR>",    desc = "Move to the up tmux pane" },
-      { "<C-l>", ":TmuxNavigateRight<CR>", desc = "Move to the right tmux pane" },
-    },
-  }
 }

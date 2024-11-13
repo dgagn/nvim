@@ -1,4 +1,24 @@
 vim.g.projectionist_heuristics = {
+  ['gradlew'] = {
+    ['src/main/java/*.java'] = {
+      type = 'source',
+      alternate = 'src/test/java/{}Test.java',
+    },
+    ['src/test/java/*Test.java'] = {
+      type = 'test',
+      alternate = 'src/main/java/{}.java',
+    },
+  },
+  ['pom.xml'] = {
+    ['src/main/java/*.java'] = {
+      type = 'source',
+      alternate = 'src/test/java/{}Test.java',
+    },
+    ['src/test/java/*Test.java'] = {
+      type = 'test',
+      alternate = 'src/main/java/{}.java',
+    },
+  },
   artisan = {
     ['*'] = {
       tinker = 'php artisan tinker'
@@ -39,4 +59,4 @@ vim.g.projectionist_heuristics = {
   }
 }
 
-vim.keymap.set('n', '<leader>af', '<cmd>A<cr>', {desc = 'Alternate file'})
+vim.keymap.set('n', '<leader>a', '<cmd>A<cr>', {desc = 'Alternate file'})

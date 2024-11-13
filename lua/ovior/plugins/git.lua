@@ -5,7 +5,7 @@ return {
       "tpope/vim-rhubarb",
     },
     config = function()
-      vim.keymap.set("n", "<leader>gg", vim.cmd.Git, { desc = "Open git status" })
+      vim.keymap.set("n", "<leader>g", vim.cmd.Git, { desc = "Open git status" })
     end,
   },
   {
