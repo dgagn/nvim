@@ -1,4 +1,26 @@
 vim.g.projectionist_heuristics = {
+  ['*.c'] = {
+    type = 'source',
+    alternate = '{}.h'
+  },
+  ['angular.json'] = {
+    ['src/app/*.ts'] = {
+      type = 'source',
+      alternate = 'src/app/{}.spec.ts',
+    },
+    ['src/app/*.spec.ts'] = {
+      type = 'test',
+      alternate = 'src/app/{}.ts',
+    },
+  },
+  ['Cargo.toml'] = {
+    ['migrations/*.sql'] = {
+      type = 'migration',
+    },
+    ['src/*.rs'] = {
+      type = 'source',
+    }
+  },
   ['gradlew'] = {
     ['src/main/java/*.java'] = {
       type = 'source',

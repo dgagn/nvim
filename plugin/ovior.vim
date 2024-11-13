@@ -12,20 +12,6 @@ nnoremap q <Nop>
 
 au FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-let s:inlay_hints_enabled = 0
-
-nnoremap <leader>ih <cmd>call ToggleInlayHints()<cr>
-
-function! ToggleInlayHints()
-  if s:inlay_hints_enabled
-    let s:inlay_hints_enabled = 0
-    lua require('rust-tools').inlay_hints.unset()
-  else
-    let s:inlay_hints_enabled = 1
-    lua require('rust-tools').inlay_hints.set()
-  endif
-endfunction
-
 let g:completion_enable_snippet = 'UltiSnips'
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
 let g:completion_matching_smart_case = 1

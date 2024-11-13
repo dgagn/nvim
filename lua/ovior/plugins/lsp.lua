@@ -42,7 +42,7 @@ local M = {
       {
         "jose-elias-alvarez/null-ls.nvim",
         event = { "BufReadPre", "BufNewFile" },
-        dependencies = { "mason.nvim", "simrat39/rust-tools.nvim" },
+        dependencies = { "mason.nvim" },
         opts = function()
           local nls = require("null-ls")
           return {
@@ -292,7 +292,7 @@ local M = {
                 },
                 -- enable code lens in the lsp
                 referencesCodeLens = {
-                    enabled = true
+                    enabled = false
                 },
                 -- enable inlay hints for parameter names,
                 inlayHints = {

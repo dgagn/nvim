@@ -48,6 +48,10 @@ hi @constant.macro guifg=#c4a7e7 gui=None
 hi @lsp.typemod.attributeBracket.attribute.rust guifg=#c4a7e7 gui=None
 hi @lsp.type.deriveHelper.rust guifg=#c4a7e7 gui=None
 
+hi Normal guifg=#e2e8f0 gui=None
+hi link tsxAttrib Normal
+hi @lsp.type.variable.typescriptreact guifg=#c4a7e7 gui=None
+
 hi @lsp.type.typeParameter.java guifg=#16BAAC gui=None
 hi @lsp.type.lifetime.rust guifg=#16BAAC gui=None
 hi @lsp.type.typeParameter.rust guifg=#16BAAC gui=None
