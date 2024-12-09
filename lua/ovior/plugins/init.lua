@@ -6,7 +6,7 @@ return {
     },
     opts = {},
     keys = {
-      { "<leader>d", ":TroubleToggle<cr>", desc = "Show the diagnostic in a trouble dialog" },
+      { "<leader>d", ":Trouble diagnostics<cr>", desc = "Show the diagnostic in a trouble dialog" },
     },
   },
   {

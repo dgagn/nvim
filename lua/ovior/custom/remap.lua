@@ -26,9 +26,6 @@ function M.setup()
   map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
   map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit the window" })
-  map("n", "q:", ":q") -- fuging anoying
-
-  map("n", "<leader>s", "<cmd>w<cr>", { desc = "Save the file", silent = true })
 
   map("n", "<C-d>", "<C-d>zz")
   map("n", "<C-u>", "<C-u>zz")
@@ -36,6 +33,7 @@ function M.setup()
 
   map("x", "<leader>p", '"_dP', { desc = "Paste over and delete to void" })
   map("n", "<leader>p", '"+p', { desc = "Paste system clipboard" })
+  map("n", "<leader>P", '"+gP', { desc = "Paste system clipboard" })
 
   map("n", "<leader>y", '"+y', { desc = "Copy to system clipboard" })
   map("v", "<leader>y", '"+y', { desc = "Copy to system clipboard" })
@@ -99,6 +97,11 @@ function M.setup()
 
   map("n", "<leader>Z", "<cmd>Copilot toggle<cr>", { desc = "Copilot toggle" })
   map("i", "<ctrl-s>", "<cmd>Copilot toggle<cr>", { desc = "Copilot toggle" })
+
+  map('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
+  map('n', '<C-j>', '<C-w>j', { noremap = true, silent = true })
+  map('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
+  map('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
 end
 
 return M

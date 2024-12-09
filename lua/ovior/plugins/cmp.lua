@@ -32,6 +32,32 @@ local M = {
     event = "InsertEnter",
     opts = function()
       local cmp = require("cmp")
+      local compare = require("cmp.config.compare")
+      -- local config = require("ovior.configs.cmp")
+
+      -- cmp.setup.filetype({ "rust" }, {
+      --   sorting = {
+      --     priority_weight = 2,
+      --     comparators = {
+      --       -- deprioritize `.box`, `.mut`, etc.
+      --       config.deprioritize_postfix,
+      --       -- deprioritize `Borrow::borrow` and `BorrowMut::borrow_mut`
+      --       config.deprioritize_borrow,
+      --       -- deprioritize `Deref::deref` and `DerefMut::deref_mut`
+      --       config.deprioritize_deref,
+      --       -- deprioritize `Into::into`, `Clone::clone`, etc.
+      --       config.deprioritize_common_traits,
+      --       compare.offset,
+      --       compare.exact,
+      --       compare.score,
+      --       compare.recently_used,
+      --       compare.locality,
+      --       compare.sort_text,
+      --       compare.length,
+      --       compare.order,
+      --     }
+      --   }
+      -- })
 
       return {
         completion = {
