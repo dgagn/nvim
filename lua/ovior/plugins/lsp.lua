@@ -356,38 +356,58 @@ local M = {
         end,
       })
 
-      local servers = {
-        rust_analyzer = {
-          ["rust-analyzer"] = {
-            checkOnSave = {
-              command = "clippy",
-            },
-            cargo = {
-              allFeatures = true,
-              -- autoreload = true,
-              -- runBuildScripts = true,
-            },
-            -- completion = {
-            --   autoimport = {
-            --     enable = true,
-            --   },
-            --   postfix = {
-            --     enable = false,
-            --   },
-            -- },
-            diagnostics = {
-              enable = true,
-              disabled = { "macro-error", "unresolved-proc-macro" }
-            },
-            -- procMacro = {
-            --   enable = true,
-            -- },
-            rustcSource = "discover",
-            updates = {
-              channel = "nightly",
-            },
+      local lspconfig = require("lspconfig")
+      lspconfig.rust_analyzer.setup({
+          on_attach = on_attach,
+          capabilities = require("cmp_nvim_lsp").default_capabilities(),
+          cmd = {
+            "rustup", "run", "stable", "rust-analyzer",
           },
-        },
+          settings = {
+              ["rust-analyzer"] = {
+                  checkOnSave = {
+                      command = "clippy",
+                  },
+                  cargo = {
+                      allFeatures = true,
+                  },
+                  diagnostics = {
+                      enable = true,
+                  },
+              },
+          },
+      })
+
+      local servers = {
+        -- rust_analyzer = {
+        --   ["rust-analyzer"] = {
+        --     checkOnSave = {
+        --       command = "clippy",
+        --     },
+        --     cargo = {
+        --       allFeatures = true,
+        --       -- autoreload = true,
+        --       -- runBuildScripts = true,
+        --     },
+        --     completion = {
+        --       autoimport = {
+        --         enable = true,
+        --       },
+        --       postfix = {
+        --         enable = false,
+        --       },
+        --     },
+        --     diagnostics = {
+        --       enable = true,
+        --       disabled = { "macro-error", "unresolved-proc-macro" },
+        --       refreshSupport = false,
+        --     },
+        --     rustcSource = "discover",
+        --     updates = {
+        --       channel = "nightly",
+        --     },
+        --   },
+        -- },
         pylsp = {},
         ts_ls = {},
         clangd = {},
@@ -418,7 +438,6 @@ local M = {
         -- },
       }
 
-      local lspconfig = require("lspconfig")
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 

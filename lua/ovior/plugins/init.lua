@@ -105,7 +105,7 @@ return {
       vim.keymap.set("n", "<leader>tv", "<cmd>TestVisit<cr>", { desc = "Visit test" })
 
       vim.cmd([[
-        let test#strategy = 'vimux'
+        let test#strategy = 'harpoon'
       ]])
     end,
   },
@@ -134,5 +134,9 @@ return {
   },
   "tpope/vim-dadbod",
   "tpope/vim-dotenv",
-  "preservim/vimux"
+  {
+    "danymat/neogen",
+    config = true,
+    ft = "java",
+  }
 }

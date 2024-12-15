@@ -32,8 +32,9 @@ hi @lsp.type.modifier.java guifg=#FF73FD gui=None
 hi Function guifg=#96CBFE gui=None
 hi Include guifg=#6699CC gui=None
 
-hi clear tsxAttrib
+hi tsxAttrib guifg=#c4a7e7 gui=None
 hi clear @lsp.type.parameter.rust
+hi clear @lsp.type.variable.typescriptreact
 
 hi @function guifg=#96CBFE gui=None
 hi @function.method guifg=#96CBFE gui=None
@@ -50,7 +51,6 @@ hi @lsp.type.deriveHelper.rust guifg=#c4a7e7 gui=None
 
 hi Normal guifg=#e2e8f0 gui=None
 hi link tsxAttrib Normal
-hi @lsp.type.variable.typescriptreact guifg=#c4a7e7 gui=None
 
 hi @lsp.type.typeParameter.java guifg=#16BAAC gui=None
 hi @lsp.type.lifetime.rust guifg=#16BAAC gui=None

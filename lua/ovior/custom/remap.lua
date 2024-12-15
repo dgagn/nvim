@@ -102,6 +102,12 @@ function M.setup()
   map('n', '<C-j>', '<C-w>j', { noremap = true, silent = true })
   map('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
   map('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
+
+  map("n", "<leader>c", ":lua require('neogen').generate()<CR>", { noremap = true, silent = true })
+  map("n", "q", "<cmd>cclose<cr>", { noremap = true, silent = true })
+  map("n", "<f2>", "<cmd>cnext<cr>", { noremap = true, silent = true })
+  map("n", "<f3>", "<cmd>cprev<cr>", { noremap = true, silent = true })
+
 end
 
 return M
